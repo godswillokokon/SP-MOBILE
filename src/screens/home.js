@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import SplashScreen from 'react-native-splash-screen';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,6 +10,10 @@ import {
 } from '@ui-kitten/components';
 
 export const HomeScreen = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, [])
+
   return (
     <View>
       <Text>hi</Text>
