@@ -2,5 +2,5 @@
 <resources>
     <color name="splashscreen_bg">#FFF</color>
     <color name="app_bg">#FFF</color>
-    <color name="status_bar_color">#FCAD0A</color>
+    <color name="status_bar_color">#00000100</color>
 </resources>
