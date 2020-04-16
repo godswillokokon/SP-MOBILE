@@ -32,12 +32,17 @@ export const LandingScreen = ({ navigation }) => {
       navigation.navigate('LandingThree');
     })
   };
+  const Skip = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Login');
+    })
+  };
 
   return (
     <ImageBackground source={require('../assets/one.png')} style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
       <View tyle={{ alignSelf: 'flex-start', }}>
         <TouchableOpacity style={{ alignContent: 'space-around', width: 50, alignSelf: 'flex-end', margin: 15 }}>
-          <Text style={{
+          <Text onPress={Skip} style={{
             alignSelf: 'center', fontFamily: 'Muli', fontStyle: 'normal',
             fontSize: 18,
             color: '#fff',
@@ -98,11 +103,16 @@ export const LandingTwoScreen = ({ navigation }) => {
       navigation.navigate('LandingThree');
     })
   };
+  const Skip = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Login');
+    })
+  };
 
   return (
     <ImageBackground source={require('../assets/two.png')} style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
       <View tyle={{ alignSelf: 'flex-start', }}>
-        <TouchableOpacity style={{ alignContent: 'space-around', width: 50, alignSelf: 'flex-end', margin: 15 }}>
+        <TouchableOpacity onPress={Skip} style={{ alignContent: 'space-around', width: 50, alignSelf: 'flex-end', margin: 15 }}>
           <Text style={{
             alignSelf: 'center', fontFamily: 'Muli', fontStyle: 'normal',
             fontSize: 18,
@@ -165,11 +175,21 @@ export const LandingThreeScreen = ({ navigation }) => {
       navigation.navigate('LandingThree');
     })
   };
+  const Login = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Login');
+    })
+  };
+  const Skip = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Login');
+    })
+  };
 
   return (
     <ImageBackground source={require('../assets/three.png')} style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
       <View tyle={{ alignSelf: 'flex-start', }}>
-        <TouchableOpacity style={{ alignContent: 'space-around', width: 50, alignSelf: 'flex-end', margin: 15 }}>
+        <TouchableOpacity onPress={Skip} style={{ alignContent: 'space-around', width: 50, alignSelf: 'flex-end', margin: 15 }}>
           <Text style={{
             alignSelf: 'center', fontFamily: 'Muli', fontStyle: 'normal',
             fontSize: 18,
@@ -206,7 +226,7 @@ export const LandingThreeScreen = ({ navigation }) => {
 
         </View>
 
-        <TouchableOpacity style={{ position: 'absolute', right: 0, marginRight: 15, }}>
+        <TouchableOpacity onPress={Login} style={{ position: 'absolute', right: 0, marginRight: 15, }}>
           <Text style={{ marginTop: 7, fontSize: 18, color: '#fff', }}>Next</Text>
         </TouchableOpacity>
 
