@@ -9,15 +9,12 @@ import {
   Avatar, Card,
 } from '@ui-kitten/components';
 
-export const HomeScreen = () => {
-
-
+export const ForgotPasswordScreen = () => {
   return (
     <View>
-      <Text>hi</Text>
+      <Text>ForgotPasswordScreen</Text>
     </View>
   )
-
 };
 
 const styles = StyleSheet.create({})

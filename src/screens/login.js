@@ -25,6 +25,12 @@ const MailIcon = () => (
 );
 
 export const LoginScreen = ({ navigation }) => {
+
+  const ForgotPassword = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('ForgotPassword');
+    })
+  }
   const Signup = () => {
     requestAnimationFrame(() => {
       navigation.navigate('Signup');
@@ -98,7 +104,7 @@ export const LoginScreen = ({ navigation }) => {
 
             />
           </Layout>
-          <TouchableOpacity style={styles.forgotBut}><Text style={styles.forgot}>Forgot password?</Text></TouchableOpacity>
+          <TouchableOpacity onPress={ForgotPassword} style={styles.forgotBut}><Text style={styles.forgot}>Forgot password?</Text></TouchableOpacity>
           <TouchableOpacity style={styles.button} ><Text style={styles.buttonText}>Login</Text></TouchableOpacity>
         </KeyboardAvoidingView>
 

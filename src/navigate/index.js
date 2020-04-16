@@ -4,6 +4,7 @@ import { LandingScreen, LandingTwoScreen, LandingThreeScreen } from '../screens/
 import { LoginScreen } from '../screens/login';
 import { SignupScreen } from '../screens/signup';
 import { HomeScreen } from '../screens/home';
+import { ForgotPasswordScreen } from '../screens/forgotPassword';
 // import { Bottom } from '../navigate/bottom';
 
 
@@ -12,7 +13,8 @@ const HomeNavigator = createStackNavigator({
   LandingTwo: LandingTwoScreen,
   LandingThree: LandingThreeScreen,
   Login: LoginScreen,
-  Signup: SignupScreen
+  Signup: SignupScreen,
+  ForgotPassword: ForgotPasswordScreen
   // Tab: AppNavigator,
 },
   {
