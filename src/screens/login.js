@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Layout, Text, Input } from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import IconA from 'react-native-vector-icons/AntDesign';
 //icons
 const LockIcon = () => (
   <View>
@@ -95,8 +96,64 @@ export const LoginScreen = () => {
           <TouchableOpacity style={styles.forgotBut}><Text style={styles.forgot}>Forgot password?</Text></TouchableOpacity>
           <TouchableOpacity style={styles.button} ><Text style={styles.buttonText}>Login</Text></TouchableOpacity>
         </KeyboardAvoidingView>
-      </View>
 
+      </View>
+      <View style={{
+        width: Dimensions.get('screen').width - 50, height: 50, alignSelf: 'center',
+        margin: 10, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row'
+      }}>
+        <View style={{ borderBottomColor: '#fff', borderBottomWidth: 1, flex: 1 }}></View>
+        <View style={{ flex: 0.5 }}>
+          <Text style={{
+            fontSize: 15,
+            fontFamily: 'Muli',
+            alignSelf: 'center',
+            color: '#fff',
+            fontWeight: 'bold',
+            padding: 10
+          }}> OR </Text>
+        </View>
+        <View style={{ borderBottomColor: '#fff', borderBottomWidth: 1, flex: 1 }}></View>
+      </View>
+      <View style={{
+        width: Dimensions.get('screen').width - 150, height: 50,
+        alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-evenly'
+      }}>
+        <TouchableOpacity>
+          <View style={{ backgroundColor: '#55ACEE', borderRadius: 30, width: 50, height: 50, flexDirection: 'row', justifyContent: 'center' }}>
+            <Icon style={[{ color: '#fff', alignSelf: 'flex-end', marginLeft: 6 }]} size={35} name={'facebook-f'} />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <View style={{ borderRadius: 30, width: 50, height: 50, backgroundColor: '#F44336', flexDirection: 'row', justifyContent: 'center' }}>
+            <IconA style={[{ color: '#fff', alignSelf: 'center' }]} size={35} name={'googleplus'} />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <View style={{ borderRadius: 30, width: 50, height: 50, backgroundColor: '#55ACEE', flexDirection: 'row', justifyContent: 'center' }}>
+            <Icon style={[{ color: '#fff', alignSelf: 'center' }]} size={35} name={'twitter'} />
+          </View>
+        </TouchableOpacity>
+
+      </View>
+      <View style={{ alignSelf: 'center', flexDirection: 'row', margin: 10 }}>
+        <Text style={{
+          fontSize: 15,
+          fontFamily: 'Muli',
+          color: '#fff',
+          marginHorizontal: -3,
+          padding: 5
+        }}>Don't have an account?</Text>
+        <TouchableOpacity style={{ padding: 5 }}>
+          <Text style={{
+            fontSize: 15,
+            fontFamily: 'Muli',
+            color: '#FCAD0A',
+            marginHorizontal: -3
+          }}>Signup</Text>
+        </TouchableOpacity>
+
+      </View>
     </ImageBackground>
   )
 };
