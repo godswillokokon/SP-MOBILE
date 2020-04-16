@@ -51,7 +51,7 @@ export const SignupScreen = ({ navigation }) => {
           fontFamily: 'Muli',
           alignSelf: 'center',
           fontWeight: 'bold'
-        }}>Create Account!</Text>
+        }}>Create Account</Text>
         <Text style={{ color: '#fff', fontSize: 15, alignSelf: 'center' }}>
           lets help you make that dream a reality
         </Text>
@@ -99,7 +99,6 @@ export const SignupScreen = ({ navigation }) => {
 
             />
           </Layout>
-          {/* <TouchableOpacity style={styles.forgotBut}><Text style={styles.forgot}>Forgot password?</Text></TouchableOpacity> */}
           <TouchableOpacity style={styles.button} ><Text style={styles.buttonText}>Signup</Text></TouchableOpacity>
         </KeyboardAvoidingView>
 
