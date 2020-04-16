@@ -29,7 +29,7 @@ export const SignupScreen = ({ navigation }) => {
     requestAnimationFrame(() => {
       navigation.navigate('Login');
     })
-  }
+  };
   const [Evalue, setValueE] = useState('');
   const [Pvalue, setValueP] = useState('');
   return (
@@ -171,14 +171,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
     // backgroundColor: 'red'
   },
-  loginTextBut: {
-    fontSize: 18,
-    fontFamily: 'Muli',
-    textAlign: 'center',
-    marginTop: 97,
-    color: '#FD901C',
-    backgroundColor: 'transparent',
-  },
   placeholder: {
     fontSize: 13,
     fontFamily: 'Muli',
@@ -196,10 +188,7 @@ const styles = StyleSheet.create({
   inputText: { color: '#fff' },
   inputLabel: { color: '#fff' },
   inputCaption: { color: '#fff' },
-  icon: {
-    color: 'red',
-    borderColor: 'transparent'
-  },
+
   forgotBut: {
     padding: 4,
     marginRight: 25,
@@ -237,6 +226,6 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "#fff",
-    backgroundColor: 'white'
+    backgroundColor: 'black'
   }
 })
