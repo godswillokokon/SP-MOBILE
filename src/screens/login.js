@@ -24,7 +24,12 @@ const MailIcon = () => (
   </View>
 );
 
-export const LoginScreen = () => {
+export const LoginScreen = ({ navigation }) => {
+  const Signup = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Signup');
+    })
+  }
   const [Evalue, setValueE] = useState('');
   const [Pvalue, setValueP] = useState('');
   return (
@@ -144,7 +149,7 @@ export const LoginScreen = () => {
           marginHorizontal: -3,
           padding: 5
         }}>Don't have an account?</Text>
-        <TouchableOpacity style={{ padding: 5 }}>
+        <TouchableOpacity onPress={Signup} style={{ padding: 5 }}>
           <Text style={{
             fontSize: 15,
             fontFamily: 'Muli',
