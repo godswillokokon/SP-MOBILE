@@ -55,7 +55,7 @@ export const LandingScreen = ({ navigation }) => {
         <Text style={{
           fontSize: 38, color: '#fff',
           lineHeight: 38, marginVertical: 5,
-        }}> 1 Well Furnished Apartments</Text>
+        }}>Well Furnished Apartments</Text>
         <Text style={{ marginVertical: 5, fontSize: 20, color: '#fff', lineHeight: 20 }}>
           Lorem ipsum dolor sit amet, elit. Dictum consectetur adipiscing elit. Dictum
         </Text>
@@ -126,7 +126,7 @@ export const LandingTwoScreen = ({ navigation }) => {
         <Text style={{
           fontSize: 40, color: '#fff',
           lineHeight: 38, marginVertical: 5,
-        }}>2 Well Furnished Apartments</Text>
+        }}>Well Furnished Apartments</Text>
         <Text style={{ marginVertical: 5, fontSize: 20, color: '#fff', lineHeight: 20 }}>
           Lorem ipsum dolor sit amet, elit. Dictum consectetur adipiscing elit. Dictum
         </Text>
@@ -203,7 +203,7 @@ export const LandingThreeScreen = ({ navigation }) => {
         <Text style={{
           fontSize: 40, color: '#fff',
           lineHeight: 38, marginVertical: 5,
-        }}>3 Well Furnished Apartments</Text>
+        }}>Well Furnished Apartments</Text>
         <Text style={{ marginVertical: 5, fontSize: 20, color: '#fff', lineHeight: 20 }}>
           Lorem ipsum dolor sit amet, elit. Dictum consectetur adipiscing elit. Dictum
         </Text>
