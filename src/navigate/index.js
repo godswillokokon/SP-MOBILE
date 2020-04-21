@@ -3,9 +3,8 @@ import { createAppContainer } from 'react-navigation';
 import { LandingScreen, LandingTwoScreen, LandingThreeScreen } from '../screens/landing';
 import { LoginScreen } from '../screens/login';
 import { SignupScreen } from '../screens/signup';
-import { HomeScreen } from '../screens/home';
 import { ForgotPasswordScreen } from '../screens/forgotPassword';
-// import { Bottom } from '../navigate/bottom';
+import { AppNavigator } from '../navigate/bottom';
 
 
 const HomeNavigator = createStackNavigator({
@@ -14,8 +13,8 @@ const HomeNavigator = createStackNavigator({
   LandingThree: LandingThreeScreen,
   Login: LoginScreen,
   Signup: SignupScreen,
-  ForgotPassword: ForgotPasswordScreen
-  // Tab: AppNavigator,
+  ForgotPassword: ForgotPasswordScreen,
+  Tab: AppNavigator,
 },
   {
     headerMode: 'none',
