@@ -30,6 +30,11 @@ export const SignupScreen = ({ navigation }) => {
       navigation.navigate('Login');
     })
   };
+  const Home = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Home');
+    })
+  };
   const [Evalue, setValueE] = useState('');
   const [Pvalue, setValueP] = useState('');
   return (
@@ -99,7 +104,7 @@ export const SignupScreen = ({ navigation }) => {
 
             />
           </Layout>
-          <TouchableOpacity style={styles.button} ><Text style={styles.buttonText}>Signup</Text></TouchableOpacity>
+          <TouchableOpacity onPress={Home} style={styles.button} ><Text style={styles.buttonText}>Signup</Text></TouchableOpacity>
         </KeyboardAvoidingView>
 
       </View>
