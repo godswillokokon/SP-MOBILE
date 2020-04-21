@@ -36,6 +36,11 @@ export const LoginScreen = ({ navigation }) => {
       navigation.navigate('Signup');
     })
   }
+  const Home = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Home');
+    })
+  }
   const [Evalue, setValueE] = useState('');
   const [Pvalue, setValueP] = useState('');
   return (
@@ -105,7 +110,7 @@ export const LoginScreen = ({ navigation }) => {
             />
           </Layout>
           <TouchableOpacity onPress={ForgotPassword} style={styles.forgotBut}><Text style={styles.forgot}>Forgot password?</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.button} ><Text style={styles.buttonText}>Login</Text></TouchableOpacity>
+          <TouchableOpacity onPress={Home} style={styles.button} ><Text style={styles.buttonText}>Login</Text></TouchableOpacity>
         </KeyboardAvoidingView>
 
       </View>
