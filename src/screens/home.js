@@ -1,4 +1,3 @@
-import SplashScreen from 'react-native-splash-screen';
 import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
@@ -13,7 +12,6 @@ import {
   ScrollView
 } from 'react-native';
 import {
-  TopNavigation,
   TopNavigationAction,
   Input
 } from '@ui-kitten/components';
@@ -22,6 +20,7 @@ import IconF from 'react-native-vector-icons/FontAwesome5';
 import IconE from 'react-native-vector-icons/EvilIcons';
 import IconI from 'react-native-vector-icons/Ionicons';
 import { moderateScale } from 'react-native-size-matters';
+import TopNav from '../components/topNav';
 
 const DATA = [
   {
@@ -62,28 +61,21 @@ const DATA = [
   },
 ];
 function Item({ id, title, subTitle, imageUrl, selected, onSelect }) {
+  console.log(title, "hhh")
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
       style={{
-        // flex: 1,
-        // padding: 20,
         marginVertical: 2,
         marginHorizontal: 6,
         width: 100,
         borderRadius: 6,
         backgroundColor: 'transparent'
-        // backgroundColor: 'rgba(0, 0, 0, 0.5)'
-
       }}
-    // style={[
-    //   styles.item,
-    //   { backgroundColor: selected ? '#6e3b6e' : '#f9c2ff' },
-    // ]}
     >
       <ImageBackground style={{ flex: 1, width: '100%', }}
-        source={{ uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png' }}
-        // source={{ uri: imageUrl }}
+        // source={{ uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png' }}
+        source={{ uri: imageUrl }}
         // source={require('../assets/login.png')}
         imageStyle={{ borderRadius: 6, }}
       >
@@ -283,8 +275,6 @@ export const HomeScreen = ({ navigation }) => {
     <TopNavigationAction icon={Right} onPress={navigateBack} style={[{ padding: 5 }]} />
   );
 
-
-
   const [Svalue, setValueS] = useState('');
 
   const [selected, setSelected] = React.useState(new Map());
@@ -293,15 +283,13 @@ export const HomeScreen = ({ navigation }) => {
     id => {
       const newSelected = new Map(selected);
       newSelected.set(id, !selected.get(id));
-      // { console.log(imageUrl) }
       setSelected(newSelected);
     },
     [selected],
   );
   return (
     <SafeAreaView style={{ backgroundColor: '#fff', flex: 1 }}>
-      <TopNavigation title={Title} alignment={'center'}
-        accessoryLeft={LeftAction} accessoryRight={RightAction} />
+      <TopNav Title={Title} LeftAction={LeftAction} RightAction={RightAction} />
       <ScrollView>
         <Input
           value={Svalue}
@@ -332,6 +320,7 @@ export const HomeScreen = ({ navigation }) => {
                   id={item.id}
                   title={item.title}
                   subTitle={item.subTitle}
+                  imageUrl={item.imageUrl}
                   selected={!!selected.get(item.id)}
                   onSelect={onSelect}
                 />
@@ -361,6 +350,7 @@ export const HomeScreen = ({ navigation }) => {
                   id={item.id}
                   title={item.title}
                   subTitle={item.subTitle}
+                  imageUrl={item.imageUrl}
                   selected={!!selected.get(item.id)}
                   onSelect={onSelect}
                 />
@@ -390,6 +380,7 @@ export const HomeScreen = ({ navigation }) => {
                   id={item.id}
                   title={item.title}
                   subTitle={item.subTitle}
+                  imageUrl={item.imageUrl}
                   selected={!!selected.get(item.id)}
                   onSelect={onSelect}
                 />
@@ -419,6 +410,7 @@ export const HomeScreen = ({ navigation }) => {
                   id={item.id}
                   title={item.title}
                   subTitle={item.subTitle}
+                  imageUrl={item.imageUrl}
                   selected={!!selected.get(item.id)}
                   onSelect={onSelect}
                 />
