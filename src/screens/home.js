@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   StyleSheet,
   View,
@@ -22,7 +22,8 @@ import IconI from 'react-native-vector-icons/Ionicons';
 import { moderateScale } from 'react-native-size-matters';
 import TopNav from '../components/topNav';
 
-const DATA = [
+
+const DATA_Categories = [
   {
     id: '1',
     title: 'Rent',
@@ -60,8 +61,124 @@ const DATA = [
     imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
   },
 ];
-function Item({ id, title, subTitle, imageUrl, selected, onSelect }) {
-  console.log(title, "hhh")
+const DATA_RealEstates = [
+  {
+    id: '1',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '2',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '3',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '4',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '5',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '6',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+];
+const DATA_LatestEstates = [
+  {
+    id: '1',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '2',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '3',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '4',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '5',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '6',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+];
+const DATA_FeaturedProperties = [
+  {
+    id: '1',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+  },
+  {
+    id: '2',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+  },
+  {
+    id: '3',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+  },
+  {
+    id: '4',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+  },
+  {
+    id: '5',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+  },
+  {
+    id: '6',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+  },
+];
+
+//Categories
+
+function Categories({ id, title, subTitle, imageUrl, selected, onSelect }) {
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
@@ -74,12 +191,13 @@ function Item({ id, title, subTitle, imageUrl, selected, onSelect }) {
       }}
     >
       <ImageBackground style={{ flex: 1, width: '100%', }}
-        // source={{ uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png' }}
         source={{ uri: imageUrl }}
-        // source={require('../assets/login.png')}
         imageStyle={{ borderRadius: 6, }}
       >
-        <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column', justifyContent: 'flex-end', borderRadius: 6, }}>
+        <View style={{
+          flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column',
+          justifyContent: 'flex-end', borderRadius: 6,
+        }}>
           <View style={{ margin: 10 }}>
             <Text style={{
               fontSize: 14,
@@ -90,17 +208,14 @@ function Item({ id, title, subTitle, imageUrl, selected, onSelect }) {
               color: '#fff',
             }}>{subTitle}</Text>
           </View>
-
         </View>
-
       </ImageBackground>
-
     </TouchableOpacity>
   );
 }
 
-// asdfghjk
-function FeaturedItem({ id, title, subTitle, imageUrl, selected, onSelect }) {
+// RealEstates
+function RealEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
@@ -109,7 +224,6 @@ function FeaturedItem({ id, title, subTitle, imageUrl, selected, onSelect }) {
         marginHorizontal: 6,
         width: 170,
         height: 200,
-
         borderRadius: 6,
         shadowColor: "#000",
         shadowOffset: {
@@ -118,16 +232,12 @@ function FeaturedItem({ id, title, subTitle, imageUrl, selected, onSelect }) {
         },
         shadowOpacity: 0.06,
         shadowRadius: 1.41,
-
         elevation: 1,
         padding: 4.5,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // alignContent: 'center'
       }}
     >
       <ImageBackground style={{ flex: 3, width: '100%', }}
-        source={{ uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png' }}
+        source={{ uri: imageUrl }}
         imageStyle={{ borderRadius: 6, }}
       >
         <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column', justifyContent: 'flex-end', borderRadius: 6, }}>
@@ -147,8 +257,13 @@ function FeaturedItem({ id, title, subTitle, imageUrl, selected, onSelect }) {
         height: 60, borderBottomLeftRadius: 15, borderBottomRightRadius: 15, justifyContent: 'center',
         padding: 1,
       }}>
-        <Text style={{ alignSelf: 'center', color: '#3A3A3A', fontSize: 13, fontWeight: 'bold', alignSelf: 'center', lineHeight: 18, width: 155, }}>Ancient Bungalo Ancient</Text>
-        <Text style={{ color: '#828282', fontSize: 10, width: 155, marginLeft: -5 }}> <IconE style={[{ color: '#FCAD0A' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar</Text>
+        <Text style={{
+          alignSelf: 'center', color: '#3A3A3A', fontSize: 13,
+          fontWeight: 'bold', alignSelf: 'center', lineHeight: 18, width: 155,
+        }}>Ancient Bungalo Ancient</Text>
+        <Text style={{ color: '#828282', fontSize: 10, width: 155, marginLeft: -5 }}>
+          <IconE style={[{ color: '#FCAD0A' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar
+        </Text>
         <View style={{ flexDirection: 'row', margin: 1 }}>
           <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
           <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
@@ -162,10 +277,9 @@ function FeaturedItem({ id, title, subTitle, imageUrl, selected, onSelect }) {
   );
 }
 
-///fdgtgdhdhsjsjs
+///FeaturedProperties
 
-
-function PropertiesItem({ id, title, subTitle, imageUrl, selected, onSelect }) {
+function FeaturedProperties({ id, title, subTitle, imageUrl, selected, onSelect }) {
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
@@ -174,7 +288,6 @@ function PropertiesItem({ id, title, subTitle, imageUrl, selected, onSelect }) {
         marginHorizontal: 6,
         width: Dimensions.get('window').width - 40,
         height: 200,
-        // borderRadius: 20,
         borderRadius: 6,
         shadowColor: "#000",
         shadowOffset: {
@@ -189,11 +302,13 @@ function PropertiesItem({ id, title, subTitle, imageUrl, selected, onSelect }) {
       }}
     >
       <ImageBackground style={{ flex: 3, width: '100%', }}
-        source={{ uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png' }}
+        source={{ uri: imageUrl }}
         imageStyle={{ borderRadius: 6, }}
       >
-        <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column', justifyContent: 'flex-end', borderRadius: 6, }}>
-
+        <View style={{
+          flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column',
+          justifyContent: 'flex-end', borderRadius: 6,
+        }}>
         </View>
       </ImageBackground>
       <View style={{
@@ -222,22 +337,70 @@ function PropertiesItem({ id, title, subTitle, imageUrl, selected, onSelect }) {
     </TouchableOpacity>
   );
 }
+//latest estates
+function LatestEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
+  return (
+    <TouchableOpacity
+      onPress={() => onSelect(id)}
+      style={{
+        marginVertical: 2,
+        marginHorizontal: 6,
+        width: 170,
+        height: 200,
+        borderRadius: 6,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.06,
+        shadowRadius: 1.41,
+        elevation: 1,
+        padding: 4.5,
+      }}
+    >
+      <ImageBackground style={{ flex: 3, width: '100%', }}
+        // source={{ uri: imageUrl }}
+        imageStyle={{ borderRadius: 6, }}
+      >
+        <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column', justifyContent: 'flex-end', borderRadius: 6, }}>
+
+        </View>
+      </ImageBackground>
+      <View style={{
+        height: 60, borderBottomLeftRadius: 15, borderBottomRightRadius: 15, justifyContent: 'center',
+        padding: 1,
+      }}>
+        <Text style={{
+          alignSelf: 'center', color: '#3A3A3A', fontSize: 13,
+          fontWeight: 'bold', alignSelf: 'center', lineHeight: 18, width: 155,
+        }}>Ancient Bungalo Ancient</Text>
+        <Text style={{ color: '#828282', fontSize: 10, width: 155, marginLeft: -5 }}>
+          <IconE style={[{ color: '#FCAD0A' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar
+        </Text>
+        <View style={{ flexDirection: 'row', margin: 1 }}>
+          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star-outline'} />
+          <Text style={{ color: '#828282', fontSize: 10 }}>  (234) Reviews</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  );
+}
 
 
 
 
 export const HomeScreen = ({ navigation }) => {
+  //top nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
       navigation.goBack();
     })
   };
-  const SearchIcon = () => (
-    <View>
-      <IconA style={[{ color: '#FCAD0A' }]} size={18} name={'search1'} />
-    </View>
-  );
-
 
   const Left = () => (
     <IconF style={[{ color: '#FCAD0A', }]} name='bars' size={25} />
@@ -275,11 +438,18 @@ export const HomeScreen = ({ navigation }) => {
     <TopNavigationAction icon={Right} onPress={navigateBack} style={[{ padding: 5 }]} />
   );
 
+
+  const SearchIcon = () => (
+    <View>
+      <IconA style={[{ color: '#FCAD0A' }]} size={18} name={'search1'} />
+    </View>
+  );
+  //selected
   const [Svalue, setValueS] = useState('');
 
-  const [selected, setSelected] = React.useState(new Map());
+  const [selected, setSelected] = useState(new Map());
 
-  const onSelect = React.useCallback(
+  const onSelect = useCallback(
     id => {
       const newSelected = new Map(selected);
       newSelected.set(id, !selected.get(id));
@@ -313,10 +483,10 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, }}>
             <FlatList
-              data={DATA}
+              data={DATA_Categories}
               horizontal
               renderItem={({ item }) => (
-                <Item
+                <Categories
                   id={item.id}
                   title={item.title}
                   subTitle={item.subTitle}
@@ -343,10 +513,10 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, }}>
             <FlatList
-              data={DATA}
+              data={DATA_RealEstates}
               horizontal
               renderItem={({ item }) => (
-                <FeaturedItem
+                <RealEstates
                   id={item.id}
                   title={item.title}
                   subTitle={item.subTitle}
@@ -373,10 +543,10 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, }}>
             <FlatList
-              data={DATA}
+              data={DATA_FeaturedProperties}
               horizontal
               renderItem={({ item }) => (
-                <PropertiesItem
+                <FeaturedProperties
                   id={item.id}
                   title={item.title}
                   subTitle={item.subTitle}
@@ -403,10 +573,10 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ flex: 1, }}>
             <FlatList
-              data={DATA}
+              data={DATA_LatestEstates}
               horizontal
               renderItem={({ item }) => (
-                <FeaturedItem
+                <LatestEstates
                   id={item.id}
                   title={item.title}
                   subTitle={item.subTitle}
