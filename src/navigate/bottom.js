@@ -14,7 +14,10 @@ import { PropertiesScreen } from '../screens/properties';
 import { NotificationScreen } from '../screens/notification';
 import { SearchScreen } from '../screens/search';
 
-const Tab = createMaterialBottomTabNavigator(
+// import { AppDrawer } from '../navigate/drawer'
+
+
+export const Bottom = createMaterialBottomTabNavigator(
   {
     Home: {
       screen: HomeScreen,
@@ -78,9 +81,10 @@ const Tab = createMaterialBottomTabNavigator(
     useLayoutAnimation: true,
     backBehavior: 'history',
     tabBarVisibile: true,
-    navigationOptions: {
-      tabBarVisibile: true
+    navigationOptions: ({ navigation }) => {
+      // tabBarVisibile: true
+      // const { routeN }
     },
   }
 );
-export const AppNavigator = createAppContainer(Tab);
+// export const Bottom = createAppContainer(Tab);

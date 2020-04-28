@@ -37,8 +37,11 @@ export const LoginScreen = ({ navigation }) => {
     })
   }
   const Home = () => {
+    // console.log(navigation)
     requestAnimationFrame(() => {
       navigation.navigate('Home');
+      // navigation.openDrawer();
+
     })
   }
   const [Evalue, setValueE] = useState('');

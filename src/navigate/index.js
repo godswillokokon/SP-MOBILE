@@ -1,24 +1,30 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
-import { LandingScreen, LandingTwoScreen, LandingThreeScreen } from '../screens/landing';
-import { LoginScreen } from '../screens/login';
-import { SignupScreen } from '../screens/signup';
-import { ForgotPasswordScreen } from '../screens/forgotPassword';
-import { AppNavigator } from '../navigate/bottom';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { Bottom } from '../navigate/bottom';
+import { AppDrawer } from '../navigate/drawer'
+import { AuthScreens } from '../navigate/auth'
 
-
-const HomeNavigator = createStackNavigator({
-  Landing: LandingScreen,
-  LandingTwo: LandingTwoScreen,
-  LandingThree: LandingThreeScreen,
-  Login: LoginScreen,
-  Signup: SignupScreen,
-  ForgotPassword: ForgotPasswordScreen,
-  Tab: AppNavigator,
+const Home = createStackNavigator({
+  Auth: AuthScreens,
+  Draw: AppDrawer,
+  Tab: Bottom
 },
   {
     headerMode: 'none',
   });
-export const AppNavigatorScreens = createAppContainer(HomeNavigator);
+export const AppNavigatorScreens = createAppContainer(Home);
 
 
+// import { createStackNavigator } from 'react-navigation-stack';
+// import { AuthScreens } from './auth';
+// import { HomeNavigator } from './drawer';
+// // import { AppRoute } from './app-routes';
+
+// const Stack = createStackNavigator();
+
+// export const AppNavigatorScreens = (props) => (
+//   <Stack.Navigator >
+//     <Stack.Screen name={'Auth'} component={AuthScreens} />
+//     <Stack.Screen name={'App'} component={HomeNavigator} />
+//   </Stack.Navigator>
+// );

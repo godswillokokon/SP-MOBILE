@@ -337,6 +337,7 @@ function FeaturedProperties({ id, title, subTitle, imageUrl, selected, onSelect 
     </TouchableOpacity>
   );
 }
+
 //latest estates
 function LatestEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
   return (
@@ -401,13 +402,19 @@ export const HomeScreen = ({ navigation }) => {
       navigation.goBack();
     })
   };
+  const openDrawer = () => {
+    // console.log(navigation)
+    // requestAnimationFrame(() => {
+    navigation.openDrawer();
+    // })
+  };
 
   const Left = () => (
     <IconF style={[{ color: '#FCAD0A', }]} name='bars' size={25} />
   );
 
   const LeftAction = () => (
-    <TopNavigationAction icon={Left} onPress={navigateBack} style={[{ padding: 5 }]} />
+    <TopNavigationAction icon={Left} onPress={openDrawer} style={[{ padding: 5 }]} />
   );
   const Title = () => (
     <View >
