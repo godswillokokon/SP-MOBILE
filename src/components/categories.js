@@ -21,3 +21,4 @@ export const SampleScreen = () => {
 };
 
 const styles = StyleSheet.create({})
+
