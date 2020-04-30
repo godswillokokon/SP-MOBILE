@@ -1,30 +1,15 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { Bottom } from '../navigate/bottom';
-import { AppDrawer } from '../navigate/drawer'
+import { createAppContainer } from 'react-navigation';
+import { HamburgerNavigation } from '../navigate/drawer'
 import { AuthScreens } from '../navigate/auth'
 
-const Home = createStackNavigator({
+const Stack = createStackNavigator({
   Auth: AuthScreens,
-  Draw: AppDrawer,
-  Tab: Bottom
+  Draw: HamburgerNavigation,
+
 },
   {
     headerMode: 'none',
   });
-export const AppNavigatorScreens = createAppContainer(Home);
 
-
-// import { createStackNavigator } from 'react-navigation-stack';
-// import { AuthScreens } from './auth';
-// import { HomeNavigator } from './drawer';
-// // import { AppRoute } from './app-routes';
-
-// const Stack = createStackNavigator();
-
-// export const AppNavigatorScreens = (props) => (
-//   <Stack.Navigator >
-//     <Stack.Screen name={'Auth'} component={AuthScreens} />
-//     <Stack.Screen name={'App'} component={HomeNavigator} />
-//   </Stack.Navigator>
-// );
+export const AppNavigatorScreens = createAppContainer(Stack);
