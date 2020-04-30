@@ -262,14 +262,14 @@ function RealEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
           fontWeight: 'bold', alignSelf: 'center', lineHeight: 18, width: 155,
         }}>Ancient Bungalo Ancient</Text>
         <Text style={{ color: '#828282', fontSize: 10, width: 155, marginLeft: -5 }}>
-          <IconE style={[{ color: '#FCAD0A' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar
+          <IconE style={[{ color: '#00959E' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar
         </Text>
         <View style={{ flexDirection: 'row', margin: 1 }}>
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star-outline'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star-outline'} />
           <Text style={{ color: '#828282', fontSize: 10 }}>  (234) Reviews</Text>
         </View>
       </View>
@@ -322,13 +322,13 @@ function FeaturedProperties({ id, title, subTitle, imageUrl, selected, onSelect 
         </View>
         <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', width: Dimensions.get('window').width - 55, }}>
           <Text style={{ color: '#828282', fontSize: 13, width: 175, marginLeft: -5, }}>
-            <IconE style={[{ color: '#FCAD0A' }]} size={15} name={'location'} />45 ntoe asi layout, Calabar</Text>
+            <IconE style={[{ color: '#00959E' }]} size={15} name={'location'} />45 ntoe asi layout, Calabar</Text>
           <View style={{ flexDirection: 'row', margin: 1 }}>
-            <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star-outline'} />
+            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star-outline'} />
             <Text style={{ color: '#828282', fontSize: 10 }}>(234) Reviews</Text>
           </View>
         </View>
@@ -377,14 +377,14 @@ function LatestEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
           fontWeight: 'bold', alignSelf: 'center', lineHeight: 18, width: 155,
         }}>Ancient Bungalo Ancient</Text>
         <Text style={{ color: '#828282', fontSize: 10, width: 155, marginLeft: -5 }}>
-          <IconE style={[{ color: '#FCAD0A' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar
+          <IconE style={[{ color: '#00959E' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar
         </Text>
         <View style={{ flexDirection: 'row', margin: 1 }}>
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#FCAD0A' }]} size={15} name={'md-star-outline'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
+          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star-outline'} />
           <Text style={{ color: '#828282', fontSize: 10 }}>  (234) Reviews</Text>
         </View>
       </View>
@@ -410,7 +410,7 @@ export const HomeScreen = ({ navigation }) => {
   };
 
   const Left = () => (
-    <IconF style={[{ color: '#FCAD0A', }]} name='bars' size={25} />
+    <IconF style={[{ color: '#00959E', }]} name='bars' size={25} />
   );
 
   const LeftAction = () => (
@@ -448,7 +448,7 @@ export const HomeScreen = ({ navigation }) => {
 
   const SearchIcon = () => (
     <View>
-      <IconA style={[{ color: '#FCAD0A' }]} size={18} name={'search1'} />
+      <IconA style={[{ color: '#00959E' }]} size={18} name={'search1'} />
     </View>
   );
   //selected
@@ -484,7 +484,7 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ alignSelf: 'flex-end', width: 100, height: 30 }}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#FCAD0A', alignSelf: 'flex-end', flex: 0.1 }}>See all</Text>
+              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end', flex: 0.1 }}>See all</Text>
             </TouchableOpacity>
 
           </View>
@@ -514,7 +514,7 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1 }}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#FCAD0A', alignSelf: 'flex-end' }}>See all</Text>
+              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end' }}>See all</Text>
             </TouchableOpacity>
 
           </View>
@@ -544,7 +544,7 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1, }}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#FCAD0A', alignSelf: 'flex-end', }}>See all</Text>
+              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end', }}>See all</Text>
             </TouchableOpacity>
 
           </View>
@@ -574,7 +574,7 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1 }}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#FCAD0A', alignSelf: 'flex-end' }}>See all</Text>
+              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end' }}>See all</Text>
             </TouchableOpacity>
 
           </View>

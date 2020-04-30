@@ -158,7 +158,7 @@ export const SignupScreen = ({ navigation }) => {
           <Text style={{
             fontSize: 15,
             fontFamily: 'Muli',
-            color: '#FCAD0A',
+            color: '#00959E',
             marginHorizontal: -3
           }}>Login</Text>
         </TouchableOpacity>
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     marginLeft: 20
   },
   button: {
-    backgroundColor: '#FCAD0A',
+    backgroundColor: '#00959E',
     width: Dimensions.get('window').width - 100,
     alignSelf: 'center',
     borderRadius: 4,

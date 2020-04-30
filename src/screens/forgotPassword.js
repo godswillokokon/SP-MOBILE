@@ -69,7 +69,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
         />
       </KeyboardAvoidingView>
 
-      <View style={{ width: 98, height: 40, backgroundColor: '#FCAD0A', alignSelf: 'center', borderRadius: 4, justifyContent: 'center', }}>
+      <View style={{ width: 98, height: 40, backgroundColor: '#00959E', alignSelf: 'center', borderRadius: 4, justifyContent: 'center', }}>
         <Text style={{ alignSelf: 'center', fontSize: 18, color: '#fff' }}>Send</Text>
       </View>
     </View>

@@ -69,7 +69,7 @@ export const Bottom = createMaterialBottomTabNavigator(
   },
   {
     initialRouteName: "Home",
-    activeColor: "#FCAD0A",
+    activeColor: "#00959E",
     inactiveColor: "#8B95A6",
     barStyle: { backgroundColor: '#fff', paddingVertical: 3 },
     labelStyle: { fontSize: 12, },

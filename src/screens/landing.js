@@ -63,7 +63,7 @@ export const LandingScreen = ({ navigation }) => {
 
       <LinearGradient colors={['#00000100', '#00000159', '#00000175', '#00000191', '#000001b8', '#000001b8', '#000001b8', '#000001']} style={{ flex: 0.5 }} />
       <View style={{
-        height: 40, backgroundColor: '#FCAD0A', position: 'absolute', bottom: 0, width: Dimensions.get('window').width, flexDirection: 'row',
+        height: 40, backgroundColor: '#00959E', position: 'absolute', bottom: 0, width: Dimensions.get('window').width, flexDirection: 'row',
       }}>
         <View style={{ width: 80, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-around', marginLeft: 10 }}>
           <TouchableOpacity onPress={LandingOne}>
@@ -134,7 +134,7 @@ export const LandingTwoScreen = ({ navigation }) => {
 
       <LinearGradient colors={['#00000100', '#00000159', '#00000175', '#00000191', '#000001b8', '#000001b8', '#000001b8', '#000001']} style={{ flex: 0.5 }} />
       <View style={{
-        height: 40, backgroundColor: '#FCAD0A', position: 'absolute', bottom: 0, width: Dimensions.get('window').width, flexDirection: 'row',
+        height: 40, backgroundColor: '#00959E', position: 'absolute', bottom: 0, width: Dimensions.get('window').width, flexDirection: 'row',
       }}>
         <View style={{ width: 80, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-around', marginLeft: 10 }}>
           <TouchableOpacity onPress={LandingOne}>
@@ -211,7 +211,7 @@ export const LandingThreeScreen = ({ navigation }) => {
 
       <LinearGradient colors={['#00000100', '#00000159', '#00000175', '#00000191', '#000001b8', '#000001b8', '#000001b8', '#000001']} style={{ flex: 0.5 }} />
       <View style={{
-        height: 40, backgroundColor: '#FCAD0A', position: 'absolute', bottom: 0, width: Dimensions.get('window').width, flexDirection: 'row',
+        height: 40, backgroundColor: '#00959E', position: 'absolute', bottom: 0, width: Dimensions.get('window').width, flexDirection: 'row',
       }}>
         <View style={{ width: 80, alignItems: 'center', flexDirection: 'row', justifyContent: 'space-around', marginLeft: 10 }}>
           <TouchableOpacity onPress={LandingOne}>
