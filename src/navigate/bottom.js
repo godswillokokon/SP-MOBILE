@@ -1,7 +1,6 @@
 import React from 'react'
-import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import IconF from 'react-native-vector-icons/Feather';
 import IconO from 'react-native-vector-icons/Octicons';
 import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -13,8 +12,6 @@ import { HomeScreen } from '../screens/home';
 import { PropertiesScreen } from '../screens/properties';
 import { NotificationScreen } from '../screens/notification';
 import { SearchScreen } from '../screens/search';
-
-// import { AppDrawer } from '../navigate/drawer'
 
 
 export const Bottom = createMaterialBottomTabNavigator(
@@ -79,12 +76,6 @@ export const Bottom = createMaterialBottomTabNavigator(
     shifting: false,
     labeled: true,
     useLayoutAnimation: true,
-    backBehavior: 'history',
-    tabBarVisibile: true,
-    navigationOptions: ({ navigation }) => {
-      // tabBarVisibile: true
-      // const { routeN }
-    },
+
   }
 );
-// export const Bottom = createAppContainer(Tab);
