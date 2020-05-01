@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { View, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import {
   Avatar,
   Title,
@@ -15,17 +15,20 @@ import {
   DrawerItem
 } from '@react-navigation/drawer';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconM from 'react-native-vector-icons/MaterialIcons';
+import IconF from 'react-native-vector-icons/FontAwesome';
+import IconA from 'react-native-vector-icons/AntDesign';
+import IconS from 'react-native-vector-icons/SimpleLineIcons';
+import IconI from 'react-native-vector-icons/Ionicons';
+import IconE from 'react-native-vector-icons/Entypo';
 
-export function DrawerContent(props) {
-  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
-  const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-  }
+
+export function DrawerContent() {
 
   return (
     <View style={{ flex: 1 }}>
-      <DrawerContentScrollView {...props}>
+      <ScrollView>
         <View style={{ flex: 1, }}>
           <View style={{ flex: 1, top: -4, }}>
             <ImageBackground source={{ uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1588292643/drawer_head.png' }} style={{
@@ -55,27 +58,123 @@ export function DrawerContent(props) {
               </View>
             </ImageBackground>
           </View>
-          <View style={{ flex: 1, backgroundColor: 'red', }}>
+          <View style={{
+            flex: 1, width: Dimensions.get('window').width, height: Dimensions.get('window').height - 250,
+            flexDirection: 'column',
+          }}>
+
+            <View style={{ flex: 1, width: Dimensions.get('window').width, }}>
+              <Text style={{ marginTop: 20, marginLeft: 20, fontSize: 12, color: '#828282' }}>
+                General
+              </Text>
+              <View style={{
+                marginTop: 10, marginLeft: 35,
+                height: 200,
+                width: 210
+              }}>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconMC name='home-city-outline' color='#828282' size={18} style={{}} />
+                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Properties</Text>
+                  </View>
+
+                  <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconA name='switcher' color='#828282' size={18} style={{}} />
+                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Categories</Text>
+                  </View>
+
+                  <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconMC name='home-currency-usd' color='#828282' size={22} style={{}} />
+                    <Text style={{ marginLeft: 6, fontSize: 15 }}>Sell Property</Text>
+                  </View>
+
+                  <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconS name='wallet' color='#828282' size={18} style={{}} />
+                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Wallet</Text>
+                  </View>
+
+                  <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconM name='business-center' color='#828282' size={20} style={{}} />
+                    <Text style={{ marginLeft: 8, fontSize: 15 }}>Careers</Text>
+                  </View>
+
+                  <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconI name='md-business' color='#828282' size={20} style={{}} />
+                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Servies</Text>
+                  </View>
+
+                  <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
+                </TouchableOpacity>
+
+
+              </View>
+            </View>
+
+
+            <View style={{ flex: 0.8, width: Dimensions.get('window').width, }}>
+              <Text style={{ marginTop: 20, marginLeft: 20, fontSize: 12, color: '#828282' }}>
+                Account
+              </Text>
+              <View style={{
+                marginTop: 10, marginLeft: 35,
+                height: 150,
+                width: 210
+              }}>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconA name='setting' color='#828282' size={18} style={{}} />
+                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Settings</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconE name='line-graph' color='#828282' size={18} style={{}} />
+                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Invest</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconE name='documents' color='#828282' size={18} style={{}} />
+                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Terms & Condition</Text>
+                  </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+
+                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
+                    <IconA name='logout' color='#828282' size={18} style={{}} />
+                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Logout</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
 
           </View>
-          <View style={{ flex: 1, backgroundColor: 'blue', }}>
-
-          </View>
-          <Drawer.Section title="Some title">
-            <Drawer.Item
-              label="First Item"
-
-            // onPress={() => { this.setState({ : 'first' }); }}
-            />
-            <Drawer.Item
-              label="Second Item"
-
-            // onPress={() => { this.setState({ active: 'second' }); }}
-            />
-          </Drawer.Section>
-
         </View>
-      </DrawerContentScrollView>
+      </ScrollView>
     </View>
   );
 }
