@@ -185,7 +185,7 @@ function Categories({ id, title, subTitle, imageUrl, selected, onSelect }) {
       style={{
         marginVertical: 2,
         marginHorizontal: 6,
-        width: 100,
+        width: 125,
         borderRadius: 6,
         backgroundColor: 'transparent'
       }}
@@ -484,7 +484,7 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ alignSelf: 'flex-end', width: 100, height: 30 }}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end', flex: 0.1 }}>See all</Text>
+              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end', }}>See all ></Text>
             </TouchableOpacity>
 
           </View>
@@ -514,7 +514,7 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1 }}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end' }}>See all</Text>
+              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end' }}>See all ></Text>
             </TouchableOpacity>
 
           </View>
@@ -544,7 +544,7 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1, }}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end', }}>See all</Text>
+              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end', }}>See all ></Text>
             </TouchableOpacity>
 
           </View>
@@ -574,7 +574,7 @@ export const HomeScreen = ({ navigation }) => {
           </View>
           <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1 }}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end' }}>See all</Text>
+              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end' }}>See all ></Text>
             </TouchableOpacity>
 
           </View>
