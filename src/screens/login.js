@@ -1,9 +1,7 @@
-import SplashScreen from 'react-native-splash-screen';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
-  // Text,
   ImageBackground,
   Dimensions,
   KeyboardAvoidingView,
@@ -37,10 +35,8 @@ export const LoginScreen = ({ navigation }) => {
     })
   }
   const Home = () => {
-    // console.log(navigation)
     requestAnimationFrame(() => {
       navigation.navigate('Home');
-      // navigation.openDrawer();
 
     })
   }
@@ -180,10 +176,7 @@ export const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   key: {
     flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center',
     flexDirection: 'column'
-    // backgroundColor: 'red'
   },
   loginTextBut: {
     fontSize: 18,
