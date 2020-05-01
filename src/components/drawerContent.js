@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ImageBackground, Dimensions } from 'react-native';
 import {
   Avatar,
   Title,
@@ -26,115 +26,56 @@ export function DrawerContent(props) {
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
-        <View style={styles.drawerContent}>
-          <View style={styles.userInfoSection}>
-            <View style={{ flexDirection: 'row', marginTop: 15 }}>
-              <Avatar.Image
-                source={{
-                  uri: 'https://scontent-maa2-1.xx.fbcdn.net/v/t1.0-9/52944323_2091549364214714_3093923968491454464_n.jpg?_nc_cat=100&_nc_sid=7aed08&_nc_ohc=Pn8ws2O3PBQAX-AocWT&_nc_ht=scontent-maa2-1.xx&oh=862e49d69b74e8bd16f3b4166d4eda1e&oe=5E9B4BFE'
-                }}
-                size={50}
-              />
-              <View style={{ marginLeft: 15, flexDirection: 'column' }}>
-                <Title style={styles.title}>Pradip Debnath</Title>
-                <Caption style={styles.caption}>@itzpradip</Caption>
-              </View>
-            </View>
-
-            <View style={styles.row}>
-              <View style={styles.section}>
-                <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
-                <Caption style={styles.caption}>Following</Caption>
-              </View>
-              <View style={styles.section}>
-                <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
-                <Caption style={styles.caption}>Followers</Caption>
-              </View>
-            </View>
-          </View>
-
-          <Drawer.Section style={styles.drawerSection}>
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon
-                  name="home-outline"
-                  color={color}
-                  size={size}
-                />
-              )}
-              label="Home"
-              onPress={() => { props.navigation.navigate('Home') }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon
-                  name="account-outline"
-                  color={color}
-                  size={size}
-                />
-              )}
-              label="Profile"
-              onPress={() => { props.navigation.navigate('Profile') }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon
-                  name="bookmark-outline"
-                  color={color}
-                  size={size}
-                />
-              )}
-              label="Bookmarks"
-              onPress={() => { props.navigation.navigate('BookmarkScreen') }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon
-                  name="settings-outline"
-                  color={color}
-                  size={size}
-                />
-              )}
-              label="Settings"
-              onPress={() => { props.navigation.navigate('SettingScreen') }}
-            />
-            <DrawerItem
-              icon={({ color, size }) => (
-                <Icon
-                  name="account-check-outline"
-                  color={color}
-                  size={size}
-                />
-              )}
-              label="Support"
-              onPress={() => { props.navigation.navigate('SupportScreen') }}
-            />
-          </Drawer.Section>
-          <Drawer.Section title="Preferences">
-            <TouchableRipple onPress={() => { toggleTheme() }}>
-              <View style={styles.preference}>
-                <Text>Dark Theme</Text>
-                <View pointerEvents="none">
-                  <Switch value={isDarkTheme} />
+        <View style={{ flex: 1, }}>
+          <View style={{ flex: 1, top: -4, }}>
+            <ImageBackground source={{ uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1588292643/drawer_head.png' }} style={{
+              height: 150,
+            }}>
+              <View style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                position: 'absolute',
+                width: Dimensions.get('window').width,
+                height: 150,
+              }} />
+              <View style={{ alignSelf: 'center', flex: 1, justifyContent: 'center' }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Avatar.Image
+                    source={{
+                      uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg'
+                    }}
+                    size={71}
+                  />
+                  <View style={{ alignSelf: 'center', marginLeft: 10 }}>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#fff' }}>Godswill Effiong Okokon</Text>
+                    <Text style={{ fontSize: 12, color: '#fff' }}>Real estate investor</Text>
+                  </View>
                 </View>
+
+
               </View>
-            </TouchableRipple>
+            </ImageBackground>
+          </View>
+          <View style={{ flex: 1, backgroundColor: 'red', }}>
+
+          </View>
+          <View style={{ flex: 1, backgroundColor: 'blue', }}>
+
+          </View>
+          <Drawer.Section title="Some title">
+            <Drawer.Item
+              label="First Item"
+
+            // onPress={() => { this.setState({ : 'first' }); }}
+            />
+            <Drawer.Item
+              label="Second Item"
+
+            // onPress={() => { this.setState({ active: 'second' }); }}
+            />
           </Drawer.Section>
+
         </View>
       </DrawerContentScrollView>
-      <Drawer.Section style={styles.bottomDrawerSection}>
-        <DrawerItem
-          icon={({ color, size }) => (
-            <Icon
-              name="exit-to-app"
-              color={color}
-              size={size}
-            />
-          )}
-          label="Sign Out"
-          onPress={() => { }}
-        />
-      </Drawer.Section>
     </View>
   );
 }
