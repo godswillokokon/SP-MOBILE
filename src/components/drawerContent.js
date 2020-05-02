@@ -93,7 +93,7 @@ export function DrawerContent() {
                 <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
-                    <IconMC name='home-currency-usd' color='#828282' size={22} style={{}} />
+                    <IconMC name='home-currency-usd' color='#828282' size={22} style={{ right: 3 }} />
                     <Text style={{ marginLeft: 6, fontSize: 15, color: '#3A3A3A' }}>Sell Property</Text>
                   </View>
 
@@ -111,8 +111,8 @@ export function DrawerContent() {
                 <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
-                    <IconM name='business-center' color='#828282' size={20} style={{}} />
-                    <Text style={{ marginLeft: 8, fontSize: 15, color: '#3A3A3A' }}>Careers</Text>
+                    <IconM name='business-center' color='#828282' size={20} style={{ right: 2 }} />
+                    <Text style={{ marginLeft: 6, fontSize: 15, color: '#3A3A3A' }}>Careers</Text>
                   </View>
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
