@@ -76,7 +76,7 @@ export function DrawerContent() {
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconMC name='home-city-outline' color='#828282' size={18} style={{}} />
-                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Properties</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Properties</Text>
                   </View>
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
@@ -85,7 +85,7 @@ export function DrawerContent() {
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconA name='switcher' color='#828282' size={18} style={{}} />
-                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Categories</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Categories</Text>
                   </View>
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
@@ -94,7 +94,7 @@ export function DrawerContent() {
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconMC name='home-currency-usd' color='#828282' size={22} style={{}} />
-                    <Text style={{ marginLeft: 6, fontSize: 15 }}>Sell Property</Text>
+                    <Text style={{ marginLeft: 6, fontSize: 15, color: '#3A3A3A' }}>Sell Property</Text>
                   </View>
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
@@ -103,7 +103,7 @@ export function DrawerContent() {
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconS name='wallet' color='#828282' size={18} style={{}} />
-                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Wallet</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Wallet</Text>
                   </View>
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
@@ -112,7 +112,7 @@ export function DrawerContent() {
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconM name='business-center' color='#828282' size={20} style={{}} />
-                    <Text style={{ marginLeft: 8, fontSize: 15 }}>Careers</Text>
+                    <Text style={{ marginLeft: 8, fontSize: 15, color: '#3A3A3A' }}>Careers</Text>
                   </View>
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
@@ -121,7 +121,7 @@ export function DrawerContent() {
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconI name='md-business' color='#828282' size={20} style={{}} />
-                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Servies</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Servies</Text>
                   </View>
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
@@ -145,28 +145,28 @@ export function DrawerContent() {
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconA name='setting' color='#828282' size={18} style={{}} />
-                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Settings</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Settings</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconE name='line-graph' color='#828282' size={18} style={{}} />
-                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Invest</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Invest</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconE name='documents' color='#828282' size={18} style={{}} />
-                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Terms & Condition</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Terms & Condition</Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconA name='logout' color='#828282' size={18} style={{}} />
-                    <Text style={{ marginLeft: 10, fontSize: 15 }}>Logout</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Logout</Text>
                   </View>
                 </TouchableOpacity>
               </View>
