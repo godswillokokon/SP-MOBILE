@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
-  // Text,
+  SafeAreaView,
   ImageBackground,
   Dimensions,
   KeyboardAvoidingView,
@@ -38,133 +38,136 @@ export const SignupScreen = ({ navigation }) => {
   const [Evalue, setValueE] = useState('');
   const [Pvalue, setValueP] = useState('');
   return (
-    <ImageBackground source={require('../assets/login.png')} style={{
-      flex: 1, flexDirection: 'column'
-    }}>
-      <View style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', position: 'absolute',
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height + 10,
-        justifyContent: 'center',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }} />
+    <SafeAreaView style={{ flex: 1 }}>
 
-      <View style={{ alignSelf: 'center', marginTop: 30, height: 100, }}>
-        <Text style={{
-          color: '#fff', fontSize: 40,
-          fontFamily: 'Muli',
-          alignSelf: 'center',
-          fontWeight: 'bold'
-        }}>Create Account</Text>
-        <Text style={{ color: '#fff', fontSize: 15, alignSelf: 'center' }}>
-          lets help you make that dream a reality
-        </Text>
-      </View>
-      <View style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.1)', height: Dimensions.get('screen').height - 390,
-        width: Dimensions.get('screen').width - 50, alignSelf: 'center', borderRadius: 6,
-        borderColor: '#fff', borderWidth: 0.5,
+      <ImageBackground source={require('../assets/login.png')} style={{
+        flex: 1, flexDirection: 'column'
       }}>
-        <Text style={{
-          color: '#fff', fontSize: 28,
-          fontFamily: 'Muli',
-          alignSelf: 'center',
-          fontWeight: 'bold',
-          margin: 15
-        }}>Signup</Text>
-        <KeyboardAvoidingView style={styles.key} behavior="padding" enabled>
-          <Layout style={styles.form}>
-            <Input
-              value={Evalue}
-              placeholder='Email'
-              style={styles.inputEmail}
-              textStyle={styles.inputText}
-              labelStyle={styles.inputLabel}
-              captionTextStyle={styles.inputCaption}
-              onChangeText={setValueE}
-              accessoryRight={MailIcon}
-              textStyle={styles.placeholder}
-              placeholderTextColor={'#fff'}
+        <View style={{
+          backgroundColor: 'rgba(0, 0, 0, 0.6)', position: 'absolute',
+          width: Dimensions.get('window').width,
+          height: Dimensions.get('window').height + 10,
+          justifyContent: 'center',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }} />
 
-            />
-            <View style={styles.lineStyle} />
-            <Input
-              value={Pvalue}
-              placeholder='Password'
-              style={styles.inputPass}
-              textStyle={styles.inputText}
-              labelStyle={styles.inputLabel}
-              captionTextStyle={styles.inputCaption}
-              onChangeText={setValueP}
-              accessoryRight={LockIcon}
-              secureTextEntry={true}
-              textStyle={styles.placeholder}
-              placeholderTextColor={'#fff'}
-
-            />
-          </Layout>
-          <TouchableOpacity onPress={Home} style={styles.button} ><Text style={styles.buttonText}>Signup</Text></TouchableOpacity>
-        </KeyboardAvoidingView>
-
-      </View>
-      <View style={{
-        width: Dimensions.get('screen').width - 50, height: 50, alignSelf: 'center',
-        margin: 10, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row'
-      }}>
-        <View style={{ borderBottomColor: '#fff', borderBottomWidth: 1, flex: 1 }}></View>
-        <View style={{ flex: 0.5 }}>
+        <View style={{ alignSelf: 'center', marginTop: 30, height: 100, }}>
           <Text style={{
-            fontSize: 15,
+            color: '#fff', fontSize: 40,
             fontFamily: 'Muli',
             alignSelf: 'center',
-            color: '#fff',
-            fontWeight: 'bold',
-            padding: 10
-          }}> OR </Text>
+            fontWeight: 'bold'
+          }}>Create Account</Text>
+          <Text style={{ color: '#fff', fontSize: 15, alignSelf: 'center' }}>
+            lets help you make that dream a reality
+        </Text>
         </View>
-        <View style={{ borderBottomColor: '#fff', borderBottomWidth: 1, flex: 1 }}></View>
-      </View>
-      <View style={{
-        width: Dimensions.get('screen').width - 150, height: 50,
-        alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-evenly'
-      }}>
-        <TouchableOpacity>
-          <View style={{ backgroundColor: '#55ACEE', borderRadius: 30, width: 50, height: 50, flexDirection: 'row', justifyContent: 'center' }}>
-            <Icon style={[{ color: '#fff', alignSelf: 'flex-end', marginLeft: 6 }]} size={35} name={'facebook-f'} />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={{ borderRadius: 30, width: 50, height: 50, backgroundColor: '#F44336', flexDirection: 'row', justifyContent: 'center' }}>
-            <IconA style={[{ color: '#fff', alignSelf: 'center' }]} size={35} name={'googleplus'} />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={{ borderRadius: 30, width: 50, height: 50, backgroundColor: '#55ACEE', flexDirection: 'row', justifyContent: 'center' }}>
-            <Icon style={[{ color: '#fff', alignSelf: 'center' }]} size={35} name={'twitter'} />
-          </View>
-        </TouchableOpacity>
+        <View style={{
+          backgroundColor: 'rgba(255, 255, 255, 0.1)', height: Dimensions.get('screen').height - 390,
+          width: Dimensions.get('screen').width - 50, alignSelf: 'center', borderRadius: 6,
+          borderColor: '#fff', borderWidth: 0.5,
+        }}>
+          <Text style={{
+            color: '#fff', fontSize: 28,
+            fontFamily: 'Muli',
+            alignSelf: 'center',
+            fontWeight: 'bold',
+            margin: 15
+          }}>Signup</Text>
+          <KeyboardAvoidingView style={styles.key} behavior="padding" enabled>
+            <Layout style={styles.form}>
+              <Input
+                value={Evalue}
+                placeholder='Email'
+                style={styles.inputEmail}
+                textStyle={styles.inputText}
+                labelStyle={styles.inputLabel}
+                captionTextStyle={styles.inputCaption}
+                onChangeText={setValueE}
+                accessoryRight={MailIcon}
+                textStyle={styles.placeholder}
+                placeholderTextColor={'#fff'}
 
-      </View>
-      <View style={{ alignSelf: 'center', flexDirection: 'row', margin: 10 }}>
-        <Text style={{
-          fontSize: 15,
-          fontFamily: 'Muli',
-          color: '#fff',
-          marginHorizontal: -3,
-          padding: 5
-        }}>Already have an account?</Text>
-        <TouchableOpacity onPress={Login} style={{ padding: 5 }}>
+              />
+              <View style={styles.lineStyle} />
+              <Input
+                value={Pvalue}
+                placeholder='Password'
+                style={styles.inputPass}
+                textStyle={styles.inputText}
+                labelStyle={styles.inputLabel}
+                captionTextStyle={styles.inputCaption}
+                onChangeText={setValueP}
+                accessoryRight={LockIcon}
+                secureTextEntry={true}
+                textStyle={styles.placeholder}
+                placeholderTextColor={'#fff'}
+
+              />
+            </Layout>
+            <TouchableOpacity onPress={Home} style={styles.button} ><Text style={styles.buttonText}>Signup</Text></TouchableOpacity>
+          </KeyboardAvoidingView>
+
+        </View>
+        <View style={{
+          width: Dimensions.get('screen').width - 50, height: 50, alignSelf: 'center',
+          margin: 10, alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row'
+        }}>
+          <View style={{ borderBottomColor: '#fff', borderBottomWidth: 1, flex: 1 }}></View>
+          <View style={{ flex: 0.5 }}>
+            <Text style={{
+              fontSize: 15,
+              fontFamily: 'Muli',
+              alignSelf: 'center',
+              color: '#fff',
+              fontWeight: 'bold',
+              padding: 10
+            }}> OR </Text>
+          </View>
+          <View style={{ borderBottomColor: '#fff', borderBottomWidth: 1, flex: 1 }}></View>
+        </View>
+        <View style={{
+          width: Dimensions.get('screen').width - 150, height: 50,
+          alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-evenly'
+        }}>
+          <TouchableOpacity>
+            <View style={{ backgroundColor: '#55ACEE', borderRadius: 30, width: 50, height: 50, flexDirection: 'row', justifyContent: 'center' }}>
+              <Icon style={[{ color: '#fff', alignSelf: 'flex-end', marginLeft: 6 }]} size={35} name={'facebook-f'} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={{ borderRadius: 30, width: 50, height: 50, backgroundColor: '#F44336', flexDirection: 'row', justifyContent: 'center' }}>
+              <IconA style={[{ color: '#fff', alignSelf: 'center' }]} size={35} name={'googleplus'} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <View style={{ borderRadius: 30, width: 50, height: 50, backgroundColor: '#55ACEE', flexDirection: 'row', justifyContent: 'center' }}>
+              <Icon style={[{ color: '#fff', alignSelf: 'center' }]} size={35} name={'twitter'} />
+            </View>
+          </TouchableOpacity>
+
+        </View>
+        <View style={{ alignSelf: 'center', flexDirection: 'row', margin: 10 }}>
           <Text style={{
             fontSize: 15,
             fontFamily: 'Muli',
-            color: '#00959E',
-            marginHorizontal: -3
-          }}>Login</Text>
-        </TouchableOpacity>
+            color: '#fff',
+            marginHorizontal: -3,
+            padding: 5
+          }}>Already have an account?</Text>
+          <TouchableOpacity onPress={Login} style={{ padding: 5 }}>
+            <Text style={{
+              fontSize: 15,
+              fontFamily: 'Muli',
+              color: '#00959E',
+              marginHorizontal: -3
+            }}>Login</Text>
+          </TouchableOpacity>
 
-      </View>
-    </ImageBackground>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   )
 };
 
