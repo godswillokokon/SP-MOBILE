@@ -24,7 +24,15 @@ import IconI from 'react-native-vector-icons/Ionicons';
 import IconE from 'react-native-vector-icons/Entypo';
 
 
-export function DrawerContent() {
+
+export const DrawerContent = ({ props }) => {
+  const navigateCategories = () => {
+    requestAnimationFrame(() => {
+      // console.log(props.navigation.navigate)
+      props.navigation.navigate('Categories');
+      // props.navigation.closeDrawer();
+    })
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -81,7 +89,7 @@ export function DrawerContent() {
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+                <TouchableOpacity onPress={navigateCategories} style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconA name='switcher' color='#828282' size={18} style={{}} />

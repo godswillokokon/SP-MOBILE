@@ -19,7 +19,7 @@ export const HamburgerNavigation = createDrawerNavigator(
       return (
         <ScrollView>
           <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-            <DrawerContent />
+            <DrawerContent props={props} />
           </SafeAreaView>
         </ScrollView>
       )
