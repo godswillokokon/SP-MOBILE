@@ -403,10 +403,9 @@ export const HomeScreen = ({ navigation }) => {
     })
   };
   const openDrawer = () => {
-    // console.log(navigation)
-    // requestAnimationFrame(() => {
-    navigation.openDrawer();
-    // })
+    requestAnimationFrame(() => {
+      navigation.openDrawer();
+    })
   };
 
   const Left = () => (
