@@ -24,7 +24,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   const BackIcon = () => (
-    <Icon style={[{ color: '#515C6F', }]} name='arrowleft' size={25} />
+    <Icon style={[{ color: '#00959E', }]} name='arrowleft' size={25} />
   );
 
   const BackAction = () => (
