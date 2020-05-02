@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import {
   Avatar,
   Title,
@@ -27,7 +27,7 @@ import IconE from 'react-native-vector-icons/Entypo';
 export function DrawerContent() {
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
         <View style={{ flex: 1, }}>
           <View style={{ flex: 1, top: -4, }}>
@@ -175,7 +175,7 @@ export function DrawerContent() {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
