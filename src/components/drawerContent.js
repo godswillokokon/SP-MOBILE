@@ -36,6 +36,12 @@ export const DrawerContent = ({ props }) => {
       props.navigation.navigate('Properties');
     })
   };
+  const navigateWallet = () => {
+    requestAnimationFrame(() => {
+      // console.log(props.navigation)
+      props.navigation.navigate('Wallet');
+    })
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -110,7 +116,7 @@ export const DrawerContent = ({ props }) => {
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+                <TouchableOpacity onPress={navigateWallet} style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconS name='wallet' color='#828282' size={18} style={{}} />
