@@ -28,9 +28,12 @@ import IconE from 'react-native-vector-icons/Entypo';
 export const DrawerContent = ({ props }) => {
   const navigateCategories = () => {
     requestAnimationFrame(() => {
-      // console.log(props.navigation.navigate)
       props.navigation.navigate('Categories');
-      // props.navigation.closeDrawer();
+    })
+  };
+  const navigateProperties = () => {
+    requestAnimationFrame(() => {
+      props.navigation.navigate('Properties');
     })
   };
 
@@ -80,7 +83,7 @@ export const DrawerContent = ({ props }) => {
                 height: 200,
                 width: 210
               }}>
-                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+                <TouchableOpacity onPress={navigateProperties} style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconMC name='home-city-outline' color='#828282' size={18} style={{}} />
