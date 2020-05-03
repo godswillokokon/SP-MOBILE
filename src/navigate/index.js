@@ -6,8 +6,8 @@ import { AppScreens } from '../navigate/application'
 
 const Stack = createStackNavigator({
   Auth: AuthScreens,
+  App: AppScreens,
   Draw: HamburgerNavigation,
-  App: AppScreens
 
 },
   {
