@@ -108,8 +108,12 @@ export const WalletScreen = ({ navigation }) => {
   //top nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
-      // navigation.goBack();
-      navigation.navigate('Home');
+      navigation.navigate('Draw');
+    })
+  };
+  const navigateTransactions = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('WalletTransation');
     })
   };
   const Left = () => (
@@ -242,7 +246,7 @@ export const WalletScreen = ({ navigation }) => {
           <Text style={{ color: '#3A3A3A', fontSize: 12 }}>
             Recent Transactions
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={navigateTransactions}>
             <Text style={{ color: '#3A3A3A', fontSize: 12 }}>
               Sell All
           </Text>
@@ -250,7 +254,7 @@ export const WalletScreen = ({ navigation }) => {
         </View>
         <View style={{ width: Dimensions.get('window').width - 20, alignSelf: 'center', backgroundColor: '#828282', height: 0.7 }} />
 
-        <View style={{ width: Dimensions.get('window').width - 20, alignSelf: 'center', }}>
+        <View style={{ width: Dimensions.get('window').width - 20, alignSelf: 'center', flex: 1 }}>
           <FlatList
             data={DATA_Categories}
             renderItem={({ item }) => (
