@@ -407,6 +407,11 @@ export const HomeScreen = ({ navigation }) => {
       navigation.openDrawer();
     })
   };
+  const navigateCategories = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Categories');
+    })
+  };
 
   const Left = () => (
     <IconF style={[{ color: '#00959E', }]} name='bars' size={25} />
@@ -482,7 +487,7 @@ export const HomeScreen = ({ navigation }) => {
             <Text style={{ fontSize: 15, color: '#3A3A3A', marginLeft: 5 }}>Categories</Text>
           </View>
           <View style={{ alignSelf: 'flex-end', width: 100, height: 30 }}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={navigateCategories}>
               <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end', }}>See all ></Text>
             </TouchableOpacity>
 
