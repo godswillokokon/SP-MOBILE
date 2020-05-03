@@ -3,22 +3,19 @@ import {
   StyleSheet,
   View,
   Text,
-  Image,
   Dimensions,
   FlatList,
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
-  ScrollView
 } from 'react-native';
 import {
   TopNavigationAction,
-  Input
 } from '@ui-kitten/components';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Button, Layout, MenuItem, OverflowMenu } from '@ui-kitten/components';
+import { MenuItem, OverflowMenu } from '@ui-kitten/components';
 
 const DATA_Categories = [
   {
@@ -53,6 +50,78 @@ const DATA_Categories = [
   },
   {
     id: '6',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '11',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '22',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '33',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '44',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '55',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '66',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '12',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '12',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '31',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '41',
+    title: 'Rent',
+    subTitle: '200 appartments for rent',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '51',
+    title: 'Sale',
+    subTitle: '200 appartments for sale',
+    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+  },
+  {
+    id: '61',
     title: 'Rent',
     subTitle: '200 appartments for rent',
     imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
@@ -173,7 +242,7 @@ export const CategoriesScreen = ({ navigation }) => {
       <TopNav Title={Title} LeftAction={LeftAction} />
       <View style={{
         flexDirection: 'row', justifyContent: 'space-between',
-        width: Dimensions.get('window').width - 15,
+        width: Dimensions.get('window').width - 20,
         alignSelf: 'center', marginTop: 16
       }}>
         <OverflowMenu
