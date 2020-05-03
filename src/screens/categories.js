@@ -67,7 +67,7 @@ function Categories({ id, title, subTitle, imageUrl, selected, onSelect }) {
         marginVertical: 6,
         marginHorizontal: 6,
         width: 103,
-        height: 123,
+        height: 153,
         borderRadius: 6,
         backgroundColor: 'transparent',
         flex: 1
@@ -101,6 +101,7 @@ export const CategoriesScreen = ({ navigation }) => {
   //top nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
+      navigation.navigate('Draw');
       navigation.goBack();
     })
   };
@@ -183,22 +184,22 @@ export const CategoriesScreen = ({ navigation }) => {
           onSelect={onItemSelectSort}
           backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           onBackdropPress={() => setVisibleSort(false)}>
-          <MenuItem title='Users' />
-          <MenuItem title='Orders' />
-          <MenuItem title='Transactions' />
+          <MenuItem title='Sale' />
+          <MenuItem title='Rent' />
+          <MenuItem title='Sale' />
         </OverflowMenu>
 
         <OverflowMenu
           anchor={renderFilterToggle}
           visible={visibleFilter}
           selectedIndex={selectedIndexFilter}
-          placement='top start'
+          placement='top end'
           onSelect={onItemSelectFilter}
           backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           onBackdropPress={() => setVisibleFilter(false)}>
-          <MenuItem title='Users' />
-          <MenuItem title='Orders' />
-          <MenuItem title='Transactions' />
+          <MenuItem title='Sale' />
+          <MenuItem title='Rent' />
+          <MenuItem title='Sale' />
         </OverflowMenu>
 
       </View>
