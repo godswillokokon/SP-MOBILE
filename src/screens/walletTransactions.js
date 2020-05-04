@@ -105,7 +105,9 @@ export const WalletTransationScreen = ({ navigation }) => {
   //top nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
-      navigation.navigate('Draw');
+      // navigation.navigate('Draw');
+      navigation.goBack();
+
     })
   };
   const Left = () => (
