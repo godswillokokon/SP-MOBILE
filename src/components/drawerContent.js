@@ -38,8 +38,12 @@ export const DrawerContent = ({ props }) => {
   };
   const navigateWallet = () => {
     requestAnimationFrame(() => {
-      // console.log(props.navigation)
       props.navigation.navigate('Wallet');
+    })
+  };
+  const navigateServices = () => {
+    requestAnimationFrame(() => {
+      props.navigation.navigate('Services');
     })
   };
 
@@ -134,11 +138,11 @@ export const DrawerContent = ({ props }) => {
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+                <TouchableOpacity onPress={navigateServices} style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconI name='md-business' color='#828282' size={20} style={{}} />
-                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Servies</Text>
+                    <Text style={{ marginLeft: 10, fontSize: 15, color: '#3A3A3A' }}>Services</Text>
                   </View>
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
