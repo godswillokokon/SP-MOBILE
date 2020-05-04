@@ -171,7 +171,6 @@ export const CategoriesScreen = ({ navigation }) => {
   const navigateBack = () => {
     requestAnimationFrame(() => {
       navigation.navigate('Draw');
-      navigation.goBack();
     })
   };
   const Left = () => (
