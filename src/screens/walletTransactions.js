@@ -174,9 +174,8 @@ export const WalletTransationScreen = ({ navigation }) => {
             onSelect={onItemSelectSort}
             backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
             onBackdropPress={() => setVisibleSort(false)}>
-            <MenuItem title='Sale' />
-            <MenuItem title='Rent' />
-            <MenuItem title='Sale' />
+            <MenuItem title='Lastest' />
+            <MenuItem title='Oldest' />
           </OverflowMenu>
         </View>
         <View style={{ width: Dimensions.get('window').width - 20, alignSelf: 'center', backgroundColor: '#828282', height: 0.7 }} />

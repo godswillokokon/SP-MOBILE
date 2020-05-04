@@ -252,9 +252,9 @@ export const CategoriesScreen = ({ navigation }) => {
           onSelect={onItemSelectSort}
           backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
           onBackdropPress={() => setVisibleSort(false)}>
+          <MenuItem title='Rentals' />
           <MenuItem title='Sale' />
-          <MenuItem title='Rent' />
-          <MenuItem title='Sale' />
+          <MenuItem title='Mortgage' />
         </OverflowMenu>
 
         <OverflowMenu
