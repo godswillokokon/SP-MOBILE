@@ -31,7 +31,7 @@ export const ServiceScreen = ({ navigation }) => {
   };
   const navigateService = (data) => {
     requestAnimationFrame(() => {
-      navigation.navigate('ServiceBook', {
+      navigation.navigate('ServiceBooking', {
         details: data
       });
     })
@@ -62,10 +62,10 @@ export const ServiceScreen = ({ navigation }) => {
           <Text style={{ color: '#3A3A3A', fontSize: 15, marginVertical: 9 }}>{details.title}</Text>
           <Text style={{ color: '#828282', fontSize: 13, lineHeight: 18 }}>{details.info}</Text>
           <View style={{ flexDirection: 'row', width: 200, justifyContent: 'space-between', marginVertical: 19 }}>
-            <Text style={{ color: '#828282', fontSize: 15 }}>Service Rate</Text>
+            <Text style={{ color: '#828282', fontSize: 15 }}>Service Rate :</Text>
             <Text style={{ color: '#3A3A3A', fontSize: 15 }}>{details.rate}/hr</Text>
           </View>
-          <TouchableOpacity onPress={navigateService(details)} style={{ justifyContent: 'center', width: 98, height: 40, backgroundColor: "#0DABA8", borderRadius: 4, alignSelf: 'center' }}>
+          <TouchableOpacity onPress={() => navigateService(details.title)} style={{ justifyContent: 'center', width: 98, height: 40, backgroundColor: "#0DABA8", borderRadius: 4, alignSelf: 'center' }}>
             <Text style={{ color: '#fff', fontSize: 16, alignSelf: 'center', }}>Hire</Text>
           </TouchableOpacity>
         </View>
