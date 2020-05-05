@@ -1,23 +1,64 @@
-import SplashScreen from 'react-native-splash-screen';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   StyleSheet,
   View,
-  Text
+  Text,
+  Dimensions,
+  FlatList,
+  TouchableOpacity,
+  SafeAreaView,
+  Image,
+  ImageBackground
 } from 'react-native';
 import {
-  Avatar, Card,
+  TopNavigationAction,
 } from '@ui-kitten/components';
+import TopNav from '../components/topNav';
+import IconA from 'react-native-vector-icons/AntDesign';
 
-export const SampleScreen = () => {
 
+
+export const SampleScreen = ({ navigation }) => {
+
+  //top nav
+  const navigateBack = () => {
+    requestAnimationFrame(() => {
+      navigation.goBack();
+
+    })
+  };
+  const Left = () => (
+    <IconA style={[{ color: '#00959E', }]} name='arrowleft' size={25} />
+  );
+
+  const LeftAction = () => (
+    <TopNavigationAction icon={Left} onPress={navigateBack} style={[{ padding: 5 }]} />
+  );
+  const Title = () => (
+    <View >
+      <Text style={styles.title}>
+        Sample
+      </Text>
+    </View >
+  );
 
   return (
-    <View>
-      <Text>SampleScreen</Text>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <TopNav Title={Title} LeftAction={LeftAction} />
+      <View style={{ flex: 1, alignSelf: 'center', marginVertical: 24, }}>
+
+      </View>
+    </SafeAreaView >
   )
 
 };
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 18,
+    fontFamily: 'Muli',
+    alignSelf: 'center',
+    color: '#3A3A3A',
+    fontWeight: 'bold',
+  },
+})
