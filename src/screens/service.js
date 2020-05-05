@@ -29,6 +29,13 @@ export const ServiceScreen = ({ navigation }) => {
 
     })
   };
+  const navigateService = (data) => {
+    requestAnimationFrame(() => {
+      navigation.navigate('ServiceBook', {
+        details: data
+      });
+    })
+  };
   const Left = () => (
     <IconA style={[{ color: '#00959E', }]} name='arrowleft' size={25} />
   );
@@ -58,7 +65,7 @@ export const ServiceScreen = ({ navigation }) => {
             <Text style={{ color: '#828282', fontSize: 15 }}>Service Rate</Text>
             <Text style={{ color: '#3A3A3A', fontSize: 15 }}>{details.rate}/hr</Text>
           </View>
-          <TouchableOpacity style={{ justifyContent: 'center', width: 85, height: 30, backgroundColor: "#0DABA8", borderRadius: 4, alignSelf: 'center' }}>
+          <TouchableOpacity onPress={navigateService(details)} style={{ justifyContent: 'center', width: 98, height: 40, backgroundColor: "#0DABA8", borderRadius: 4, alignSelf: 'center' }}>
             <Text style={{ color: '#fff', fontSize: 16, alignSelf: 'center', }}>Hire</Text>
           </TouchableOpacity>
         </View>
