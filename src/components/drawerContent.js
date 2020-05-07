@@ -1,14 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { View, StyleSheet, ImageBackground, Dimensions, TouchableOpacity, ScrollView, SafeAreaView, Text } from 'react-native';
 import {
   Avatar,
-  Title,
-  Caption,
-  Paragraph,
-  Drawer,
-  Text,
-  TouchableRipple,
-  Switch
 } from 'react-native-paper';
 import {
   DrawerContentScrollView,
