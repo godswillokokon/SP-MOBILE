@@ -6,6 +6,7 @@ import { WalletTransationScreen } from '../screens/walletTransactions';
 import { ServicesScreen } from '../screens/services'
 import { ServiceScreen } from '../screens/service';
 import { ServiceBookingScreen } from '../screens/serviceBooking';
+import { PropertyScreen } from '../screens/property';
 
 
 const App = createStackNavigator({
@@ -14,7 +15,8 @@ const App = createStackNavigator({
   WalletTransation: WalletTransationScreen,
   Services: ServicesScreen,
   Service: ServiceScreen,
-  ServiceBooking: ServiceBookingScreen
+  ServiceBooking: ServiceBookingScreen,
+  Property: PropertyScreen
 
 },
   {
