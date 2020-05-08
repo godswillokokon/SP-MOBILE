@@ -282,8 +282,6 @@ const styles = StyleSheet.create({
 
   button: {
     justifyContent: 'center', width: 98, height: 40, backgroundColor: "#0DABA8", borderRadius: 4, alignSelf: 'center',
-    // marginVertical: 10
-
   },
   buttonText: {
     fontSize: 16,
