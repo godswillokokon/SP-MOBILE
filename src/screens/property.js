@@ -32,13 +32,19 @@ export const PropertyScreen = ({ navigation }) => {
   let body = navigation.state.params.details;
   let images = navigation.state.params.details.imageUrls;
 
-  //top nav
+  //top nav requestAnimationFrame(() => {
+
   const navigateBack = () => {
     requestAnimationFrame(() => {
       // navigation.goBack();
       navigation.navigate('Properties');
 
 
+    })
+  };
+  const navigateAgent = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Agent');
     })
   };
   const Left = () => (
@@ -84,21 +90,22 @@ export const PropertyScreen = ({ navigation }) => {
           </ScrollView>
         </View>
         <View style={{ flexDirection: 'row', alignSelf: 'center', marginVertical: -5 }}>
-          <TouchableOpacity style={{
-            width: 50, height: 50, borderRadius: 100,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
+          <TouchableOpacity
+            style={{
+              width: 50, height: 50, borderRadius: 100,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
 
-            elevation: 4,
-            backgroundColor: '#fff',
-            marginHorizontal: 31,
-            justifyContent: 'center'
-          }}>
+              elevation: 4,
+              backgroundColor: '#fff',
+              marginHorizontal: 31,
+              justifyContent: 'center'
+            }}>
             <Image style={{
               width: 100, height: 100,
               transform: [{
@@ -149,16 +156,18 @@ export const PropertyScreen = ({ navigation }) => {
           <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#3A3A3A', width: 80, marginHorizontal: 16, }}>Map View</Text>
           <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#3A3A3A', width: 80, marginHorizontal: 16, }}>Live Video</Text>
         </View>
-        <TouchableOpacity style={{
-          width: Dimensions.get('window').width,
-          borderColor: '#E5E5E5',
-          borderWidth: 1,
-          marginVertical: 18,
-          height: 80,
-          justifyContent: 'space-evenly',
-          flexDirection: 'row',
+        <TouchableOpacity
+          onPress={navigateAgent}
+          style={{
+            width: Dimensions.get('window').width,
+            borderColor: '#E5E5E5',
+            borderWidth: 1,
+            marginVertical: 18,
+            height: 80,
+            justifyContent: 'space-evenly',
+            flexDirection: 'row',
 
-        }}>
+          }}>
 
           <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'center' }}>
             <Avatar.Image
