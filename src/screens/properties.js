@@ -64,26 +64,17 @@ export const PropertiesScreen = ({ navigation }) => {
           name: 'Anna Erim',
           organization: 'Lekki Housing Agent',
           phone: '08177024847',
-          mail: 'anna@gmail.com'
+          mail: 'anna@gmail.com',
+          image: 'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg'
         },
         info: 'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: [{
-          Airconditioning: {
-            number: 4
-          },
-          Pool: {
-            number: 1
-          },
-          Bedrooms: {
-            number: 6
-          },
-          bathrooms: {
-            number: 6
-          },
-          Carparks: {
-            number: 2
-          }
-        }],
+        facility: {
+          Airconditioning: 4,
+          Pool: 1,
+          Bedrooms: 4,
+          Bathrooms: 3,
+          Carparks: 2,
+        },
         overview: {
           yearBuilt: '2005',
           material: 'Brick',
@@ -116,26 +107,17 @@ export const PropertiesScreen = ({ navigation }) => {
           name: 'Anna Erim',
           organization: 'Lekki Housing Agent',
           phone: '08177024847',
-          mail: 'anna@gmail.com'
+          mail: 'anna@gmail.com',
+          image: 'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg'
         },
         info: 'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: [{
-          Airconditioning: {
-            number: 4
-          },
-          Pool: {
-            number: 1
-          },
-          Bedrooms: {
-            number: 6
-          },
-          bathrooms: {
-            number: 6
-          },
-          Carparks: {
-            number: 2
-          }
-        }],
+        facility: {
+          Airconditioning: 4,
+          Pool: 1,
+          Bedrooms: 4,
+          Bathrooms: 3,
+          Carparks: 2,
+        },
         overview: {
           yearBuilt: '2005',
           material: 'Brick',
@@ -167,26 +149,17 @@ export const PropertiesScreen = ({ navigation }) => {
           name: 'Anna Erim',
           organization: 'Lekki Housing Agent',
           phone: '08177024847',
-          mail: 'anna@gmail.com'
+          mail: 'anna@gmail.com',
+          image: 'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg'
         },
         info: 'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: [{
-          Airconditioning: {
-            number: 4
-          },
-          Pool: {
-            number: 1
-          },
-          Bedrooms: {
-            number: 6
-          },
-          bathrooms: {
-            number: 6
-          },
-          Carparks: {
-            number: 2
-          }
-        }],
+        facility: {
+          Airconditioning: 4,
+          Pool: 1,
+          Bedrooms: 4,
+          Bathrooms: 3,
+          Carparks: 2,
+        },
         overview: {
           yearBuilt: '2005',
           material: 'Brick',
@@ -218,26 +191,17 @@ export const PropertiesScreen = ({ navigation }) => {
           name: 'Anna Erim',
           organization: 'Lekki Housing Agent',
           phone: '08177024847',
-          mail: 'anna@gmail.com'
+          mail: 'anna@gmail.com',
+          image: 'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg'
         },
         info: 'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: [{
-          Airconditioning: {
-            number: 4
-          },
-          Pool: {
-            number: 1
-          },
-          Bedrooms: {
-            number: 6
-          },
-          bathrooms: {
-            number: 6
-          },
-          Carparks: {
-            number: 2
-          }
-        }],
+        facility: {
+          Airconditioning: 4,
+          Pool: 1,
+          Bedrooms: 4,
+          Bathrooms: 3,
+          Carparks: 2,
+        },
         overview: {
           yearBuilt: '2005',
           material: 'Brick',
@@ -269,26 +233,17 @@ export const PropertiesScreen = ({ navigation }) => {
           name: 'Anna Erim',
           organization: 'Lekki Housing Agent',
           phone: '08177024847',
-          mail: 'anna@gmail.com'
+          mail: 'anna@gmail.com',
+          image: 'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg'
         },
         info: 'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: [{
-          Airconditioning: {
-            number: 4
-          },
-          Pool: {
-            number: 1
-          },
-          Bedrooms: {
-            number: 6
-          },
-          bathrooms: {
-            number: 6
-          },
-          Carparks: {
-            number: 2
-          }
-        }],
+        facility: {
+          Airconditioning: 4,
+          Pool: 1,
+          Bedrooms: 4,
+          Bathrooms: 3,
+          Carparks: 2,
+        },
         overview: {
           yearBuilt: '2005',
           material: 'Brick',
