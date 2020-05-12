@@ -18,6 +18,7 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-image-picker": "^2.3.1",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-paper": "^3.8.0",
     "react-native-reanimated": "^1.8.0",
@@ -30,7 +31,8 @@
     "react-navigation": "^4.3.7",
     "react-navigation-drawer": "^2.4.12",
     "react-navigation-material-bottom-tabs": "^2.2.10",
-    "react-navigation-stack": "^2.3.11"
+    "react-navigation-stack": "^2.3.11",
+    "toggle-switch-react-native": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
