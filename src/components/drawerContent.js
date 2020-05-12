@@ -40,6 +40,12 @@ export const DrawerContent = ({ props }) => {
     })
   };
 
+  const navigateSettings = () => {
+    requestAnimationFrame(() => {
+      props.navigation.navigate('Settings');
+    })
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
@@ -104,15 +110,7 @@ export const DrawerContent = ({ props }) => {
 
                   <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
                 </TouchableOpacity>
-                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
 
-                  <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
-                    <IconMC name='home-currency-usd' color='#828282' size={22} style={{ right: 3 }} />
-                    <Text style={{ marginLeft: 6, fontSize: 15, color: '#3A3A3A' }}>Sell Property</Text>
-                  </View>
-
-                  <IconF name='angle-right' color='#00959E' size={25} style={{ alignSelf: 'flex-end', flex: 1 }} />
-                </TouchableOpacity>
                 <TouchableOpacity onPress={navigateWallet} style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
@@ -155,7 +153,7 @@ export const DrawerContent = ({ props }) => {
                 height: 150,
                 width: 210
               }}>
-                <TouchableOpacity style={{ flexDirection: 'row', marginVertical: 5 }}>
+                <TouchableOpacity onPress={navigateSettings} style={{ flexDirection: 'row', marginVertical: 5 }}>
 
                   <View style={{ flexDirection: 'row', flex: 17, alignItems: 'center' }}>
                     <IconA name='setting' color='#828282' size={18} style={{}} />
