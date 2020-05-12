@@ -8,6 +8,8 @@ import { ServiceScreen } from '../screens/service';
 import { ServiceBookingScreen } from '../screens/serviceBooking';
 import { PropertyScreen } from '../screens/property';
 import { AgentScreen } from '../screens/agent';
+import { SettingsScreen } from '../screens/settings';
+
 
 
 const App = createStackNavigator({
@@ -18,7 +20,8 @@ const App = createStackNavigator({
   Service: ServiceScreen,
   ServiceBooking: ServiceBookingScreen,
   Property: PropertyScreen,
-  Agent: AgentScreen
+  Agent: AgentScreen,
+  Settings: SettingsScreen
 
 },
   {
