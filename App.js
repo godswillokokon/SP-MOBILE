@@ -5,18 +5,17 @@ import { default as theme } from './custom-theme.json';
 import * as eva from '@eva-design/eva';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import store from './src/redux/config/store'
 
-
-// const theme = { ...appTheme };
 
 const App = () => (
-  <React.Fragment>
-    {/* <ApplicationProvider {...eva} theme={theme, eva.light}> */}
+  <Provider store={store}>
     <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
       <NavigationContainer>
         <AppNavigatorScreens />
       </NavigationContainer>
     </ApplicationProvider>
-  </React.Fragment>
+  </Provider>
 );
 export default App;
