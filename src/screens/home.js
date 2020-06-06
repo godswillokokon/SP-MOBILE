@@ -639,7 +639,6 @@ export const HomeScreen = ({navigation}) => {
           textStyle={styles.inputText}
           onChangeText={setValueS}
           accessoryLeft={SearchIcon}
-          textStyle={styles.placeholder}
           placeholderTextColor={'#BDBDBD'}
         />
         <View style={{height: 255, margin: 5}}>

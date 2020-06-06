@@ -1,15 +1,16 @@
 import * as axios from 'axios';
 import Session from '@utils/Session';
-import SupportHeader from '@utils/SupportHeader';
+import {ToastAndroid} from 'react-native';
 
-export const Login = (email, password, navigation) => async (dispatch) => {
+export const Login = (email, password, navigation, setLoad) => async (
+  dispatch,
+) => {
   try {
     await axios
       .post(
         `https://Spreadprolimited.com/api/user/login?email=${email}&password=${password}`,
       )
       .then((response) => {
-        // console.log(response, 'all');
         const value = `Bearer ${response.data.access_token}`;
         const saveToken = Session.saveToken(value);
         if (saveToken) {
@@ -22,12 +23,26 @@ export const Login = (email, password, navigation) => async (dispatch) => {
           });
         }
       });
+    setLoad(false);
   } catch (error) {
     dispatch({
       type: 'USER_AUTH_ERROR',
       payload: error.message,
     });
-    console.log('ERR', error.message);
+    const showToast = (message) => {
+      ToastAndroid.show(
+        message,
+        ToastAndroid.LONG,
+        ToastAndroid.TOP,
+        // ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
+    };
+    showToast(error.message);
+    setTimeout(() => {
+      setLoad(false);
+    }, 5000);
   }
 };
 

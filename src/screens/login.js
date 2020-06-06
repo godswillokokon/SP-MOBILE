@@ -8,6 +8,8 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   SafeAreaView,
+  TouchableWithoutFeedback,
+  ActivityIndicator,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {Login} from '../redux/actions/userActions';
@@ -17,11 +19,6 @@ import IconA from 'react-native-vector-icons/AntDesign';
 import Session from '@utils/Session';
 
 //icons
-const LockIcon = () => (
-  <View>
-    <Icon style={[{color: '#fff'}]} color={'#fff'} size={18} name={'key'} />
-  </View>
-);
 const MailIcon = () => (
   <View>
     <Icon style={[{color: '#fff'}]} size={18} name={'envelope'} />
@@ -31,20 +28,13 @@ const MailIcon = () => (
 export const LoginScreen = ({navigation}) => {
   useEffect(() => {
     async function fetchToken() {
-      const tokenn = await Session.getData('@token');
-      if (tokenn) {
-        // console.log(tokenn, 'yayy');
-      } else {
-        console.log('empty');
-      }
+      await Session.getData('@token');
     }
-
     fetchToken();
   }, []);
 
   const dispatch = useDispatch();
-  const {token} = useSelector((state) => state.counter);
-
+  const {authError, token} = useSelector((state) => state.user);
   const ForgotPassword = () => {
     requestAnimationFrame(() => {
       navigation.navigate('ForgotPassword');
@@ -56,12 +46,29 @@ export const LoginScreen = ({navigation}) => {
     });
   };
   const loginUser = (email, password) => {
+    setload(true);
     requestAnimationFrame(() => {
-      dispatch(Login(email, password, navigation));
+      dispatch(Login(email, password, navigation, setload));
     });
   };
   const [email, setValueE] = useState('');
-  const [password, setValueP] = useState('');
+  const [password, setPassword] = useState('');
+  const [securePassword, setSecurePassword] = React.useState(true);
+  const [load, setload] = useState(false);
+
+  const toggleSecureEntry = () => {
+    setSecurePassword(!securePassword);
+  };
+  const renderIcon = () => (
+    <TouchableWithoutFeedback onPress={toggleSecureEntry}>
+      <Icon
+        style={[{color: '#fff'}]}
+        color={'#fff'}
+        size={18}
+        name={securePassword ? 'eye-slash' : 'eye'}
+      />
+    </TouchableWithoutFeedback>
+  );
   return (
     <SafeAreaView style={{flex: 1}}>
       <ImageBackground
@@ -139,9 +146,9 @@ export const LoginScreen = ({navigation}) => {
                 textStyle={styles.inputText}
                 labelStyle={styles.inputLabel}
                 captionTextStyle={styles.inputCaption}
-                onChangeText={setValueP}
-                accessoryRight={LockIcon}
-                secureTextEntry={true}
+                accessoryRight={renderIcon}
+                secureTextEntry={securePassword}
+                onChangeText={(nextValue) => setPassword(nextValue)}
                 placeholderTextColor={'#fff'}
               />
             </Layout>
@@ -153,8 +160,10 @@ export const LoginScreen = ({navigation}) => {
               style={styles.button}>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
+            <ActivityIndicator animating={load} size="large" color="red" />
           </KeyboardAvoidingView>
         </View>
+        <Text>{authError}</Text>
         <View
           style={{
             width: Dimensions.get('screen').width - 50,
