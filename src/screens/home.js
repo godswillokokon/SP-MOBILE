@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,56 +10,60 @@ import {
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
-  ScrollView
+  ScrollView,
 } from 'react-native';
-import {
-  TopNavigationAction,
-  Input
-} from '@ui-kitten/components';
+import {TopNavigationAction, Input} from '@ui-kitten/components';
+import {useSelector, useDispatch} from 'react-redux';
+import {GetUserData} from '../redux/actions/userActions';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconF from 'react-native-vector-icons/FontAwesome5';
 import IconE from 'react-native-vector-icons/EvilIcons';
 import IconI from 'react-native-vector-icons/Ionicons';
-import { moderateScale } from 'react-native-size-matters';
+import {moderateScale} from 'react-native-size-matters';
 import TopNav from '../components/topNav';
-
 
 const DATA_Categories = [
   {
     id: '1',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '2',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '3',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '4',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '5',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '6',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
 ];
 const DATA_RealEstates = [
@@ -66,37 +71,43 @@ const DATA_RealEstates = [
     id: '1',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '2',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '3',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '4',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '5',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '6',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
 ];
 const DATA_LatestEstates = [
@@ -104,37 +115,43 @@ const DATA_LatestEstates = [
     id: '1',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '2',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '3',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '4',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '5',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '6',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
 ];
 const DATA_FeaturedProperties = [
@@ -142,43 +159,49 @@ const DATA_FeaturedProperties = [
     id: '1',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
   },
   {
     id: '2',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
   },
   {
     id: '3',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
   },
   {
     id: '4',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
   },
   {
     id: '5',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
   },
   {
     id: '6',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
   },
 ];
 
 //Categories
 
-function Categories({ id, title, subTitle, imageUrl, selected, onSelect }) {
+function Categories({id, title, subTitle, imageUrl, selected, onSelect}) {
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
@@ -187,26 +210,35 @@ function Categories({ id, title, subTitle, imageUrl, selected, onSelect }) {
         marginHorizontal: 6,
         width: 125,
         borderRadius: 6,
-        backgroundColor: 'transparent'
-      }}
-    >
-      <ImageBackground style={{ flex: 1, width: '100%', }}
-        source={{ uri: imageUrl }}
-        imageStyle={{ borderRadius: 6, }}
-      >
-        <View style={{
-          flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column',
-          justifyContent: 'flex-end', borderRadius: 6,
-        }}>
-          <View style={{ margin: 10 }}>
-            <Text style={{
-              fontSize: 14,
-              color: '#fff',
-            }}>{title}</Text>
-            <Text style={{
-              fontSize: 10,
-              color: '#fff',
-            }}>{subTitle}</Text>
+        backgroundColor: 'transparent',
+      }}>
+      <ImageBackground
+        style={{flex: 1, width: '100%'}}
+        source={{uri: imageUrl}}
+        imageStyle={{borderRadius: 6}}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            borderRadius: 6,
+          }}>
+          <View style={{margin: 10}}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: '#fff',
+              }}>
+              {title}
+            </Text>
+            <Text
+              style={{
+                fontSize: 10,
+                color: '#fff',
+              }}>
+              {subTitle}
+            </Text>
           </View>
         </View>
       </ImageBackground>
@@ -215,7 +247,7 @@ function Categories({ id, title, subTitle, imageUrl, selected, onSelect }) {
 }
 
 // RealEstates
-function RealEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
+function RealEstates({id, title, subTitle, imageUrl, selected, onSelect}) {
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
@@ -225,7 +257,7 @@ function RealEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
         width: 170,
         height: 200,
         borderRadius: 6,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: {
           width: 0,
           height: 1,
@@ -234,43 +266,73 @@ function RealEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
         shadowRadius: 1.41,
         elevation: 1,
         padding: 4.5,
-      }}
-    >
-      <ImageBackground style={{ flex: 3, width: '100%', }}
-        source={{ uri: imageUrl }}
-        imageStyle={{ borderRadius: 6, }}
-      >
-        <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column', justifyContent: 'flex-end', borderRadius: 6, }}>
-          <View style={{ margin: 10 }}>
-            <Text style={{
-              fontSize: 14,
-              color: '#fff',
-            }}>{title}</Text>
-            <Text style={{
-              fontSize: 10,
-              color: '#fff',
-            }}>{subTitle}</Text>
+      }}>
+      <ImageBackground
+        style={{flex: 3, width: '100%'}}
+        source={{uri: imageUrl}}
+        imageStyle={{borderRadius: 6}}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            borderRadius: 6,
+          }}>
+          <View style={{margin: 10}}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: '#fff',
+              }}>
+              {title}
+            </Text>
+            <Text
+              style={{
+                fontSize: 10,
+                color: '#fff',
+              }}>
+              {subTitle}
+            </Text>
           </View>
         </View>
       </ImageBackground>
-      <View style={{
-        height: 60, borderBottomLeftRadius: 15, borderBottomRightRadius: 15, justifyContent: 'center',
-        padding: 1,
-      }}>
-        <Text style={{
-          alignSelf: 'center', color: '#3A3A3A', fontSize: 13,
-          fontWeight: 'bold', alignSelf: 'center', lineHeight: 18, width: 155,
-        }}>Ancient Bungalo Ancient</Text>
-        <Text style={{ color: '#828282', fontSize: 10, width: 155, marginLeft: -5 }}>
-          <IconE style={[{ color: '#00959E' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar
+      <View
+        style={{
+          height: 60,
+          borderBottomLeftRadius: 15,
+          borderBottomRightRadius: 15,
+          justifyContent: 'center',
+          padding: 1,
+        }}>
+        <Text
+          style={{
+            alignSelf: 'center',
+            color: '#3A3A3A',
+            fontSize: 13,
+            fontWeight: 'bold',
+            alignSelf: 'center',
+            lineHeight: 18,
+            width: 155,
+          }}>
+          Ancient Bungalo Ancient
         </Text>
-        <View style={{ flexDirection: 'row', margin: 1 }}>
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star-outline'} />
-          <Text style={{ color: '#828282', fontSize: 10 }}>  (234) Reviews</Text>
+        <Text
+          style={{color: '#828282', fontSize: 10, width: 155, marginLeft: -5}}>
+          <IconE style={[{color: '#00959E'}]} size={15} name={'location'} /> 45
+          ntoe asi layout , Calabar
+        </Text>
+        <View style={{flexDirection: 'row', margin: 1}}>
+          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+          <IconI
+            style={[{color: '#00959E'}]}
+            size={15}
+            name={'md-star-outline'}
+          />
+          <Text style={{color: '#828282', fontSize: 10}}> (234) Reviews</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -279,7 +341,14 @@ function RealEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
 
 ///FeaturedProperties
 
-function FeaturedProperties({ id, title, subTitle, imageUrl, selected, onSelect }) {
+function FeaturedProperties({
+  id,
+  title,
+  subTitle,
+  imageUrl,
+  selected,
+  onSelect,
+}) {
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
@@ -289,7 +358,7 @@ function FeaturedProperties({ id, title, subTitle, imageUrl, selected, onSelect 
         width: Dimensions.get('window').width - 40,
         height: 200,
         borderRadius: 6,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: {
           width: 0,
           height: 1,
@@ -298,48 +367,92 @@ function FeaturedProperties({ id, title, subTitle, imageUrl, selected, onSelect 
         shadowRadius: 1.41,
 
         elevation: 1,
-        padding: 4.5
-      }}
-    >
-      <ImageBackground style={{ flex: 3, width: '100%', }}
-        source={{ uri: imageUrl }}
-        imageStyle={{ borderRadius: 6, }}
-      >
-        <View style={{
-          flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column',
-          justifyContent: 'flex-end', borderRadius: 6,
-        }}>
-        </View>
-      </ImageBackground>
-      <View style={{
-        borderBottomLeftRadius: 15, borderBottomRightRadius: 15,
-        padding: 1, flex: 1
+        padding: 4.5,
       }}>
-        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', width: Dimensions.get('window').width - 55, }}>
-          <Text style={{ alignSelf: 'flex-start', color: '#3A3A3A', fontSize: 13, fontWeight: 'bold', }}>Ancient Bungalo Ancient</Text>
-          <Text style={{ alignSelf: 'flex-start', color: '#3A3A3A', fontSize: 13, fontWeight: 'bold', }}>₦360</Text>
-
+      <ImageBackground
+        style={{flex: 3, width: '100%'}}
+        source={{uri: imageUrl}}
+        imageStyle={{borderRadius: 6}}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            borderRadius: 6,
+          }}
+        />
+      </ImageBackground>
+      <View
+        style={{
+          borderBottomLeftRadius: 15,
+          borderBottomRightRadius: 15,
+          padding: 1,
+          flex: 1,
+        }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            flex: 1,
+            justifyContent: 'space-between',
+            width: Dimensions.get('window').width - 55,
+          }}>
+          <Text
+            style={{
+              alignSelf: 'flex-start',
+              color: '#3A3A3A',
+              fontSize: 13,
+              fontWeight: 'bold',
+            }}>
+            Ancient Bungalo Ancient
+          </Text>
+          <Text
+            style={{
+              alignSelf: 'flex-start',
+              color: '#3A3A3A',
+              fontSize: 13,
+              fontWeight: 'bold',
+            }}>
+            ₦360
+          </Text>
         </View>
-        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', width: Dimensions.get('window').width - 55, }}>
-          <Text style={{ color: '#828282', fontSize: 13, width: 175, marginLeft: -5, }}>
-            <IconE style={[{ color: '#00959E' }]} size={15} name={'location'} />45 ntoe asi layout, Calabar</Text>
-          <View style={{ flexDirection: 'row', margin: 1 }}>
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star-outline'} />
-            <Text style={{ color: '#828282', fontSize: 10 }}>(234) Reviews</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            flex: 1,
+            justifyContent: 'space-between',
+            width: Dimensions.get('window').width - 55,
+          }}>
+          <Text
+            style={{
+              color: '#828282',
+              fontSize: 13,
+              width: 175,
+              marginLeft: -5,
+            }}>
+            <IconE style={[{color: '#00959E'}]} size={15} name={'location'} />
+            45 ntoe asi layout, Calabar
+          </Text>
+          <View style={{flexDirection: 'row', margin: 1}}>
+            <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+            <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+            <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+            <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+            <IconI
+              style={[{color: '#00959E'}]}
+              size={15}
+              name={'md-star-outline'}
+            />
+            <Text style={{color: '#828282', fontSize: 10}}>(234) Reviews</Text>
           </View>
         </View>
       </View>
-
     </TouchableOpacity>
   );
 }
 
 //latest estates
-function LatestEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
+function LatestEstates({id, title, subTitle, imageUrl, selected, onSelect}) {
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
@@ -349,7 +462,7 @@ function LatestEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
         width: 170,
         height: 200,
         borderRadius: 6,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: {
           width: 0,
           height: 1,
@@ -358,101 +471,148 @@ function LatestEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
         shadowRadius: 1.41,
         elevation: 1,
         padding: 4.5,
-      }}
-    >
-      <ImageBackground style={{ flex: 3, width: '100%', }}
-        // source={{ uri: imageUrl }}
-        imageStyle={{ borderRadius: 6, }}
-      >
-        <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column', justifyContent: 'flex-end', borderRadius: 6, }}>
-
-        </View>
-      </ImageBackground>
-      <View style={{
-        height: 60, borderBottomLeftRadius: 15, borderBottomRightRadius: 15, justifyContent: 'center',
-        padding: 1,
       }}>
-        <Text style={{
-          alignSelf: 'center', color: '#3A3A3A', fontSize: 13,
-          fontWeight: 'bold', alignSelf: 'center', lineHeight: 18, width: 155,
-        }}>Ancient Bungalo Ancient</Text>
-        <Text style={{ color: '#828282', fontSize: 10, width: 155, marginLeft: -5 }}>
-          <IconE style={[{ color: '#00959E' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar
+      <ImageBackground
+        style={{flex: 3, width: '100%'}}
+        // source={{ uri: imageUrl }}
+        imageStyle={{borderRadius: 6}}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            borderRadius: 6,
+          }}
+        />
+      </ImageBackground>
+      <View
+        style={{
+          height: 60,
+          borderBottomLeftRadius: 15,
+          borderBottomRightRadius: 15,
+          justifyContent: 'center',
+          padding: 1,
+        }}>
+        <Text
+          style={{
+            alignSelf: 'center',
+            color: '#3A3A3A',
+            fontSize: 13,
+            fontWeight: 'bold',
+            alignSelf: 'center',
+            lineHeight: 18,
+            width: 155,
+          }}>
+          Ancient Bungalo Ancient
         </Text>
-        <View style={{ flexDirection: 'row', margin: 1 }}>
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-          <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star-outline'} />
-          <Text style={{ color: '#828282', fontSize: 10 }}>  (234) Reviews</Text>
+        <Text
+          style={{color: '#828282', fontSize: 10, width: 155, marginLeft: -5}}>
+          <IconE style={[{color: '#00959E'}]} size={15} name={'location'} /> 45
+          ntoe asi layout , Calabar
+        </Text>
+        <View style={{flexDirection: 'row', margin: 1}}>
+          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
+          <IconI
+            style={[{color: '#00959E'}]}
+            size={15}
+            name={'md-star-outline'}
+          />
+          <Text style={{color: '#828282', fontSize: 10}}> (234) Reviews</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 }
 
+export const HomeScreen = ({navigation}) => {
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(GetUserData());
+  }, [dispatch]);
 
-
-export const HomeScreen = ({ navigation }) => {
   //top nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
       navigation.goBack();
-    })
+    });
   };
   const openDrawer = () => {
     requestAnimationFrame(() => {
       navigation.openDrawer();
-    })
+    });
   };
   const navigateCategories = () => {
     requestAnimationFrame(() => {
       navigation.navigate('Categories');
-    })
+    });
   };
 
   const Left = () => (
-    <IconF style={[{ color: '#00959E', }]} name='bars' size={25} />
+    <IconF style={[{color: '#00959E'}]} name="bars" size={25} />
   );
 
   const LeftAction = () => (
-    <TopNavigationAction icon={Left} onPress={openDrawer} style={[{ padding: 5 }]} />
+    <TopNavigationAction
+      icon={Left}
+      onPress={openDrawer}
+      style={[{padding: 5}]}
+    />
   );
   const Title = () => (
-    <View >
-      <Image source={require('../assets/logo.png')} style={{
-        width: 200, height: 50,
-        transform: [{
-          scaleX: moderateScale(0.5, 0.1)
-        }, {
-          scaleY: moderateScale(0.5, 0.1)
-        }]
-      }} />
-    </View >
+    <View>
+      <Image
+        source={require('../assets/logo.png')}
+        style={{
+          width: 200,
+          height: 50,
+          transform: [
+            {
+              scaleX: moderateScale(0.5, 0.1),
+            },
+            {
+              scaleY: moderateScale(0.5, 0.1),
+            },
+          ],
+        }}
+      />
+    </View>
   );
   const Right = () => (
-    <View >
-      <Image source={require('../assets/houseLocation.png')} style={{
-        width: 50, height: 50,
-        transform: [{
-          scaleX: moderateScale(0.5, 0.1)
-        }, {
-          scaleY: moderateScale(0.5, 0.1)
-        }]
-      }} />
-    </View >
+    <View>
+      <Image
+        source={require('../assets/houseLocation.png')}
+        style={{
+          width: 50,
+          height: 50,
+          transform: [
+            {
+              scaleX: moderateScale(0.5, 0.1),
+            },
+            {
+              scaleY: moderateScale(0.5, 0.1),
+            },
+          ],
+        }}
+      />
+    </View>
   );
 
   const RightAction = () => (
-    <TopNavigationAction icon={Right} onPress={navigateBack} style={[{ padding: 5 }]} />
+    <TopNavigationAction
+      icon={Right}
+      onPress={navigateBack}
+      style={[{padding: 5}]}
+    />
   );
-
 
   const SearchIcon = () => (
     <View>
-      <IconA style={[{ color: '#00959E' }]} size={18} name={'search1'} />
+      <IconA style={[{color: '#00959E'}]} size={18} name={'search1'} />
     </View>
   );
   //selected
@@ -461,7 +621,7 @@ export const HomeScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(new Map());
 
   const onSelect = useCallback(
-    id => {
+    (id) => {
       const newSelected = new Map(selected);
       newSelected.set(id, !selected.get(id));
       setSelected(newSelected);
@@ -469,12 +629,12 @@ export const HomeScreen = ({ navigation }) => {
     [selected],
   );
   return (
-    <SafeAreaView style={{ backgroundColor: '#fff', flex: 1 }}>
+    <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
       <TopNav Title={Title} LeftAction={LeftAction} RightAction={RightAction} />
       <ScrollView>
         <Input
           value={Svalue}
-          placeholder='Search Locations'
+          placeholder="Search Locations"
           style={styles.inputLocations}
           textStyle={styles.inputText}
           onChangeText={setValueS}
@@ -482,21 +642,31 @@ export const HomeScreen = ({ navigation }) => {
           textStyle={styles.placeholder}
           placeholderTextColor={'#BDBDBD'}
         />
-        <View style={{ height: 255, margin: 5, }}>
-          <View style={{ alignSelf: 'flex-start', width: 100, height: 30, flex: 0.1 }}>
-            <Text style={{ fontSize: 15, color: '#3A3A3A', marginLeft: 5 }}>Categories</Text>
+        <View style={{height: 255, margin: 5}}>
+          <View
+            style={{
+              alignSelf: 'flex-start',
+              width: 100,
+              height: 30,
+              flex: 0.1,
+            }}>
+            <Text style={{fontSize: 15, color: '#3A3A3A', marginLeft: 5}}>
+              Categories
+            </Text>
           </View>
-          <View style={{ alignSelf: 'flex-end', width: 100, height: 30 }}>
+          <View style={{alignSelf: 'flex-end', width: 100, height: 30}}>
             <TouchableOpacity onPress={navigateCategories}>
-              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end', }}>See all ></Text>
+              <Text
+                style={{fontSize: 13, color: '#00959E', alignSelf: 'flex-end'}}>
+                See all >
+              </Text>
             </TouchableOpacity>
-
           </View>
-          <View style={{ flex: 1, }}>
+          <View style={{flex: 1}}>
             <FlatList
               data={DATA_Categories}
               horizontal
-              renderItem={({ item }) => (
+              renderItem={({item}) => (
                 <Categories
                   id={item.id}
                   title={item.title}
@@ -506,27 +676,38 @@ export const HomeScreen = ({ navigation }) => {
                   onSelect={onSelect}
                 />
               )}
-              keyExtractor={item => item.id}
+              keyExtractor={(item) => item.id}
               extraData={selected}
             />
           </View>
         </View>
 
-        <View style={{ height: 255, margin: 5, }}>
-          <View style={{ alignSelf: 'flex-start', width: 200, height: 30, flex: 0.1 }}>
-            <Text style={{ fontSize: 15, color: '#3A3A3A', marginLeft: 5 }}>Featured Estates</Text>
+        <View style={{height: 255, margin: 5}}>
+          <View
+            style={{
+              alignSelf: 'flex-start',
+              width: 200,
+              height: 30,
+              flex: 0.1,
+            }}>
+            <Text style={{fontSize: 15, color: '#3A3A3A', marginLeft: 5}}>
+              Featured Estates
+            </Text>
           </View>
-          <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1 }}>
+          <View
+            style={{alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1}}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end' }}>See all ></Text>
+              <Text
+                style={{fontSize: 13, color: '#00959E', alignSelf: 'flex-end'}}>
+                See all >
+              </Text>
             </TouchableOpacity>
-
           </View>
-          <View style={{ flex: 1, }}>
+          <View style={{flex: 1}}>
             <FlatList
               data={DATA_RealEstates}
               horizontal
-              renderItem={({ item }) => (
+              renderItem={({item}) => (
                 <RealEstates
                   id={item.id}
                   title={item.title}
@@ -536,27 +717,37 @@ export const HomeScreen = ({ navigation }) => {
                   onSelect={onSelect}
                 />
               )}
-              keyExtractor={item => item.id}
+              keyExtractor={(item) => item.id}
               extraData={selected}
             />
           </View>
-
         </View>
-        <View style={{ height: 255, margin: 5, }}>
-          <View style={{ alignSelf: 'flex-start', width: 200, height: 30, flex: 0.1 }}>
-            <Text style={{ fontSize: 15, color: '#3A3A3A', marginLeft: 5 }}>Featured Properties</Text>
+        <View style={{height: 255, margin: 5}}>
+          <View
+            style={{
+              alignSelf: 'flex-start',
+              width: 200,
+              height: 30,
+              flex: 0.1,
+            }}>
+            <Text style={{fontSize: 15, color: '#3A3A3A', marginLeft: 5}}>
+              Featured Properties
+            </Text>
           </View>
-          <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1, }}>
+          <View
+            style={{alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1}}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end', }}>See all ></Text>
+              <Text
+                style={{fontSize: 13, color: '#00959E', alignSelf: 'flex-end'}}>
+                See all >
+              </Text>
             </TouchableOpacity>
-
           </View>
-          <View style={{ flex: 1, }}>
+          <View style={{flex: 1}}>
             <FlatList
               data={DATA_FeaturedProperties}
               horizontal
-              renderItem={({ item }) => (
+              renderItem={({item}) => (
                 <FeaturedProperties
                   id={item.id}
                   title={item.title}
@@ -566,27 +757,37 @@ export const HomeScreen = ({ navigation }) => {
                   onSelect={onSelect}
                 />
               )}
-              keyExtractor={item => item.id}
+              keyExtractor={(item) => item.id}
               extraData={selected}
             />
           </View>
-
         </View>
-        <View style={{ height: 255, margin: 5, }}>
-          <View style={{ alignSelf: 'flex-start', width: 200, height: 30, flex: 0.1 }}>
-            <Text style={{ fontSize: 15, color: '#3A3A3A', marginLeft: 5 }}>Latest Real Estates</Text>
+        <View style={{height: 255, margin: 5}}>
+          <View
+            style={{
+              alignSelf: 'flex-start',
+              width: 200,
+              height: 30,
+              flex: 0.1,
+            }}>
+            <Text style={{fontSize: 15, color: '#3A3A3A', marginLeft: 5}}>
+              Latest Real Estates
+            </Text>
           </View>
-          <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1 }}>
+          <View
+            style={{alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1}}>
             <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end' }}>See all ></Text>
+              <Text
+                style={{fontSize: 13, color: '#00959E', alignSelf: 'flex-end'}}>
+                See all >
+              </Text>
             </TouchableOpacity>
-
           </View>
-          <View style={{ flex: 1, }}>
+          <View style={{flex: 1}}>
             <FlatList
               data={DATA_LatestEstates}
               horizontal
-              renderItem={({ item }) => (
+              renderItem={({item}) => (
                 <LatestEstates
                   id={item.id}
                   title={item.title}
@@ -596,27 +797,26 @@ export const HomeScreen = ({ navigation }) => {
                   onSelect={onSelect}
                 />
               )}
-              keyExtractor={item => item.id}
+              keyExtractor={(item) => item.id}
               extraData={selected}
             />
           </View>
-
         </View>
       </ScrollView>
     </SafeAreaView>
-
-  )
+  );
 };
 
 const styles = StyleSheet.create({
   inputLocations: {
     borderColor: '#f6f6f6',
-    width: Dimensions.get('window').width - 50, alignSelf: 'center',
-    margin: 10, textShadowColor: '0px 0px 2px rgba(0, 0, 0, 0.12)',
-    borderRadius: 10
-
+    width: Dimensions.get('window').width - 50,
+    alignSelf: 'center',
+    margin: 10,
+    textShadowColor: '0px 0px 2px rgba(0, 0, 0, 0.12)',
+    borderRadius: 10,
   },
-  inputText: { color: '#3A3A3A' },
+  inputText: {color: '#3A3A3A'},
   placeholder: {
     fontSize: 12,
     fontFamily: 'Muli',
@@ -630,4 +830,4 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
   },
-})
+});
