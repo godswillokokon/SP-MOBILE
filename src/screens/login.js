@@ -21,7 +21,7 @@ import Session from '@utils/Session';
 //icons
 const MailIcon = () => (
   <View>
-    <Icon style={[{color: '#fff'}]} size={18} name={'envelope'} />
+    <Icon style={[{color: '#8f9bb3'}]} size={18} name={'envelope'} />
   </View>
 );
 
@@ -34,7 +34,7 @@ export const LoginScreen = ({navigation}) => {
   }, []);
 
   const dispatch = useDispatch();
-  const {authError, token} = useSelector((state) => state.user);
+  // const { authError, token } = useSelector((state) => state.user);
   const ForgotPassword = () => {
     requestAnimationFrame(() => {
       navigation.navigate('ForgotPassword');
@@ -45,25 +45,28 @@ export const LoginScreen = ({navigation}) => {
       navigation.navigate('Signup');
     });
   };
-  const loginUser = (email, password) => {
+  const loginUser = (data) => {
     setload(true);
     requestAnimationFrame(() => {
-      dispatch(Login(email, password, navigation, setload));
+      dispatch(Login(data, navigation, setload));
     });
   };
   const [email, setValueE] = useState('');
   const [password, setPassword] = useState('');
   const [securePassword, setSecurePassword] = React.useState(true);
   const [load, setload] = useState(false);
-
+  const data = {
+    email,
+    password,
+  };
   const toggleSecureEntry = () => {
     setSecurePassword(!securePassword);
   };
   const renderIcon = () => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
       <Icon
-        style={[{color: '#fff'}]}
-        color={'#fff'}
+        style={[{color: '#8f9bb3'}]}
+        color={'#8f9bb3'}
         size={18}
         name={securePassword ? 'eye-slash' : 'eye'}
       />
@@ -156,7 +159,7 @@ export const LoginScreen = ({navigation}) => {
               <Text style={styles.forgot}>Forgot password?</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => loginUser(email, password)}
+              onPress={() => loginUser(data)}
               style={styles.button}>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>

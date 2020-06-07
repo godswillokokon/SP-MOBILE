@@ -25,6 +25,8 @@ export const user = (state = initialState, action) => {
       return {
         ...state,
         createResponse: action.payload,
+        user: action.payload.user,
+        token: action.payload.token,
       };
     default:
       return {...state};

@@ -10,24 +10,39 @@ import {
   TouchableOpacity,
   ScrollView,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from 'react-native';
-import {Layout, Text, Input, Datepicker} from '@ui-kitten/components';
+import {useSelector, useDispatch} from 'react-redux';
+import {CreateUser} from '../redux/actions/userActions';
+import {
+  Layout,
+  Text,
+  Input,
+  Datepicker,
+  NativeDateService,
+} from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconA from 'react-native-vector-icons/AntDesign';
 //icons
 const PhoneIcon = () => (
   <View>
-    <Icon style={[{color: '#fff'}]} color={'#fff'} size={18} name={'phone'} />
+    <Icon color={'#8f9bb3'} size={18} name={'phone'} />
   </View>
 );
 const MailIcon = () => (
   <View>
-    <Icon style={[{color: '#fff'}]} size={18} name={'envelope'} />
+    <Icon color={'#8f9bb3'} size={18} name={'envelope'} />
   </View>
 );
 const NameIcon = () => (
   <View>
-    <Icon style={[{color: '#fff'}]} size={18} name={'user-edit'} />
+    <Icon color={'#8f9bb3'} size={18} name={'user-edit'} />
+  </View>
+);
+
+const CalendarIcon = () => (
+  <View>
+    <Icon color={'#8f9bb3'} size={18} name={'calendar'} />
   </View>
 );
 
@@ -37,19 +52,42 @@ export const SignupScreen = ({navigation}) => {
       navigation.navigate('Login');
     });
   };
-  const OnSignup = () => {
+  const dispatch = useDispatch();
+  const registerUser = (data) => {
+    setload(true);
+    setDob(fullDate);
     requestAnimationFrame(() => {
-      navigation.navigate('Home');
+      dispatch(CreateUser(data, navigation, setload));
     });
   };
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [c_password, setc_Password] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [password_confirmation, setPassword_confirmation] = useState('');
+  const [birthday, setBirthday] = useState(new Date());
+  const [dob, setDob] = useState('');
   const [securePassword, setSecurePassword] = React.useState(true);
   const [securePasswordC, setSecurePasswordC] = React.useState(true);
+  const [load, setload] = useState(false);
+  const formatDateService = new NativeDateService('en', {format: 'DD.MM.YYYY'});
+  const minDate = new Date(1900);
+  const data = {
+    email,
+    name,
+    password,
+    password_confirmation,
+    dob,
+    phone,
+  };
+  let curr_date = birthday.getDate();
+  let curr_month = birthday.getMonth() + 1;
+  let month = curr_month;
+  if (curr_month <= 9) {
+    month = `0${curr_month}`;
+  }
+  let curr_year = birthday.getFullYear();
+  let fullDate = `${curr_date}-${month}-${curr_year}`;
 
   const toggleSecureEntry = () => {
     setSecurePassword(!securePassword);
@@ -61,8 +99,8 @@ export const SignupScreen = ({navigation}) => {
   const renderIcon = () => (
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
       <Icon
-        style={[{color: '#fff'}]}
-        color={'#fff'}
+        style={[{color: '#8f9bb3'}]}
+        color={'#8f9bb3'}
         size={18}
         name={securePassword ? 'eye-slash' : 'eye'}
       />
@@ -71,8 +109,8 @@ export const SignupScreen = ({navigation}) => {
   const renderIconC = () => (
     <TouchableWithoutFeedback onPress={toggleSecureEntryC}>
       <Icon
-        style={[{color: '#fff'}]}
-        color={'#fff'}
+        style={[{color: '#8f9bb3'}]}
+        color={'#8f9bb3'}
         size={18}
         name={securePasswordC ? 'eye-slash' : 'eye'}
       />
@@ -165,16 +203,19 @@ export const SignupScreen = ({navigation}) => {
                   placeholderTextColor={'#fff'}
                 />
                 <Text style={styles.placeholder}>
-                  Date of Birth: {date.toLocaleDateString()}
+                  Date of Birth: {birthday.toLocaleDateString()}
                 </Text>
                 <Datepicker
-                  date={date}
-                  onSelect={(nextDate) => setDate(nextDate)}
-                  autoDismiss={true}
+                  date={birthday}
+                  onSelect={(nextDate) => setBirthday(nextDate)}
+                  autoDismiss
                   placement="top"
                   twitter
                   backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
                   style={styles.input}
+                  accessoryRight={CalendarIcon}
+                  dateService={formatDateService}
+                  min={minDate}
                 />
                 <Input
                   value={password}
@@ -188,20 +229,29 @@ export const SignupScreen = ({navigation}) => {
                   placeholderTextColor={'#fff'}
                 />
                 <Input
-                  value={c_password}
+                  value={password_confirmation}
                   placeholder="Confrim Password"
                   style={styles.inputPass}
                   textStyle={styles.inputText}
                   caption="Should contain at least 6 charaters"
                   accessoryRight={renderIconC}
                   secureTextEntry={securePasswordC}
-                  onChangeText={(nextValue) => setc_Password(nextValue)}
+                  onChangeText={(nextValue) =>
+                    setPassword_confirmation(nextValue)
+                  }
                   placeholderTextColor={'#fff'}
                 />
               </Layout>
-              <TouchableOpacity onPress={OnSignup} style={styles.button}>
+              <TouchableOpacity
+                onPress={() => registerUser(data)}
+                style={styles.button}>
                 <Text style={styles.buttonText}>Signup</Text>
               </TouchableOpacity>
+              <ActivityIndicator
+                animating={load}
+                size="large"
+                color="#00959E"
+              />
             </KeyboardAvoidingView>
           </View>
           <View

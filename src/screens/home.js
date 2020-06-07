@@ -21,6 +21,7 @@ import IconE from 'react-native-vector-icons/EvilIcons';
 import IconI from 'react-native-vector-icons/Ionicons';
 import {moderateScale} from 'react-native-size-matters';
 import TopNav from '../components/topNav';
+import {NavigationActions, StackActions} from 'react-navigation';
 
 const DATA_Categories = [
   {
@@ -530,6 +531,12 @@ function LatestEstates({id, title, subTitle, imageUrl, selected, onSelect}) {
 
 export const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
+  // const resetAction = StackActions.reset({
+  //   index: 0,
+  //   actions: [NavigationActions.navigate({routeName: 'Draw'})],
+  // });
+
+  // navigation.dispatch(resetAction);
 
   useEffect(() => {
     dispatch(GetUserData());
