@@ -2,6 +2,16 @@ import * as axios from 'axios';
 import Session from '@utils/Session';
 import {ToastAndroid} from 'react-native';
 
+const showToast = (message) => {
+  ToastAndroid.show(
+    message,
+    ToastAndroid.LONG,
+    ToastAndroid.TOP,
+    // ToastAndroid.BOTTOM,
+    25,
+    50,
+  );
+};
 export const Login = (email, password, navigation, setLoad) => async (
   dispatch,
 ) => {
@@ -29,16 +39,6 @@ export const Login = (email, password, navigation, setLoad) => async (
       type: 'USER_AUTH_ERROR',
       payload: error.message,
     });
-    const showToast = (message) => {
-      ToastAndroid.show(
-        message,
-        ToastAndroid.LONG,
-        ToastAndroid.TOP,
-        // ToastAndroid.BOTTOM,
-        25,
-        50,
-      );
-    };
     showToast(error.message);
     setTimeout(() => {
       setLoad(false);
@@ -64,8 +64,8 @@ export const GetUserData = () => async (dispatch) => {
           },
         });
       });
-  } catch (e) {
-    console.log('no user found');
+  } catch (error) {
+    showToast(error.message);
     // toast.error("Error Notification !");
     Session.logout();
     return 401;
