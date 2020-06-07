@@ -160,10 +160,9 @@ export const LoginScreen = ({navigation}) => {
               style={styles.button}>
               <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
-            <ActivityIndicator animating={load} size="large" color="red" />
+            <ActivityIndicator animating={load} size="large" color="#00959E" />
           </KeyboardAvoidingView>
         </View>
-        <Text>{authError}</Text>
         <View
           style={{
             width: Dimensions.get('screen').width - 50,
@@ -216,14 +215,14 @@ export const LoginScreen = ({navigation}) => {
               style={{
                 backgroundColor: '#55ACEE',
                 borderRadius: 30,
-                width: 50,
-                height: 50,
+                width: 45,
+                height: 45,
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}>
               <Icon
                 style={[{color: '#fff', alignSelf: 'flex-end', marginLeft: 6}]}
-                size={35}
+                size={30}
                 name={'facebook-f'}
               />
             </View>
@@ -232,15 +231,15 @@ export const LoginScreen = ({navigation}) => {
             <View
               style={{
                 borderRadius: 30,
-                width: 50,
-                height: 50,
+                width: 45,
+                height: 45,
                 backgroundColor: '#F44336',
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}>
               <IconA
                 style={[{color: '#fff', alignSelf: 'center'}]}
-                size={35}
+                size={30}
                 name={'googleplus'}
               />
             </View>
@@ -249,15 +248,15 @@ export const LoginScreen = ({navigation}) => {
             <View
               style={{
                 borderRadius: 30,
-                width: 50,
-                height: 50,
+                width: 45,
+                height: 45,
                 backgroundColor: '#55ACEE',
                 flexDirection: 'row',
                 justifyContent: 'center',
               }}>
               <Icon
                 style={[{color: '#fff', alignSelf: 'center'}]}
-                size={35}
+                size={30}
                 name={'twitter'}
               />
             </View>

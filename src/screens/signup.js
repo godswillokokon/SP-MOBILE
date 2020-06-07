@@ -11,7 +11,6 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {connect} from 'react-redux';
 import {Layout, Text, Input, Datepicker} from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import IconA from 'react-native-vector-icons/AntDesign';
@@ -172,7 +171,8 @@ export const SignupScreen = ({navigation}) => {
                   date={date}
                   onSelect={(nextDate) => setDate(nextDate)}
                   autoDismiss={true}
-                  placement="top" twitter
+                  placement="top"
+                  twitter
                   backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
                   style={styles.input}
                 />
