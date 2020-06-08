@@ -28,13 +28,16 @@ const MailIcon = () => (
 export const LoginScreen = ({navigation}) => {
   useEffect(() => {
     async function fetchToken() {
-      await Session.getData('@token');
+      const tk = await Session.getData('@token');
+      console.log(tk, 'loginTK')
     }
     fetchToken();
   }, []);
 
   const dispatch = useDispatch();
-  // const { authError, token } = useSelector((state) => state.user);
+  const { user, token } = useSelector((state) => state.user);
+  console.log(token)
+  console.log(user)
   const ForgotPassword = () => {
     requestAnimationFrame(() => {
       navigation.navigate('ForgotPassword');

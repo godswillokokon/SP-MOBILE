@@ -32,6 +32,7 @@ export const user = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload,
+        user: action.payload,
       };
     default:
       return {...state};

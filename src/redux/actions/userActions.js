@@ -56,7 +56,7 @@ export const Login = (data, navigation, setLoad) => async (dispatch) => {
         const value = `Bearer ${response.data.access_token}`;
         const saveToken = Session.saveToken(value);
         if (saveToken) {
-          navigation.replace('Home');
+          navigation.navigate('Home');
           dispatch({
             type: 'USER_LOGIN_SUCCESS',
             payload: {
@@ -105,10 +105,13 @@ export const GetUserData = () => async (dispatch) => {
 };
 
 export const Logout = (props) => (dispatch) => {
+  Session.saveToken(null);
   dispatch({
     type: 'USER_LOGOUT_SUCCES',
-    token: null,
+    payload: {
+      token: null,
+      user: {},
+    },
   });
   props.navigation.navigate('Login');
-  console.log('outt');
 };
