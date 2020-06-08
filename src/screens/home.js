@@ -155,7 +155,7 @@ const DATA_LatestEstates = [
       'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
 ];
-const DATA_FeaturedProperties = [
+const DATA_LatestLands = [
   {
     id: '1',
     title: 'Rent',
@@ -301,7 +301,7 @@ function RealEstates({id, title, subTitle, imageUrl, selected, onSelect}) {
       <View
         style={{
           height: 60,
-          borderBottomLeftRadius: 15,
+          borderBottomLeftRadius: 17,
           borderBottomRightRadius: 15,
           justifyContent: 'center',
           padding: 1,
@@ -340,9 +340,9 @@ function RealEstates({id, title, subTitle, imageUrl, selected, onSelect}) {
   );
 }
 
-///FeaturedProperties
+///LatestLands
 
-function FeaturedProperties({
+function LatestLands({
   id,
   title,
   subTitle,
@@ -637,17 +637,8 @@ export const HomeScreen = ({navigation}) => {
   );
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
-      <TopNav Title={Title} LeftAction={LeftAction} RightAction={RightAction} />
+      <TopNav Title={Title} LeftAction={LeftAction} />
       <ScrollView>
-        <Input
-          value={Svalue}
-          placeholder="Search Locations"
-          style={styles.inputLocations}
-          textStyle={styles.inputText}
-          onChangeText={setValueS}
-          accessoryLeft={SearchIcon}
-          placeholderTextColor={'#BDBDBD'}
-        />
         <View style={{height: 255, margin: 5}}>
           <View
             style={{
@@ -656,7 +647,7 @@ export const HomeScreen = ({navigation}) => {
               height: 30,
               flex: 0.1,
             }}>
-            <Text style={{fontSize: 15, color: '#3A3A3A', marginLeft: 5}}>
+            <Text style={{fontSize: 17, color: '#3A3A3A', marginLeft: 5}}>
               Categories
             </Text>
           </View>
@@ -687,7 +678,6 @@ export const HomeScreen = ({navigation}) => {
             />
           </View>
         </View>
-
         <View style={{height: 255, margin: 5}}>
           <View
             style={{
@@ -696,8 +686,48 @@ export const HomeScreen = ({navigation}) => {
               height: 30,
               flex: 0.1,
             }}>
-            <Text style={{fontSize: 15, color: '#3A3A3A', marginLeft: 5}}>
-              Featured Estates
+            <Text style={{fontSize: 17, color: '#3A3A3A', marginLeft: 5}}>
+              Featured Properties
+            </Text>
+          </View>
+          <View
+            style={{alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1}}>
+            <TouchableOpacity>
+              <Text
+                style={{fontSize: 13, color: '#00959E', alignSelf: 'flex-end'}}>
+                See all >
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{flex: 1}}>
+            <FlatList
+              data={DATA_LatestLands}
+              horizontal
+              renderItem={({item}) => (
+                <LatestLands
+                  id={item.id}
+                  title={item.title}
+                  subTitle={item.subTitle}
+                  imageUrl={item.imageUrl}
+                  selected={!!selected.get(item.id)}
+                  onSelect={onSelect}
+                />
+              )}
+              keyExtractor={(item) => item.id}
+              extraData={selected}
+            />
+          </View>
+        </View>
+        <View style={{height: 255, margin: 5}}>
+          <View
+            style={{
+              alignSelf: 'flex-start',
+              width: 200,
+              height: 30,
+              flex: 0.1,
+            }}>
+            <Text style={{fontSize: 17, color: '#3A3A3A', marginLeft: 5}}>
+              Latest Lands
             </Text>
           </View>
           <View
@@ -736,47 +766,7 @@ export const HomeScreen = ({navigation}) => {
               height: 30,
               flex: 0.1,
             }}>
-            <Text style={{fontSize: 15, color: '#3A3A3A', marginLeft: 5}}>
-              Featured Properties
-            </Text>
-          </View>
-          <View
-            style={{alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1}}>
-            <TouchableOpacity>
-              <Text
-                style={{fontSize: 13, color: '#00959E', alignSelf: 'flex-end'}}>
-                See all >
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={{flex: 1}}>
-            <FlatList
-              data={DATA_FeaturedProperties}
-              horizontal
-              renderItem={({item}) => (
-                <FeaturedProperties
-                  id={item.id}
-                  title={item.title}
-                  subTitle={item.subTitle}
-                  imageUrl={item.imageUrl}
-                  selected={!!selected.get(item.id)}
-                  onSelect={onSelect}
-                />
-              )}
-              keyExtractor={(item) => item.id}
-              extraData={selected}
-            />
-          </View>
-        </View>
-        <View style={{height: 255, margin: 5}}>
-          <View
-            style={{
-              alignSelf: 'flex-start',
-              width: 200,
-              height: 30,
-              flex: 0.1,
-            }}>
-            <Text style={{fontSize: 15, color: '#3A3A3A', marginLeft: 5}}>
+            <Text style={{fontSize: 17, color: '#3A3A3A', marginLeft: 5}}>
               Latest Real Estates
             </Text>
           </View>

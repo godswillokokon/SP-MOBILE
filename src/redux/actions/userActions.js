@@ -20,7 +20,7 @@ export const CreateUser = (data, navigation, setLoad) => async (dispatch) => {
         const value = `Bearer ${response.data.token}`;
         const saveToken = Session.saveToken(value);
         if (saveToken) {
-          navigation.navigate('Home');
+          navigation.replace('Home');
           dispatch({
             type: 'USER_CREATE_ACCOUNT_SUCCESS',
             payload: {
@@ -38,7 +38,7 @@ export const CreateUser = (data, navigation, setLoad) => async (dispatch) => {
       payload: error.message,
     });
     showToast(error.message);
-    console.log(error)
+    console.log(error);
     setTimeout(() => {
       setLoad(false);
     }, 5000);
@@ -56,7 +56,7 @@ export const Login = (data, navigation, setLoad) => async (dispatch) => {
         const value = `Bearer ${response.data.access_token}`;
         const saveToken = Session.saveToken(value);
         if (saveToken) {
-          navigation.navigate('Home');
+          navigation.replace('Home');
           dispatch({
             type: 'USER_LOGIN_SUCCESS',
             payload: {
@@ -102,4 +102,13 @@ export const GetUserData = () => async (dispatch) => {
     Session.logout();
     return 401;
   }
+};
+
+export const Logout = (props) => (dispatch) => {
+  dispatch({
+    type: 'USER_LOGOUT_SUCCES',
+    token: null,
+  });
+  props.navigation.navigate('Login');
+  console.log('outt');
 };

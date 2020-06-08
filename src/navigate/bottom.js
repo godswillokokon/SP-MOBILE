@@ -5,12 +5,12 @@ import IconF from 'react-native-vector-icons/Feather';
 import IconO from 'react-native-vector-icons/Octicons';
 import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconA from 'react-native-vector-icons/AntDesign';
-import IconI from 'react-native-vector-icons/Ionicons';
+import IconS from 'react-native-vector-icons/SimpleLineIcons';
 //screens
 import {AccountScreen} from '../screens/account';
 import {HomeScreen} from '../screens/home';
 import {PropertiesScreen} from '../screens/properties';
-import {NotificationScreen} from '../screens/notification';
+import {WalletScreen} from '../screens/wallet';
 import {SearchScreen} from '../screens/search';
 
 export const Bottom = createMaterialBottomTabNavigator(
@@ -52,17 +52,13 @@ export const Bottom = createMaterialBottomTabNavigator(
         ),
       },
     },
-    Notification: {
-      screen: NotificationScreen,
+    Wallet: {
+      screen: WalletScreen,
       navigationOptions: {
-        tabBarAccessibilityLabel: 'Notification',
+        tabBarAccessibilityLabel: 'Wallet',
         tabBarIcon: ({tintColor}) => (
           <View>
-            <IconI
-              style={[{color: tintColor}]}
-              size={20}
-              name={'ios-notifications-outline'}
-            />
+            <IconS style={[{color: tintColor}]} size={20} name={'wallet'} />
           </View>
         ),
       },

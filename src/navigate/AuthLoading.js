@@ -7,7 +7,7 @@ export const AuthLoadingScreen = ({navigation}) => {
     async function fetchToken() {
       // Fetch the token from storage then navigate to our appropriate place
       const userToken = await Session.getData('@token');
-      navigation.navigate(userToken ? 'Draw' : 'Auth');
+      navigation.replace(userToken ? 'Apps' : 'AuthScreens');
       // This will switch to the App screen or Auth screen and this loading
       // screen will be unmounted and thrown away.
       console.log(userToken, 'authhhh');

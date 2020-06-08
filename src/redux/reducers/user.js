@@ -28,6 +28,11 @@ export const user = (state = initialState, action) => {
         user: action.payload.user,
         token: action.payload.token,
       };
+    case 'USER_LOGOUT_SUCCESS':
+      return {
+        ...state,
+        token: action.payload,
+      };
     default:
       return {...state};
   }
