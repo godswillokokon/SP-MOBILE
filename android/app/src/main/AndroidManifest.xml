@@ -21,7 +21,7 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
-        <!-- Add this SplashActivity -->
+       <!-- Add this SplashActivity -->
         <activity
           android:name=".SplashActivity"
           android:theme="@style/SplashTheme"

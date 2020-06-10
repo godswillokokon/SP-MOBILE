@@ -1,7 +1,6 @@
 package com.spreadpro;
-
-import com.facebook.react.ReactActivity;
 import org.devio.rn.splashscreen.SplashScreen;
+import com.facebook.react.ReactActivity;
 import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {

@@ -28,6 +28,9 @@ build/
 .gradle
 local.properties
 *.iml
+java_pid4120.hprof
+*/andriod/app/build/outputs
+*.apk
 
 # node.js
 #

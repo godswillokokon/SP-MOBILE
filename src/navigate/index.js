@@ -1,17 +1,19 @@
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
-import { HamburgerNavigation } from '../navigate/drawer';
-import { AuthScreens } from '../navigate/auth';
-import { AppScreens } from '../navigate/application'
+import {createStackNavigator} from 'react-navigation-stack';
+import {createAppContainer} from 'react-navigation';
+import {AuthScreens} from '../navigate/auth';
+import {AuthLoadingScreen} from './AuthLoading';
+import {Apps} from './allApps';
 
-const Stack = createStackNavigator({
-  Auth: AuthScreens,
-  App: AppScreens,
-  Draw: HamburgerNavigation,
-
-},
+const Stack = createStackNavigator(
+  {
+    AuthLoading: AuthLoadingScreen,
+    AuthScreens,
+    Apps,
+  },
   {
     headerMode: 'none',
-  });
+    initialRouteName: 'AuthLoading',
+  },
+);
 
 export const AppNavigatorScreens = createAppContainer(Stack);
