@@ -39,6 +39,11 @@ export const PropertyScreen = ({navigation}) => {
       navigation.navigate('Agent');
     });
   };
+  const navigateAgent = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Agent');
+    })
+  };
   const Left = () => (
     <IconA style={[{color: '#00959E'}]} name="arrowleft" size={25} />
   );
