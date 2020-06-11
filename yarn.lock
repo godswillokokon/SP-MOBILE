@@ -5918,6 +5918,11 @@ react-native-reanimated@^1.8.0:
   dependencies:
     fbjs "^1.0.0"
 
+react-native-responsive-dimensions@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-dimensions/-/react-native-responsive-dimensions-3.1.1.tgz#c4daf977b30a909f21164de53a8ba4c9451efefc"
+  integrity sha512-Vo2OhWsphq0HgKsmeZOeyW+c+vsFn1ZaCFkGDgdeCEEiLriT76jGA1JlUjtrj27hvyo/xzeTlBZ+vBso1A84fw==
+
 react-native-safe-area-context@^0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-0.7.3.tgz#ad6bd4abbabe195332c53810e4ce5851eb21aa2a"
@@ -6364,6 +6369,11 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+rn-placeholder@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/rn-placeholder/-/rn-placeholder-3.0.1.tgz#5073210e9d35791e379df9604414d3c6d531a3ee"
+  integrity sha512-hpJiCiNXMvljCaDFdjLATYmHaU2RZg8Nv+g/VaAdLzGIMlV7/pFxvR4B+tYd93iVOMbHuKDmfqGYobAlTHOVIw==
 
 rsvp@^4.8.4:
   version "4.8.5"
