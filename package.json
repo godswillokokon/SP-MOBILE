@@ -28,6 +28,7 @@
     "react-native-linear-gradient": "^2.5.6",
     "react-native-paper": "^3.8.0",
     "react-native-reanimated": "^1.8.0",
+    "react-native-responsive-dimensions": "^3.1.1",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
     "react-native-size-matters": "^0.3.0",
@@ -44,6 +45,7 @@
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^6.1.2",
     "redux-thunk": "^2.3.0",
+    "rn-placeholder": "^3.0.1",
     "toggle-switch-react-native": "^2.1.0"
   },
   "devDependencies": {

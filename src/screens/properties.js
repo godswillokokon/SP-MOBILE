@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,17 +11,26 @@ import {
   ImageBackground,
   SafeAreaView,
 } from 'react-native';
-import {TopNavigationAction, Input} from '@ui-kitten/components';
+import {TopNavigationAction} from '@ui-kitten/components';
+import {useSelector, useDispatch} from 'react-redux';
+import {GetHouses} from '../redux/actions/propsActions';
+import PropertiesPlaceholder from '../components/placeholder';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconI from 'react-native-vector-icons/Ionicons';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconM from 'react-native-vector-icons/MaterialIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
-import {Button, Layout, MenuItem, OverflowMenu} from '@ui-kitten/components';
-import {moderateScale} from 'react-native-size-matters';
+import {MenuItem, OverflowMenu} from '@ui-kitten/components';
 
 export const PropertiesScreen = ({navigation}) => {
+  const dispatch = useDispatch();
+  const {properties} = useSelector((state) => state.properties);
+
+  useEffect(() => {
+    dispatch(GetHouses());
+  }, [dispatch]);
+  console.log(properties.properties, 'pro');
+  const houses = properties.properties;
   //top nav
   const openDrawer = () => {
     requestAnimationFrame(() => {
@@ -36,278 +45,38 @@ export const PropertiesScreen = ({navigation}) => {
     });
   };
 
-  const DATA_Categories = [
+  const dummy = [
     {
       id: '1',
-      title: 'Modern Bungalo',
-      addr: '45 ntoe asi layout , Calabar',
-      imageUrl:
-        'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-      amount: '₦300,000 / Yearly',
-      details: {
-        id: '1',
-        title: 'Modern Bungalo',
-        addr: '45 ntoe asi layout , Calabar',
-        imageUrls: [
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-        ],
-        amount: '₦300,000 / Yearly',
-        coords: {
-          latitude: '4.977207',
-          longitude: '8.342142',
-        },
-        agent: {
-          name: 'Anna Erim',
-          organization: 'Lekki Housing Agent',
-          phone: '08177024847',
-          mail: 'anna@gmail.com',
-          image:
-            'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg',
-        },
-        info:
-          'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: {
-          Airconditioning: 4,
-          Pool: 1,
-          Bedrooms: 4,
-          Bathrooms: 3,
-          Carparks: 2,
-        },
-        overview: {
-          yearBuilt: '2005',
-          material: 'Brick',
-          type: 'Rent',
-          homeArea: '130sqtft',
-          location: 'Calabar',
-          dimension: '20x30 ft',
-        },
-        video:
-          'https://res.cloudinary.com/ogcodes/video/upload/v1581599586/cmf7rzcmwmbaxp1pwyec.mp4',
-      },
     },
     {
       id: '2',
-      title: 'Two story twister',
-      addr: '45 ntoe asi layout , Calabar',
-      imageUrl:
-        'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-      amount: '₦300,000 / Yearly',
-      details: {
-        id: '2',
-        title: 'Two story twister',
-        addr: '45 ntoe asi layout , Calabar',
-        imageUrls: [
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-        ],
-        amount: '₦300,000 / Yearly',
-        coords: {
-          latitude: '4.977207',
-          longitude: '8.342142',
-        },
-        agent: {
-          name: 'Anna Erim',
-          organization: 'Lekki Housing Agent',
-          phone: '08177024847',
-          mail: 'anna@gmail.com',
-          image:
-            'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg',
-        },
-        info:
-          'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: {
-          Airconditioning: 4,
-          Pool: 1,
-          Bedrooms: 4,
-          Bathrooms: 3,
-          Carparks: 2,
-        },
-        overview: {
-          yearBuilt: '2005',
-          material: 'Brick',
-          type: 'Rent',
-          homeArea: '130sqtft',
-          location: 'Calabar',
-          dimension: '20x30 ft',
-        },
-        video:
-          'https://res.cloudinary.com/ogcodes/video/upload/v1581599586/cmf7rzcmwmbaxp1pwyec.mp4',
-      },
+    },
+    {
+      id: '3',
     },
     {
       id: '4',
-      title: 'Modern Bungalo',
-      addr: '45 ntoe asi layout , Calabar',
-      imageUrl:
-        'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-      amount: '₦300,000 / Yearly',
-      details: {
-        id: '4',
-        title: 'Modern Bungalo',
-        addr: '45 ntoe asi layout , Calabar',
-        imageUrls: [
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-        ],
-        amount: '₦300,000 / Yearly',
-        coords: {
-          latitude: '4.977207',
-          longitude: '8.342142',
-        },
-        agent: {
-          name: 'Anna Erim',
-          organization: 'Lekki Housing Agent',
-          phone: '08177024847',
-          mail: 'anna@gmail.com',
-          image:
-            'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg',
-        },
-        info:
-          'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: {
-          Airconditioning: 4,
-          Pool: 1,
-          Bedrooms: 4,
-          Bathrooms: 3,
-          Carparks: 2,
-        },
-        overview: {
-          yearBuilt: '2005',
-          material: 'Brick',
-          type: 'Rent',
-          homeArea: '130sqtft',
-          location: 'Calabar',
-          dimension: '20x30 ft',
-        },
-        video:
-          'https://res.cloudinary.com/ogcodes/video/upload/v1581599586/cmf7rzcmwmbaxp1pwyec.mp4',
-      },
     },
     {
       id: '5',
-      title: 'Two story twister',
-      addr: '45 ntoe asi layout , Calabar',
-      imageUrl:
-        'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-      amount: '₦300,000 / Yearly',
-      details: {
-        id: '5',
-        title: 'Two story twister',
-        addr: '45 ntoe asi layout , Calabar',
-        imageUrls: [
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-        ],
-        amount: '₦300,000 / Yearly',
-        coords: {
-          latitude: '4.977207',
-          longitude: '8.342142',
-        },
-        agent: {
-          name: 'Anna Erim',
-          organization: 'Lekki Housing Agent',
-          phone: '08177024847',
-          mail: 'anna@gmail.com',
-          image:
-            'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg',
-        },
-        info:
-          'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: {
-          Airconditioning: 4,
-          Pool: 1,
-          Bedrooms: 4,
-          Bathrooms: 3,
-          Carparks: 2,
-        },
-        overview: {
-          yearBuilt: '2005',
-          material: 'Brick',
-          type: 'Rent',
-          homeArea: '130sqtft',
-          location: 'Calabar',
-          dimension: '20x30 ft',
-        },
-        video:
-          'https://res.cloudinary.com/ogcodes/video/upload/v1581599586/cmf7rzcmwmbaxp1pwyec.mp4',
-      },
-    },
-    {
-      id: '6',
-      title: 'Modern Crip',
-      addr: '45 ntoe asi layout , Calabar',
-      imageUrl:
-        'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-      amount: '₦300,000 / Yearly',
-      details: {
-        id: '6',
-        title: 'Modern Crip',
-        addr: '45 ntoe asi layout , Calabar',
-        imageUrls: [
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
-          'https://res.cloudinary.com/ogcodes/image/upload/v1587405110/Rectangle_44.png',
-        ],
-        amount: '₦300,000 / Yearly',
-        coords: {
-          latitude: '4.977207',
-          longitude: '8.342142',
-        },
-        agent: {
-          name: 'Anna Erim',
-          organization: 'Lekki Housing Agent',
-          phone: '08177024847',
-          mail: 'anna@gmail.com',
-          image:
-            'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg',
-        },
-        info:
-          'It won’t be easy to click out of holiday mode in this stylishly contemporary residence for the modern pleasure-seeker. Cool, calm and sophisticated with a youthful edge, this functional home is enveloped in light and comfort. Crisp white walls, timber floors and high ceilings create a style as timeless as the sparkling ocean view. The calming sea vista, captured through the extensive use of glass, will help you forget your city stress.',
-        facility: {
-          Airconditioning: 4,
-          Pool: 1,
-          Bedrooms: 4,
-          Bathrooms: 3,
-          Carparks: 2,
-        },
-        overview: {
-          yearBuilt: '2005',
-          material: 'Brick',
-          type: 'Rent',
-          homeArea: '130sqtft',
-          location: 'Calabar',
-          dimension: '20x30 ft',
-        },
-        video:
-          'https://res.cloudinary.com/ogcodes/video/upload/v1581599586/cmf7rzcmwmbaxp1pwyec.mp4',
-      },
     },
   ];
-
-  function Categories({
+  // const price = houses.price;
+  // const state = houses.state;
+  // let imageUrls = houses.take_two_images.img_urls;
+  // console.log(imageUrls, 'imadg');
+  function Properties({
     id,
-    title,
-    addr,
+    name,
+    state,
     imageUrl,
     selected,
     onSelect,
-    amount,
-    details,
+    year_built,
+    lga,
+    price,
+    details = houses,
   }) {
     return (
       <TouchableOpacity
@@ -347,10 +116,10 @@ export const PropertiesScreen = ({navigation}) => {
                   fontWeight: 'bold',
                   marginVertical: 3,
                 }}>
-                {title}
+                {name}
               </Text>
               <Text style={{color: '#fff', fontSize: 12, marginVertical: 3}}>
-                {addr}
+                {state}
               </Text>
               <Text
                 style={{
@@ -359,7 +128,25 @@ export const PropertiesScreen = ({navigation}) => {
                   fontWeight: 'bold',
                   marginVertical: 3,
                 }}>
-                {amount}
+                {price}
+              </Text>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  marginVertical: 3,
+                }}>
+                {year_built}
+              </Text>
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 16,
+                  fontWeight: 'bold',
+                  marginVertical: 3,
+                }}>
+                {lga}
               </Text>
               <View style={{flexDirection: 'row', marginVertical: 3}}>
                 <IconI
@@ -464,7 +251,9 @@ export const PropertiesScreen = ({navigation}) => {
       <IconA style={[{color: '#828282', top: 2}]} name="down" size={13} />
     </TouchableOpacity>
   );
-
+  const renderPlaceholders = () =>
+    dummy.map((e, i) => <PropertiesPlaceholder key={i} />);
+  const hold = null;
   return (
     <SafeAreaView style={{flex: 1}}>
       <TopNav Title={Title} LeftAction={LeftAction} />
@@ -502,26 +291,32 @@ export const PropertiesScreen = ({navigation}) => {
           <MenuItem title="Sale" />
         </OverflowMenu>
       </View>
-      <View style={styles.MainContainer}>
-        <FlatList
-          data={DATA_Categories}
-          renderItem={({item}) => (
-            <Categories
-              id={item.id}
-              title={item.title}
-              addr={item.addr}
-              amount={item.amount}
-              imageUrl={item.imageUrl}
-              details={item.details}
-              selected={!!selected.get(item.id)}
-              onSelect={onSelect}
-            />
-          )}
-          keyExtractor={(item) => item.id}
-          extraData={selected}
-          numColumns={1}
-        />
-      </View>
+      {houses ? (
+        <View style={styles.MainContainer}>
+          <FlatList
+            data={houses}
+            renderItem={({item}) => (
+              <Properties
+                id={item.id}
+                name={item.name}
+                state={item.state}
+                price={item.price}
+                imageUrl={item.imageUrl}
+                details={item.details}
+                year_built={item.year_built}
+                lga={item.lga}
+                selected={!!selected.get(item.id)}
+                onSelect={onSelect}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            extraData={selected}
+            numColumns={1}
+          />
+        </View>
+      ) : (
+        renderPlaceholders()
+      )}
     </SafeAreaView>
   );
 };
