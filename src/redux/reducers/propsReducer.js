@@ -13,7 +13,6 @@ export const propsReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchError: action.payload,
-        properties: action.payload,
       };
     default:
       return {...state};

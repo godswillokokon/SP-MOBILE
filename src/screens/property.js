@@ -22,9 +22,14 @@ import IconF from 'react-native-vector-icons/FontAwesome';
 import PropertyImages from '../components/propertyImages';
 
 export const PropertyScreen = ({navigation}) => {
-  let header = navigation.state.params.details.title;
+  let header = 'head';
   let body = navigation.state.params.details;
-  let images = navigation.state.params.details.imageUrls;
+  let images = [
+    'https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg',
+    'https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg',
+    'https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg',
+
+  ];
 
   //top nav requestAnimationFrame(() => {
 
@@ -80,12 +85,12 @@ export const PropertyScreen = ({navigation}) => {
             {images.map((image, i) => {
               return (
                 <PropertyImages
-                  data={image}
+                  data='https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg'
                   key={i}
                   index={i}
-                  title={body.title}
-                  address={body.addr}
-                  amount={body.amount}
+                  title='head'
+                  address='15 ahgsggdgd'
+                  amount='200000'
                   selected={selected}
                   onSelect={onSelect}
                 />
@@ -220,17 +225,17 @@ export const PropertyScreen = ({navigation}) => {
             }}>
             <Avatar.Image
               source={{
-                uri: body.agent.image,
+                // uri: body.agent.image,
               }}
               size={50}
             />
             <View style={{alignSelf: 'center', marginLeft: 10}}>
               <Text
                 style={{fontSize: 14, fontWeight: 'bold', color: '#3A3A3A'}}>
-                {body.agent.name}
+                {/* {body.agent.name} */}
               </Text>
               <Text style={{fontSize: 12, color: '#828282'}}>
-                {body.agent.organization}
+                {/* {body.agent.organization} */}
               </Text>
             </View>
           </View>
@@ -304,7 +309,7 @@ export const PropertyScreen = ({navigation}) => {
               lineHeight: 14,
               marginVertical: 9,
             }}>
-            {body.info}
+            {/* {body.info} */}
           </Text>
         </View>
 
@@ -329,7 +334,7 @@ export const PropertyScreen = ({navigation}) => {
                 size={23}
               />
               <Text style={{color: '#000000', fontSize: 10, marginVertical: 2}}>
-                {body.facility.Airconditioning} Air-conditioning
+                {/* {body.facility.Airconditioning} Air-conditioning */}
               </Text>
             </View>
             <View>
@@ -339,7 +344,7 @@ export const PropertyScreen = ({navigation}) => {
                 size={25}
               />
               <Text style={{color: '#000000', fontSize: 10, marginVertical: 2}}>
-                {body.facility.Pool} Pool
+                {/* {body.facility.Pool} Pool */}
               </Text>
             </View>
             <View>
@@ -349,7 +354,7 @@ export const PropertyScreen = ({navigation}) => {
                 size={25}
               />
               <Text style={{color: '#000000', fontSize: 10, marginVertical: 2}}>
-                {body.facility.Bedrooms} bedrooms
+                {/* {body.facility.Bedrooms} bedrooms */}
               </Text>
             </View>
             <View>
@@ -359,7 +364,7 @@ export const PropertyScreen = ({navigation}) => {
                 size={25}
               />
               <Text style={{color: '#000000', fontSize: 10, marginVertical: 2}}>
-                {body.facility.Bathrooms} bathrooms
+                {/* {body.facility.Bathrooms} bathrooms */}
               </Text>
             </View>
             <View>
@@ -369,7 +374,7 @@ export const PropertyScreen = ({navigation}) => {
                 size={25}
               />
               <Text style={{color: '#000000', fontSize: 10, marginVertical: 2}}>
-                {body.facility.Carparks} carparks
+                {/* {body.facility.Carparks} carparks */}
               </Text>
             </View>
           </View>
@@ -398,7 +403,7 @@ export const PropertyScreen = ({navigation}) => {
               }}>
               <Text style={{color: '#313131', fontSize: 12}}>Year built</Text>
               <Text style={{color: '#828282', fontSize: 12}}>
-                {body.overview.yearBuilt}
+                {/* {body.overview.yearBuilt} */}
               </Text>
             </View>
             <View
@@ -409,7 +414,7 @@ export const PropertyScreen = ({navigation}) => {
               }}>
               <Text style={{color: '#313131', fontSize: 12}}>Home Area</Text>
               <Text style={{color: '#828282', fontSize: 12}}>
-                {body.overview.homeArea}
+                {/* {body.overview.homeArea} */}
               </Text>
             </View>
           </View>
@@ -428,7 +433,7 @@ export const PropertyScreen = ({navigation}) => {
               }}>
               <Text style={{color: '#313131', fontSize: 12}}>Material</Text>
               <Text style={{color: '#828282', fontSize: 12}}>
-                {body.overview.material}
+                {/* {body.overview.material} */}
               </Text>
             </View>
             <View
@@ -439,7 +444,7 @@ export const PropertyScreen = ({navigation}) => {
               }}>
               <Text style={{color: '#313131', fontSize: 12}}>Location</Text>
               <Text style={{color: '#828282', fontSize: 12}}>
-                {body.overview.location}
+                {/* {body.overview.location} */}
               </Text>
             </View>
           </View>
@@ -458,7 +463,7 @@ export const PropertyScreen = ({navigation}) => {
               }}>
               <Text style={{color: '#313131', fontSize: 12}}>Type</Text>
               <Text style={{color: '#828282', fontSize: 12}}>
-                {body.overview.type}
+                {/* {body.overview.type} */}
               </Text>
             </View>
             <View
@@ -469,7 +474,7 @@ export const PropertyScreen = ({navigation}) => {
               }}>
               <Text style={{color: '#313131', fontSize: 12}}>Dimension</Text>
               <Text style={{color: '#828282', fontSize: 12}}>
-                {body.overview.dimension}
+                {/* {body.overview.dimension} */}
               </Text>
             </View>
           </View>
