@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {TopNavigationAction, Layout, Text, Input} from '@ui-kitten/components';
 import {Avatar} from 'react-native-paper';
 import TopNav from '../components/topNav';
@@ -18,7 +18,6 @@ import IconM from 'react-native-vector-icons/MaterialIcons';
 
 export const AccountScreen = ({navigation}) => {
   useEffect(() => {}, []);
-  const dispatch = useDispatch();
   const {user} = useSelector((state) => state.user);
   //nav
   const openDrawer = () => {
@@ -31,15 +30,13 @@ export const AccountScreen = ({navigation}) => {
       navigation.navigate('ForgotPassword');
     });
   };
-  const Left = () => (
-    <IconF style={[{color: '#00959E'}]} name="bars" size={25} />
-  );
+  const Left = () => <IconF color={'#00959E'} name="bars" size={25} />;
 
   const LeftAction = () => (
     <TopNavigationAction
       icon={Left}
       onPress={openDrawer}
-      style={[{padding: 5}]}
+      style={styles.leftAction}
     />
   );
   const Title = () => (
@@ -59,75 +56,50 @@ export const AccountScreen = ({navigation}) => {
 
   const FullNameIcon = () => (
     <View>
-      <IconA style={[{color: '#828282'}]} size={20} name={'contacts'} />
+      <IconA color={'#828282'} size={20} name={'contacts'} />
     </View>
   );
-  const FullNameText = () => (
-    <Text style={{fontSize: 15, color: '#3A3A3A'}}>Full Name</Text>
-  );
+  const FullNameText = () => <Text style={styles.leftText}>Full Name</Text>;
 
   const EmailIcon = () => (
     <View>
-      <IconF style={[{color: '#828282'}]} size={20} name={'envelope'} />
+      <IconF color={'#828282'} size={20} name={'envelope'} />
     </View>
   );
-  const EmailText = () => (
-    <Text style={{fontSize: 15, color: '#3A3A3A'}}>Email</Text>
-  );
+  const EmailText = () => <Text style={styles.leftText}>Email</Text>;
 
   const PhoneIcon = () => (
     <View>
-      <IconA style={[{color: '#828282'}]} size={20} name={'phone'} />
+      <IconA color={'#828282'} size={20} name={'phone'} />
     </View>
   );
-  const PhoneText = () => (
-    <Text style={{fontSize: 15, color: '#3A3A3A'}}>Phone</Text>
-  );
+  const PhoneText = () => <Text style={styles.leftText}>Phone</Text>;
   const AddressIcon = () => (
     <View>
-      <IconA style={[{color: '#828282'}]} size={20} name={'home'} />
+      <IconA color={'#828282'} size={20} name={'home'} />
     </View>
   );
-  const AddressText = () => (
-    <Text style={{fontSize: 15, color: '#3A3A3A'}}>Address</Text>
-  );
+  const AddressText = () => <Text style={styles.leftText}>Address</Text>;
   const BirthdayIcon = () => (
     <View>
-      <IconF style={[{color: '#828282'}]} size={20} name={'birthday-cake'} />
+      <IconF color={'#828282'} size={20} name={'birthday-cake'} />
     </View>
   );
-  const BirthdayText = () => (
-    <Text style={{fontSize: 15, color: '#3A3A3A'}}>BirthDay</Text>
-  );
+  const BirthdayText = () => <Text style={styles.leftText}>BirthDay</Text>;
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+    <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{flex: 1, alignSelf: 'center', marginVertical: 24}}>
-        <View style={{justifyContent: 'center', alignSelf: 'center'}}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
+        <View style={styles.avatar}>
           <Avatar.Image
             source={{
               uri: Pic,
             }}
             size={120}
           />
-          <TouchableOpacity
-            style={{
-              backgroundColor: 'rgba(0, 149, 158, 0.5)',
-              position: 'absolute',
-              width: 41,
-              height: 41,
-              borderRadius: 100,
-              justifyContent: 'center',
-              alignSelf: 'center',
-            }}>
-            <IconF
-              style={[{color: '#FFF', alignSelf: 'center'}]}
-              name="camera"
-              size={20}
-            />
+          <TouchableOpacity style={styles.avatarBtn}>
+            <IconF style={styles.avatarBtnIcon} name="camera" size={20} />
           </TouchableOpacity>
         </View>
 
@@ -180,21 +152,9 @@ export const AccountScreen = ({navigation}) => {
             />
             <TouchableOpacity
               onPress={ChangePassword}
-              style={{flexDirection: 'row', marginVertical: 15}}>
-              <IconM
-                style={[{color: '#828282'}]}
-                size={20}
-                name={'lock-outline'}
-              />
-              <Text
-                style={{
-                  marginHorizontal: 5,
-                  fontSize: 16,
-                  color: '#828282',
-                  fontStyle: 'italic',
-                }}>
-                Change Password
-              </Text>
+              style={styles.changepassword}>
+              <IconM color={'#828282'} size={20} name={'lock-outline'} />
+              <Text style={styles.changepasswordText}>Change Password</Text>
             </TouchableOpacity>
           </Layout>
           <TouchableOpacity style={styles.button}>
@@ -207,6 +167,18 @@ export const AccountScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  scroll: {
+    flex: 1,
+    alignSelf: 'center',
+    marginVertical: 24,
+  },
+  leftAction: {
+    padding: 5,
+  },
   title: {
     fontSize: 18,
     fontFamily: 'Muli',
@@ -218,7 +190,33 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-
+  avatar: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  avatarBtn: {
+    backgroundColor: 'rgba(0, 149, 158, 0.5)',
+    position: 'absolute',
+    width: 41,
+    height: 41,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  avatarBtnIcon: {
+    color: '#fff',
+    alignSelf: 'center',
+  },
+  changepassword: {
+    flexDirection: 'row',
+    marginVertical: 15,
+  },
+  changepasswordText: {
+    marginHorizontal: 5,
+    fontSize: 16,
+    color: '#828282',
+    fontStyle: 'italic',
+  },
   input: {
     borderColor: 'transparent',
     backgroundColor: 'transparent',
@@ -248,5 +246,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     width: Dimensions.get('window').width - 50,
     alignSelf: 'center',
+  },
+  leftText: {
+    fontSize: 15,
+    color: '#3A3A3A',
   },
 });
