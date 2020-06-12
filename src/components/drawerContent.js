@@ -28,11 +28,6 @@ export const DrawerContent = ({props}) => {
       props.navigation.navigate('Categories');
     });
   };
-  const navigateProperties = () => {
-    requestAnimationFrame(() => {
-      props.navigation.navigate('Properties');
-    });
-  };
   const logout = () => {
     requestAnimationFrame(() => {
       dispatch(Logout(props));

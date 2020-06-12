@@ -23,20 +23,19 @@ import PropertyImages from '../components/propertyImages';
 
 export const PropertyScreen = ({navigation}) => {
   let header = 'head';
-  let body = navigation.state.params.details;
+  let body = 'navigation.state.params.details';
   let images = [
     'https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg',
     'https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg',
     'https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg',
-
   ];
 
   //top nav requestAnimationFrame(() => {
 
   const navigateBack = () => {
     requestAnimationFrame(() => {
-      // navigation.goBack();
-      navigation.navigate('Properties');
+      navigation.goBack();
+      // navigation.navigate('Properties');
     });
   };
   const navigateAgent = () => {
@@ -85,12 +84,12 @@ export const PropertyScreen = ({navigation}) => {
             {images.map((image, i) => {
               return (
                 <PropertyImages
-                  data='https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg'
+                  data="https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg"
                   key={i}
                   index={i}
-                  title='head'
-                  address='15 ahgsggdgd'
-                  amount='200000'
+                  title="head"
+                  address="15 ahgsggdgd"
+                  amount="200000"
                   selected={selected}
                   onSelect={onSelect}
                 />
@@ -224,9 +223,11 @@ export const PropertyScreen = ({navigation}) => {
               alignSelf: 'center',
             }}>
             <Avatar.Image
-              source={{
-                // uri: body.agent.image,
-              }}
+              source={
+                {
+                  // uri: body.agent.image,
+                }
+              }
               size={50}
             />
             <View style={{alignSelf: 'center', marginLeft: 10}}>
