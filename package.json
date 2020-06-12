@@ -19,6 +19,7 @@
     "@ui-kitten/components": "^5.0.0-alpha.1",
     "axios": "^0.19.2",
     "axios-retry": "^3.1.8",
+    "numbro": "^2.3.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-basic-form": "^1.1.8",
