@@ -1,10 +1,8 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
   Text,
-  Image,
   Dimensions,
   FlatList,
   TouchableOpacity,
@@ -17,10 +15,10 @@ import {GetHouses} from '../redux/actions/propsActions';
 import PropertiesPlaceholder from '../components/placeholder';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
-import IconI from 'react-native-vector-icons/Ionicons';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import {MenuItem, OverflowMenu} from '@ui-kitten/components';
+import numbro from 'numbro';
 
 export const PropertiesScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -29,7 +27,6 @@ export const PropertiesScreen = ({navigation}) => {
   useEffect(() => {
     dispatch(GetHouses());
   }, [dispatch]);
-  console.log(properties.properties, 'pro');
   const houses = properties.properties;
   //top nav
   const openDrawer = () => {
@@ -40,7 +37,7 @@ export const PropertiesScreen = ({navigation}) => {
   const navigateProperty = (data) => {
     requestAnimationFrame(() => {
       navigation.navigate('Property', {
-        details: data,
+        slug: data,
       });
     });
   };
@@ -62,119 +59,38 @@ export const PropertiesScreen = ({navigation}) => {
       id: '5',
     },
   ];
-  // const price = houses.price;
-  // const state = houses.state;
-  // let imageUrls = houses.take_two_images.img_urls;
-  // console.log(imageUrls, 'imadg');
   function Properties({
     id,
     name,
     state,
-    imageUrl,
-    selected,
-    onSelect,
-    year_built,
+    take_two_images,
+    payment_type,
     lga,
     price,
-    details = houses,
+    slug,
   }) {
     return (
       <TouchableOpacity
-        onPress={() => navigateProperty(details)}
-        style={{
-          marginVertical: 6,
-          marginHorizontal: 6,
-          width: Dimensions.get('window').width - 15,
-          height: 173,
-          borderRadius: 6,
-          backgroundColor: 'transparent',
-          flex: 1,
-          alignSelf: 'center',
-        }}>
+        onPress={() => navigateProperty(slug)}
+        style={styles.card}>
         <ImageBackground
-          style={{flex: 1, width: '100%'}}
-          source={{uri: imageUrl}}
-          imageStyle={{borderRadius: 6}}>
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: 'rgba(0, 0, 0, 0.4)',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              borderRadius: 6,
-            }}>
-            <View
-              style={{
-                margin: 20,
-                justifyContent: 'space-between',
-                flexDirection: 'column',
-              }}>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  marginVertical: 3,
-                }}>
-                {name}
+          style={styles.bgImg}
+          source={{
+            uri: take_two_images[0].img_url,
+          }}
+          imageStyle={styles.bgImgBorder}>
+          <View style={styles.cardBody}>
+            <View style={styles.cardBodySub}>
+              <Text style={styles.propertyName}>{name}</Text>
+              <Text style={styles.location}>
+                {lga}, {state}
               </Text>
-              <Text style={{color: '#fff', fontSize: 12, marginVertical: 3}}>
-                {state}
+              <Text style={styles.paymentType}>
+                Payment Type: {payment_type}
               </Text>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 14,
-                  fontWeight: 'bold',
-                  marginVertical: 3,
-                }}>
-                {price}
+              <Text style={styles.amount}>
+                ₦{numbro(price).format({thousandSeparated: true})}
               </Text>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  marginVertical: 3,
-                }}>
-                {year_built}
-              </Text>
-              <Text
-                style={{
-                  color: '#fff',
-                  fontSize: 16,
-                  fontWeight: 'bold',
-                  marginVertical: 3,
-                }}>
-                {lga}
-              </Text>
-              <View style={{flexDirection: 'row', marginVertical: 3}}>
-                <IconI
-                  style={[{color: '#00959E'}]}
-                  size={13}
-                  name={'md-star'}
-                />
-                <IconI
-                  style={[{color: '#00959E'}]}
-                  size={13}
-                  name={'md-star'}
-                />
-                <IconI
-                  style={[{color: '#00959E'}]}
-                  size={13}
-                  name={'md-star'}
-                />
-                <IconI
-                  style={[{color: '#00959E'}]}
-                  size={13}
-                  name={'md-star'}
-                />
-                <IconI
-                  style={[{color: '#00959E'}]}
-                  size={13}
-                  name={'md-star-outline'}
-                />
-              </View>
             </View>
           </View>
         </ImageBackground>
@@ -182,10 +98,7 @@ export const PropertiesScreen = ({navigation}) => {
     );
   }
 
-  const Left = () => (
-    <IconF style={[{color: '#00959E'}]} name="bars" size={25} />
-  );
-
+  const Left = () => <IconF color={'#00959E'} name="bars" size={25} />;
   const LeftAction = () => (
     <TopNavigationAction
       icon={Left}
@@ -197,19 +110,6 @@ export const PropertiesScreen = ({navigation}) => {
     <View>
       <Text style={styles.title}>Properties</Text>
     </View>
-  );
-
-  //selected
-
-  const [selected, setSelected] = useState(new Map());
-
-  const onSelect = useCallback(
-    (id) => {
-      const newSelected = new Map(selected);
-      newSelected.set(id, !selected.get(id));
-      setSelected(newSelected);
-    },
-    [selected],
   );
   //sort
   const [selectedIndexSort, setSelectedIndexSort] = useState(null);
@@ -223,12 +123,10 @@ export const PropertiesScreen = ({navigation}) => {
   const renderSortToggle = () => (
     <TouchableOpacity
       onPress={() => setVisibleSort(true)}
-      style={{flexDirection: 'row', alignItems: 'center'}}>
-      <IconMC style={[{color: '#828282'}]} name="sort-descending" size={20} />
-      <Text style={{fontSize: 11, marginHorizontal: 2, color: '#828282'}}>
-        Sort By
-      </Text>
-      <IconA style={[{color: '#828282', top: 2}]} name="down" size={13} />
+      style={styles.sortToggle}>
+      <IconMC color={'#828282'} name="sort-descending" size={20} />
+      <Text style={styles.sortToggleText}>Sort By</Text>
+      <IconA style={[{top: 2}]} color={'#828282'} name="down" size={13} />
     </TouchableOpacity>
   );
   //filter
@@ -243,48 +141,37 @@ export const PropertiesScreen = ({navigation}) => {
   const renderFilterToggle = () => (
     <TouchableOpacity
       onPress={() => setVisibleFilter(true)}
-      style={{flexDirection: 'row', alignItems: 'center'}}>
-      <IconA style={[{color: '#828282'}]} name="filter" size={20} />
-      <Text style={{fontSize: 11, marginHorizontal: 2, color: '#828282'}}>
-        Filter
-      </Text>
-      <IconA style={[{color: '#828282', top: 2}]} name="down" size={13} />
+      style={styles.filterToggle}>
+      <IconA color={'#828282'} name="filter" size={20} />
+      <Text style={styles.filterToggleText}>Filter</Text>
+      <IconA style={[{top: 2}]} color={'#828282'} name="down" size={13} />
     </TouchableOpacity>
   );
   const renderPlaceholders = () =>
     dummy.map((e, i) => <PropertiesPlaceholder key={i} />);
-  const hold = null;
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: Dimensions.get('window').width - 15,
-          alignSelf: 'center',
-          marginTop: 16,
-        }}>
+      <View style={styles.containerSub}>
         <OverflowMenu
           anchor={renderSortToggle}
           visible={visibleSort}
           selectedIndex={selectedIndexSort}
           placement="top start"
           onSelect={onItemSelectSort}
-          backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
+          backdropStyle={styles.backdrop}
           onBackdropPress={() => setVisibleSort(false)}>
           <MenuItem title="Rentals" />
           <MenuItem title="Sale" />
           <MenuItem title="Mortgage" />
         </OverflowMenu>
-
         <OverflowMenu
           anchor={renderFilterToggle}
           visible={visibleFilter}
           selectedIndex={selectedIndexFilter}
           placement="top end"
           onSelect={onItemSelectFilter}
-          backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
+          backdropStyle={styles.backdrop}
           onBackdropPress={() => setVisibleFilter(false)}>
           <MenuItem title="Sale" />
           <MenuItem title="Rent" />
@@ -292,7 +179,7 @@ export const PropertiesScreen = ({navigation}) => {
         </OverflowMenu>
       </View>
       {houses ? (
-        <View style={styles.MainContainer}>
+        <View style={styles.mainContainer}>
           <FlatList
             data={houses}
             renderItem={({item}) => (
@@ -301,16 +188,13 @@ export const PropertiesScreen = ({navigation}) => {
                 name={item.name}
                 state={item.state}
                 price={item.price}
-                imageUrl={item.imageUrl}
-                details={item.details}
-                year_built={item.year_built}
+                take_two_images={item.take_two_images}
+                slug={item.slug}
+                payment_type={item.payment_type}
                 lga={item.lga}
-                selected={!!selected.get(item.id)}
-                onSelect={onSelect}
               />
             )}
-            keyExtractor={(item) => item.id}
-            extraData={selected}
+            keyExtractor={(item) => item.id.toString()}
             numColumns={1}
           />
         </View>
@@ -323,7 +207,18 @@ export const PropertiesScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: 144,
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  containerSub: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: Dimensions.get('window').width - 35,
+    alignSelf: 'center',
+    marginTop: 16,
+  },
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   title: {
     fontSize: 18,
@@ -332,10 +227,83 @@ const styles = StyleSheet.create({
     color: '#3A3A3A',
     fontWeight: 'bold',
   },
-  MainContainer: {
+  card: {
+    marginVertical: 6,
+    marginHorizontal: 6,
+    width: Dimensions.get('window').width - 35,
+    height: 173,
+    borderRadius: 10,
+    backgroundColor: 'transparent',
+    flex: 1,
+    alignSelf: 'center',
+  },
+  bgImg: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  bgImgBorder: {
+    borderRadius: 10,
+  },
+  cardBody: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    borderRadius: 10,
+  },
+  cardBodySub: {
+    margin: 25,
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+  },
+  propertyName: {
+    color: '#f7f7ee',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 3,
+  },
+  location: {
+    color: '#f7f7ee',
+    fontSize: 12,
+    marginVertical: 3,
+  },
+  paymentType: {
+    color: '#f7f7ee',
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginVertical: 3,
+  },
+  amount: {
+    color: '#f7f7ee',
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginVertical: 3,
+  },
+  sortToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  sortToggleText: {
+    fontSize: 11,
+    marginHorizontal: 2,
+    color: '#828282',
+  },
+  filterToggle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  filterToggleText: {
+    fontSize: 11,
+    marginHorizontal: 2,
+    color: '#828282',
+  },
+  mainContainer: {
     justifyContent: 'center',
     flex: 1,
     paddingTop: 11,
+    width: Dimensions.get('window').width - 35,
+    alignSelf: 'center',
   },
   imageThumbnail: {
     justifyContent: 'center',
