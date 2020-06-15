@@ -12,7 +12,7 @@ import {
 import {TopNavigationAction} from '@ui-kitten/components';
 import {useSelector, useDispatch} from 'react-redux';
 import {GetHouses} from '../redux/actions/propsActions';
-import PropertiesPlaceholder from '../components/placeholder';
+import PropertiesPlaceholder from '../components/propertiesStaging';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,12 +22,12 @@ import numbro from 'numbro';
 
 export const PropertiesScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const {properties} = useSelector((state) => state.properties);
+  const {houses} = useSelector((state) => state.properties);
 
   useEffect(() => {
     dispatch(GetHouses());
   }, [dispatch]);
-  const houses = properties.properties;
+  const isHouses = houses.houses;
   //top nav
   const openDrawer = () => {
     requestAnimationFrame(() => {
@@ -119,6 +119,7 @@ export const PropertiesScreen = ({navigation}) => {
     setSelectedIndexSort(SortIndex);
     setVisibleSort(false);
   };
+  const hold = null;
 
   const renderSortToggle = () => (
     <TouchableOpacity
@@ -178,10 +179,11 @@ export const PropertiesScreen = ({navigation}) => {
           <MenuItem title="Sale" />
         </OverflowMenu>
       </View>
-      {houses ? (
+      {isHouses ? (
         <View style={styles.mainContainer}>
           <FlatList
-            data={houses}
+            data={isHouses}
+            showsVerticalScrollIndicator={false}
             renderItem={({item}) => (
               <Properties
                 id={item.id}
