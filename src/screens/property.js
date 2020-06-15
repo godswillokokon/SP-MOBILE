@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
@@ -12,15 +11,12 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {GetHouse} from '../redux/actions/propsActions';
-import {Avatar} from 'react-native-paper';
-import {TopNavigationAction} from '@ui-kitten/components';
+import {TopNavigationAction, Modal, Layout} from '@ui-kitten/components';
 import {moderateScale} from 'react-native-size-matters';
 import numbro from 'numbro';
 import PropertyPlaceholder from '../components/propertyStaging';
-
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
-import IconE from 'react-native-vector-icons/Entypo';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconM from 'react-native-vector-icons/MaterialIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
@@ -30,43 +26,36 @@ export const PropertyScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const {house} = useSelector((state) => state.properties);
   const isHouse = house.house;
-  // console.log(isHouse, 'prps');
 
   useEffect(() => {
     let slug = navigation.state.params.slug;
     dispatch(GetHouse(slug));
   }, [dispatch, navigation.state.params.slug]);
 
-  // console.log(house)
-  let header = 'head';
-  let body = 'navigation.state.params.details';
-  let images = [
-    'https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg',
-    'https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg',
-    'https://res.cloudinary.com/tech-18/image/upload/v1591039035/Spread%20Properties/h2u1mejrj849mpgrlmr3.jpg',
-  ];
-
-  //top nav requestAnimationFrame(() => {
-
   const navigateBack = () => {
     requestAnimationFrame(() => {
       navigation.navigate('Properties');
     });
   };
-  const navigateAgent = () => {
+  const [visibleInspect, setvisibleInspect] = useState(false);
+  const toggleInspect = () => {
     requestAnimationFrame(() => {
-      navigation.navigate('Agent');
+      setvisibleInspect(!visibleInspect);
     });
   };
-  const Left = () => (
-    <IconA style={[{color: '#00959E'}]} name="arrowleft" size={25} />
-  );
+  const inspectModal = () => {
+    requestAnimationFrame(() => {
+      setvisibleInspect(!visibleInspect);
+    });
+  };
+
+  const Left = () => <IconA color={'#00959E'} name="arrowleft" size={25} />;
 
   const LeftAction = () => (
     <TopNavigationAction
       icon={Left}
       onPress={navigateBack}
-      style={[{padding: 5}]}
+      style={styles.left}
     />
   );
   const Title = () => (
@@ -77,7 +66,6 @@ export const PropertyScreen = ({navigation}) => {
 
   //selected
   const [selected, setSelected] = useState(new Map());
-
   const onSelect = useCallback(
     (id) => {
       const newSelected = new Map(selected);
@@ -105,70 +93,69 @@ export const PropertyScreen = ({navigation}) => {
   ];
   const renderPlaceholders = () =>
     dummy.map((e, i) => <PropertyPlaceholder key={i} />);
-  const hold = null;
   let amenities = [];
   if (isHouse) {
     if (isHouse.amenities.includes('Air Conditioning')) {
       const ac = (
-        <View style={{padding: 2}}>
+        <View style={styles.iconsPadding}>
           <IconMC
-            style={[{color: '#313131', alignSelf: 'center'}]}
+            style={styles.icon}
+            color={'#313131'}
             name="air-conditioner"
             size={23}
           />
-          <Text style={{color: '#000000', fontSize: 10}}>Air Conditioning</Text>
+          <Text style={styles.iconText}>Air Conditioning</Text>
         </View>
       );
       amenities.push(ac);
     }
     if (isHouse.amenities.includes('Internet')) {
       const internet = (
-        <View style={{padding: 2}}>
+        <View style={styles.iconsPadding}>
           <IconMC
-            style={[{color: '#313131', alignSelf: 'center'}]}
+            style={styles.icon}
+            color={'#313131'}
             name="signal-variant"
             size={23}
           />
-          <Text style={{color: '#000000', fontSize: 10}}>Wi-Fi</Text>
+          <Text style={styles.iconText}>Wi-Fi</Text>
         </View>
       );
       amenities.push(internet);
     }
     if (isHouse.amenities.includes('Swimming Pool')) {
       const pool = (
-        <View style={{padding: 2}}>
-          <IconM
-            style={[{color: '#313131', alignSelf: 'center'}]}
-            name="pool"
-            size={25}
-          />
-          <Text style={{color: '#000000', fontSize: 10}}>Swimming Pool</Text>
+        <View style={styles.iconsPadding}>
+          <IconM style={styles.icon} color={'#313131'} name="pool" size={25} />
+          <Text style={styles.iconText}>Swimming Pool</Text>
         </View>
       );
       amenities.push(pool);
     }
     if (isHouse.amenities.includes('Near Church')) {
       const church = (
-        <View style={{padding: 2}}>
+        <View style={styles.iconsPadding}>
           <IconMC
-            style={[{color: '#313131', alignSelf: 'center'}]}
+            style={styles.icon}
+            color={'#313131'}
             name="church"
             size={25}
           />
-          <Text style={{color: '#000000', fontSize: 10}}>Near Church</Text>
+          <Text style={styles.iconText}>Near Church</Text>
         </View>
       );
       amenities.push(church);
     }
     if (isHouse.amenities.includes('Near Estate')) {
       const estate = (
-        <View style={{padding: 2}}>
+        <View style={styles.iconsPadding}>
           <IconMC
-            style={[{color: '#313131', alignSelf: 'center'}]}
+            style={styles.icon}
+            color={'#313131'}
             name="home-group"
             size={23}
           />
-          <Text style={{color: '#000000', fontSize: 10}}>Near Estate</Text>
+          <Text style={styles.iconText}>Near Estate</Text>
         </View>
       );
       amenities.push(estate);
@@ -176,83 +163,107 @@ export const PropertyScreen = ({navigation}) => {
 
     if (isHouse.amenities.includes('Dish Washer')) {
       const washer = (
-        <View style={{padding: 2}}>
+        <View style={styles.iconsPadding}>
           <IconMC
-            style={[{color: '#313131', alignSelf: 'center'}]}
+            style={styles.icon}
+            color={'#313131'}
             name="dishwasher"
             size={25}
           />
-          <Text style={{color: '#000000', fontSize: 10}}>Dish Washer</Text>
+          <Text style={styles.iconText}>Dish Washer</Text>
         </View>
       );
       amenities.push(washer);
     }
     if (isHouse.amenities.includes('Computer')) {
       const computer = (
-        <View style={{padding: 2}}>
+        <View style={styles.iconsPadding}>
           <IconM
-            style={[{color: '#313131', alignSelf: 'center'}]}
+            style={styles.icon}
+            color={'#313131'}
             name="computer"
             size={25}
           />
-          <Text style={{color: '#000000', fontSize: 10}}>Computer</Text>
+          <Text style={styles.iconText}>Computer</Text>
         </View>
       );
       amenities.push(computer);
     }
     if (isHouse.amenities.includes('Balcony')) {
       const balcony = (
-        <View style={{padding: 2}}>
+        <View style={styles.iconsPadding}>
           <IconF
-            style={[{color: '#313131', alignSelf: 'center'}]}
+            style={styles.icon}
+            color={'#313131'}
             name="minus-square-o"
             size={23}
           />
-          <Text style={{color: '#000000', fontSize: 10}}>Balcony</Text>
+          <Text style={styles.iconText}>Balcony</Text>
         </View>
       );
       amenities.push(balcony);
     }
     if (isHouse.amenities.includes('Cable TV')) {
       const tv = (
-        <View style={{padding: 2}}>
+        <View style={styles.iconsPadding}>
           <IconM
-            style={[{color: '#313131', alignSelf: 'center'}]}
+            style={styles.icon}
+            color={'#313131'}
             name="live-tv"
             size={23}
           />
-          <Text style={{color: '#000000', fontSize: 10}}>Cable TV</Text>
+          <Text style={styles.iconText}>Cable TV</Text>
         </View>
       );
       amenities.push(tv);
     }
     if (isHouse.amenities.includes('Terrace')) {
       const terrace = (
-        <View style={{padding: 2}}>
-          <IconF
-            style={[{color: '#313131', alignSelf: 'center'}]}
-            name="yelp"
-            size={25}
-          />
-          <Text style={{color: '#000000', fontSize: 10}}>Terrace</Text>
+        <View style={styles.iconsPadding}>
+          <IconF style={styles.icon} color={'#313131'} name="yelp" size={25} />
+          <Text style={styles.iconText}>Terrace</Text>
         </View>
       );
       amenities.push(terrace);
     }
   }
+  const mapElement = () => (
+    <View style={{}}>
+      <Layout style={styles.modalContainer}>
+        <TouchableOpacity style={styles.modalX} onPress={inspectModal}>
+          <Text style={styles.modalXtext}>X</Text>
+        </TouchableOpacity>
+        <View style={styles.modalBody}>
+          <Text style={styles.modalHeader}>Inspect Property</Text>
+          <Text style={styles.modalInfo}>
+            Take a tour to our sites today, from our virtual tour to the
+            physical tour. We ensure we show you everything you need to know
+            about this property for a fee of ₦
+            {numbro(1000).format({
+              thousandSeparated: true,
+            })}{' '}
+            only
+          </Text>
+          <View style={styles.modalButtons}>
+            <TouchableOpacity style={styles.modalOffline}>
+              <Text style={styles.modalBtnText}>Offline</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalOnline}>
+              <Text style={styles.modalBtnText}>Online</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Layout>
+    </View>
+  );
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+    <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
       {isHouse ? (
         <ScrollView
-          style={{flex: 1, alignSelf: 'center', marginVertical: 24}}
+          style={styles.scrollContainer}
           showsVerticalScrollIndicator={false}>
-          <View
-            style={{
-              height: 200,
-              width: Dimensions.get('window').width - 35,
-              alignSelf: 'center',
-            }}>
+          <View style={styles.images}>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -263,11 +274,8 @@ export const PropertyScreen = ({navigation}) => {
                     data={image.img_url}
                     key={i}
                     index={i}
-                    category={isHouse.name}
-                    sub_category={isHouse.house_category.house_subcategory}
+                    name={isHouse.name}
                     address={`${isHouse.lga}, ${isHouse.state}`}
-                    transaction={isHouse.transaction}
-                    year_built={isHouse.year_built}
                     amount={`₦${numbro(isHouse.price).format({
                       thousandSeparated: true,
                     })}`}
@@ -278,345 +286,91 @@ export const PropertyScreen = ({navigation}) => {
               })}
             </ScrollView>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignSelf: 'center',
-              marginVertical: -5,
-            }}>
-            <TouchableOpacity
-              style={{
-                width: 50,
-                height: 50,
-                borderRadius: 100,
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-
-                elevation: 4,
-                backgroundColor: '#fff',
-                marginHorizontal: 31,
-                justifyContent: 'center',
-              }}>
+          <View style={styles.inspectSection}>
+            <TouchableOpacity onPress={inspectModal} style={styles.inspect}>
               <Image
-                style={{
-                  width: 100,
-                  height: 100,
-                  transform: [
-                    {
-                      scaleX: moderateScale(0.3, 0.1),
-                    },
-                    {
-                      scaleY: moderateScale(0.3, 0.1),
-                    },
-                  ],
-                  alignSelf: 'center',
-                }}
+                style={styles.inspectImage}
                 source={require('../assets/mapIcon.png')}
-                imageStyle={{padding: 2}}
               />
             </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                width: 50,
-                height: 50,
-                borderRadius: 100,
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-
-                elevation: 4,
-                backgroundColor: '#fff',
-                marginHorizontal: 31,
-                justifyContent: 'center',
-                // alignItems: 'center'
-                alignContent: 'center',
-              }}>
+            <TouchableOpacity onPress={inspectModal} style={styles.inspect}>
               <Image
-                style={{
-                  width: 100,
-                  height: 100,
-                  transform: [
-                    {
-                      scaleX: moderateScale(0.3, 0.1),
-                    },
-                    {
-                      scaleY: moderateScale(0.3, 0.1),
-                    },
-                  ],
-                  alignSelf: 'center',
-                  // backgroundColor: 'red'
-                }}
+                style={styles.inspectImage}
                 source={require('../assets/videoIcon.png')}
               />
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignSelf: 'center',
-              marginVertical: 8,
-            }}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: '#3A3A3A',
-                width: 80,
-                marginHorizontal: 16,
-              }}>
-              Map View
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: '#3A3A3A',
-                width: 80,
-                marginHorizontal: 16,
-              }}>
-              Live Video
-            </Text>
+          <View style={styles.inspectTextSection}>
+            <Text style={styles.inspectText}>Map View</Text>
+            <Text style={styles.inspectText}>Live Video</Text>
           </View>
-          <View style={{alignItems: 'center'}}>
-            <TouchableOpacity
-              style={{
-                marginHorizontal: 14,
-                width: 50,
-                height: 50,
-                borderRadius: 100,
-                shadowColor: '#000',
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                justifyContent: 'center',
-                elevation: 4,
-                backgroundColor: '#fff',
-                alignSelf: 'center',
-              }}>
-              <IconMC
-                style={[{color: '#3DA917', alignSelf: 'center'}]}
-                name="phone"
-                size={23}
-              />
-            </TouchableOpacity>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: 'bold',
-                color: '#3A3A3A',
-                marginHorizontal: 16,
-              }}>
-              Talk to an Agent
-            </Text>
+          <View style={styles.details}>
+            <Text style={styles.detailsHeader}>Property Details</Text>
+            <Text style={styles.detailsInfo}>{isHouse.overview}</Text>
           </View>
-
-          <View
-            style={{
-              width: Dimensions.get('window').width - 35,
-              alignSelf: 'center',
-              marginVertical: 10,
-            }}>
-            <Text style={{color: '#3A3A3A', fontSize: 14, fontWeight: 'bold'}}>
-              Property Details
-            </Text>
-            <Text
-              style={{
-                color: '#828282',
-                fontSize: 10,
-                lineHeight: 14,
-                marginVertical: 9,
-              }}>
-              {/* {body.info} */}
-              {isHouse.overview}
-            </Text>
-          </View>
-
-          <View
-            style={{
-              width: Dimensions.get('window').width - 35,
-              alignSelf: 'center',
-            }}>
-            <Text style={{color: '#3A3A3A', fontSize: 14, fontWeight: 'bold'}}>
-              Property Facilities
-            </Text>
-            <View
-              style={{
-                marginVertical: 9,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-              }}>
+          <View style={styles.amenities}>
+            <Text style={styles.header}>Property Facilities</Text>
+            <View style={styles.amenitiesInfo}>
               {amenities.map((e, i) => e)}
             </View>
           </View>
-
-          <View
-            style={{
-              width: Dimensions.get('window').width - 35,
-              alignSelf: 'center',
-              marginVertical: 10,
-            }}>
-            <Text style={{color: '#3A3A3A', fontSize: 14, fontWeight: 'bold'}}>
-              Property Overview
-            </Text>
-            <View
-              style={{
-                marginVertical: 9,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>Payment</Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
-                  {isHouse.payment_type}
-                </Text>
+          <View style={styles.overview}>
+            <Text style={styles.header}>Property Overview</Text>
+            <View style={styles.propertyRow}>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Payment</Text>
+                <Text style={styles.overviewInfo}>{isHouse.payment_type}</Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>Category</Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Category</Text>
+                <Text style={styles.overviewInfo}>
                   {isHouse.house_category.house_category}
                 </Text>
               </View>
             </View>
 
-            <View
-              style={{
-                marginVertical: 9,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>Year Built</Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
-                  {isHouse.year_built}
-                </Text>
+            <View style={styles.propertyRow}>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Year Built</Text>
+                <Text style={styles.overviewInfo}>{isHouse.year_built}</Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>Home Area</Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Home Area</Text>
+                <Text style={styles.overviewInfo}>
                   {isHouse.home_area} SqrFt
                 </Text>
               </View>
             </View>
 
-            <View
-              style={{
-                marginVertical: 9,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>Material</Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
-                  {isHouse.material}
-                </Text>
+            <View style={styles.propertyRow}>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Material</Text>
+                <Text style={styles.overviewInfo}>{isHouse.material}</Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>Status</Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
-                  {isHouse.status}
-                </Text>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Status</Text>
+                <Text style={styles.overviewInfo}>{isHouse.status}</Text>
               </View>
             </View>
 
-            <View
-              style={{
-                marginVertical: 9,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>Type</Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
-                  {isHouse.transaction}
-                </Text>
+            <View style={styles.propertyRow}>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Type</Text>
+                <Text style={styles.overviewInfo}>{isHouse.transaction}</Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>Dimension</Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
-                  {isHouse.dimension} FT
-                </Text>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Dimension</Text>
+                <Text style={styles.overviewInfo}>{isHouse.dimension} FT</Text>
               </View>
             </View>
-            <View
-              style={{
-                marginVertical: 9,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>Location</Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
-                  {isHouse.location}
-                </Text>
+            <View style={styles.propertyRow}>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Location</Text>
+                <Text style={styles.overviewInfo}>{isHouse.location}</Text>
               </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  width: 150,
-                  justifyContent: 'space-between',
-                }}>
-                <Text style={{color: '#313131', fontSize: 12}}>
-                  Sub Category
-                </Text>
-                <Text style={{color: '#828282', fontSize: 12}}>
+              <View style={styles.propertyRowItems}>
+                <Text style={styles.overviewTitle}>Sub Category</Text>
+                <Text style={styles.overviewInfo}>
                   {isHouse.house_subcategory.subcategory_name}
                 </Text>
               </View>
@@ -625,6 +379,14 @@ export const PropertyScreen = ({navigation}) => {
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>{isHouse.transaction}</Text>
           </TouchableOpacity>
+          <Modal
+            visible={visibleInspect}
+            animationType="slide"
+            onBackdropPress={toggleInspect}
+            backdropStyle={styles.backdrop}
+            transparent={false}>
+            {mapElement()}
+          </Modal>
         </ScrollView>
       ) : (
         renderPlaceholders()
@@ -657,4 +419,204 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+  },
+  modalContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    height: 230,
+    width: Dimensions.get('window').width - 50,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalX: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+    backgroundColor: 'white',
+    borderRadius: 30,
+    alignSelf: 'flex-end',
+    flexDirection: 'row',
+    bottom: 20,
+    left: 15,
+    height: 35,
+    width: 35,
+    justifyContent: 'center',
+  },
+  modalXtext: {
+    alignSelf: 'center',
+    fontSize: 15,
+    color: '#0DABA8',
+    fontWeight: 'bold',
+  },
+  modalBody: {
+    flex: 1,
+    width: Dimensions.get('window').width - 50,
+    alignItems: 'center',
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
+  },
+  modalHeader: {
+    color: '#3A3A3A',
+    fontSize: 18,
+  },
+  modalInfo: {
+    color: '#828282',
+    fontSize: 13,
+    margin: 15,
+    textAlign: 'center',
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    marginVertical: 15,
+  },
+  modalOffline: {
+    backgroundColor: '#0DABA8',
+    paddingHorizontal: 25,
+    paddingVertical: 5,
+    borderRadius: 4,
+    marginHorizontal: 10,
+  },
+  modalOnline: {
+    backgroundColor: '#0DABA8',
+    paddingHorizontal: 25,
+    paddingVertical: 5,
+    borderRadius: 4,
+    marginHorizontal: 10,
+  },
+  modalBtnText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  scrollContainer: {
+    flex: 1,
+    alignSelf: 'center',
+    marginVertical: 24,
+  },
+  images: {
+    height: 200,
+    width: Dimensions.get('window').width - 35,
+    alignSelf: 'center',
+  },
+  inspectSection: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginVertical: -5,
+  },
+  inspect: {
+    width: 50,
+    height: 50,
+    borderRadius: 100,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 4,
+    backgroundColor: '#fff',
+    marginHorizontal: 31,
+    justifyContent: 'center',
+  },
+  inspectImage: {
+    width: 100,
+    height: 100,
+    transform: [
+      {
+        scaleX: moderateScale(0.3, 0.1),
+      },
+      {
+        scaleY: moderateScale(0.3, 0.1),
+      },
+    ],
+    alignSelf: 'center',
+  },
+  inspectTextSection: {
+    flexDirection: 'row',
+    alignSelf: 'center',
+    marginVertical: 8,
+  },
+  inspectText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#3A3A3A',
+    marginHorizontal: 20,
+    alignSelf: 'center',
+  },
+  details: {
+    width: Dimensions.get('window').width - 35,
+    alignSelf: 'center',
+    marginVertical: 10,
+  },
+  header: {
+    color: '#3A3A3A',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  detailsInfo: {
+    color: '#828282',
+    fontSize: 12,
+    lineHeight: 14,
+    marginVertical: 9,
+    textAlign: 'justify',
+  },
+  amenities: {
+    width: Dimensions.get('window').width - 35,
+    alignSelf: 'center',
+  },
+  amenitiesInfo: {
+    marginVertical: 9,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+  overview: {
+    width: Dimensions.get('window').width - 35,
+    alignSelf: 'center',
+    marginVertical: 10,
+  },
+  propertyRow: {
+    marginVertical: 9,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  propertyRowItems: {
+    flexDirection: 'row',
+    width: 150,
+    justifyContent: 'space-between',
+  },
+  overviewTitle: {
+    color: '#313131',
+    fontSize: 12,
+  },
+  overviewInfo: {
+    color: '#828282',
+    fontSize: 12,
+  },
+  iconsPadding: {padding: 2},
+  icon: {alignSelf: 'center'},
+  iconText: {
+    color: '#000000',
+    fontSize: 10,
+  },
+  left: {padding: 5},
 });
