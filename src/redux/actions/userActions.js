@@ -66,9 +66,9 @@ export const Login = (data, navigation, setLoad) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: 'USER_AUTH_ERROR',
-      payload: error.response.data.error,
+      payload: error.message,
     });
-    showToast(error.response.data.error);
+    showToast(error.message);
     setTimeout(() => {
       setLoad(false);
     }, 5000);
