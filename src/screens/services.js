@@ -78,7 +78,7 @@ export const ServicesScreen = ({ navigation }) => {
   //top nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
-      navigation.navigate('Draw');
+      navigation.navigate('Hamburger');
 
     })
   };
