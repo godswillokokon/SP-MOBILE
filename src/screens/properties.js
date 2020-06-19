@@ -181,24 +181,45 @@ export const PropertiesScreen = ({navigation}) => {
       </View>
       {isHouses ? (
         <View style={styles.mainContainer}>
-          <FlatList
-            data={isHouses}
-            showsVerticalScrollIndicator={false}
-            renderItem={({item}) => (
-              <Properties
-                id={item.id}
-                name={item.name}
-                state={item.state}
-                price={item.price}
-                take_two_images={item.take_two_images}
-                slug={item.slug}
-                payment_type={item.payment_type}
-                lga={item.lga}
-              />
-            )}
-            keyExtractor={(item) => item.id.toString()}
-            numColumns={1}
-          />
+          {isHouses.take_two_images ? (
+            <FlatList
+              data={isHouses}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => (
+                <Properties
+                  id={item.id}
+                  name={item.name}
+                  state={item.state}
+                  price={item.price}
+                  take_two_images={item.take_two_images}
+                  slug={item.slug}
+                  payment_type={item.payment_type}
+                  lga={item.lga}
+                />
+              )}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={1}
+            />
+          ) : (
+            <FlatList
+              data={isHouses}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => (
+                <Properties
+                  id={item.id}
+                  name={item.name}
+                  state={item.state}
+                  price={item.price}
+                  take_two_images={item.take_two_images}
+                  slug={item.slug}
+                  payment_type={item.payment_type}
+                  lga={item.lga}
+                />
+              )}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={1}
+            />
+          )}
         </View>
       ) : (
         renderPlaceholders()
