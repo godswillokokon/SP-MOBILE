@@ -49,9 +49,31 @@ export const LoginScreen = ({navigation}) => {
   const loginUser = (data) => {
     requestAnimationFrame(() => {
       setLoad(true);
-      if (data.email === '') {
+      if (data.email === '' || null) {
         ToastAndroid.show(
           'Email or Password should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setLoad(false);
+        }, 5000);
+      } else if (data.password === '' || null) {
+        ToastAndroid.show(
+          'Email or Password should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setLoad(false);
+        }, 5000);
+      } else if (data.password.length < 6) {
+        ToastAndroid.show(
+          'Password too short',
           ToastAndroid.LONG,
           ToastAndroid.TOP,
           25,
@@ -155,6 +177,7 @@ export const LoginScreen = ({navigation}) => {
                 accessoryRight={MailIcon}
                 placeholderTextColor={'#fff'}
                 accessibilityLabel="Email"
+                textContentType="emailAddress"
               />
               <View style={styles.lineStyle} />
               <Input
@@ -169,6 +192,7 @@ export const LoginScreen = ({navigation}) => {
                 onChangeText={(nextValue) => setPassword(nextValue)}
                 placeholderTextColor={'#fff'}
                 accessibilityLabel="Password"
+                textContentType="password"
               />
             </Layout>
             <TouchableOpacity onPress={ForgotPassword} style={styles.forgotBut}>
