@@ -5,8 +5,8 @@ import {HamburgerNavigation} from '../navigate/drawer';
 
 const App = createStackNavigator(
   {
-    Applications: AppScreens,
     Hamburger: HamburgerNavigation,
+    Applications: AppScreens,
   },
   {
     headerMode: 'none',
