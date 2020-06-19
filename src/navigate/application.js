@@ -11,6 +11,7 @@ import {PropertyScreen} from '../screens/property';
 
 const App = createStackNavigator(
   {
+    Property: PropertyScreen,
     Categories: CategoriesScreen,
     WalletTransation: WalletTransationScreen,
     Services: ServicesScreen,
@@ -18,7 +19,6 @@ const App = createStackNavigator(
     ServiceBooking: ServiceBookingScreen,
     Agent: AgentScreen,
     Settings: SettingsScreen,
-    Property: PropertyScreen,
   },
   {
     headerMode: 'none',
