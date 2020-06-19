@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {
   StyleSheet,
@@ -12,6 +13,7 @@ import {
   ActivityIndicator,
   Platform,
 } from 'react-native';
+import {ToastAndroid} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {CreateUser} from '../redux/actions/userActions';
 import {Layout, Text, Input} from '@ui-kitten/components';
@@ -48,10 +50,101 @@ export const SignupScreen = ({navigation}) => {
     });
   };
   const dispatch = useDispatch();
+
   const registerUser = (data) => {
-    setload(true);
     requestAnimationFrame(() => {
-      dispatch(CreateUser(data, navigation, setload));
+      setload(true);
+      if (data.name === '' || null) {
+        ToastAndroid.show(
+          'Name should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.email === '' || null) {
+        ToastAndroid.show(
+          'Email should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.phone === '' || null) {
+        ToastAndroid.show(
+          'Phone should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.dob === '' || null) {
+        ToastAndroid.show(
+          'Date of Birth should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.password === '' || null) {
+        ToastAndroid.show(
+          'Password should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.password_confirmation === '' || null) {
+        ToastAndroid.show(
+          'Password should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.password.length < 6) {
+        ToastAndroid.show(
+          'Password too short',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.password !== data.password_confirmation) {
+        ToastAndroid.show(
+          'Password mismatched',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else {
+        dispatch(CreateUser(data, navigation, setload));
+      }
     });
   };
 
