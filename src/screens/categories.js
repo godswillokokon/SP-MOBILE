@@ -170,7 +170,7 @@ export const CategoriesScreen = ({ navigation }) => {
   //top nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
-      navigation.navigate('Draw');
+      navigation.navigate('Hamburger');
     })
   };
   const Left = () => (
