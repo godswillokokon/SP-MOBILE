@@ -8,9 +8,12 @@ import {
   SafeAreaView,
   Image,
   ScrollView,
+  BackHandler,
 } from 'react-native';
+import PaystackWebView from 'react-native-paystack-webview';
 import {useSelector, useDispatch} from 'react-redux';
 import {GetHouse} from '../redux/actions/propsActions';
+import {MakePayment} from '../redux/actions/paymentActions';
 import {TopNavigationAction, Modal, Layout} from '@ui-kitten/components';
 import {moderateScale} from 'react-native-size-matters';
 import numbro from 'numbro';
@@ -26,12 +29,18 @@ export const PropertyScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const {house} = useSelector((state) => state.properties);
   const isHouse = house.house;
-
   useEffect(() => {
     let slug = navigation.state.params.slug;
     dispatch(GetHouse(slug));
-  }, [dispatch, navigation.state.params.slug]);
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      navigateBack,
+    );
 
+    return () => backHandler.remove();
+  }, [dispatch, navigateBack, navigation.state.params.slug]);
+  const {user} = useSelector((state) => state.user);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigateBack = () => {
     requestAnimationFrame(() => {
       navigation.navigate('Properties');
@@ -43,8 +52,19 @@ export const PropertyScreen = ({navigation}) => {
       setvisibleInspect(!visibleInspect);
     });
   };
+  const chargeCard = () => {
+    console.log(isHouse.slug, 'corrds');
+  };
   const inspectModal = () => {
+    const email = user.email;
+    const property_slug = isHouse.slug;
+    const amount = 1000;
+    const payment_plan = 'online-inspection';
+    const property_type = 'house';
     requestAnimationFrame(() => {
+      dispatch(
+        MakePayment(property_slug, amount, payment_plan, email, property_type),
+      );
       setvisibleInspect(!visibleInspect);
     });
   };
@@ -230,7 +250,7 @@ export const PropertyScreen = ({navigation}) => {
   const mapElement = () => (
     <View style={{}}>
       <Layout style={styles.modalContainer}>
-        <TouchableOpacity style={styles.modalX} onPress={inspectModal}>
+        <TouchableOpacity style={styles.modalX} onPress={toggleInspect}>
           <Text style={styles.modalXtext}>X</Text>
         </TouchableOpacity>
         <View style={styles.modalBody}>
@@ -238,7 +258,7 @@ export const PropertyScreen = ({navigation}) => {
           <Text style={styles.modalInfo}>
             Take a tour to our sites today, from our virtual tour to the
             physical tour. We ensure we show you everything you need to know
-            about this property for a fee of ₦
+            about this property for a amount of ₦
             {numbro(1000).format({
               thousandSeparated: true,
             })}{' '}
@@ -264,36 +284,65 @@ export const PropertyScreen = ({navigation}) => {
           style={styles.scrollContainer}
           showsVerticalScrollIndicator={false}>
           <View style={styles.images}>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              fadingEdgeLength={0}>
-              {isHouse.take_two_images.map((image, i) => {
-                return (
-                  <PropertyImages
-                    data={image.img_url}
-                    key={i}
-                    index={i}
-                    name={isHouse.name}
-                    address={`${isHouse.lga}, ${isHouse.state}`}
-                    amount={`₦${numbro(isHouse.price).format({
-                      thousandSeparated: true,
-                    })}`}
-                    selected={selected}
-                    onSelect={onSelect}
-                  />
-                );
-              })}
-            </ScrollView>
+            {isHouse.take_two_images ? (
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                fadingEdgeLength={0}>
+                {isHouse.take_two_images.map((image, i) => {
+                  return (
+                    <PropertyImages
+                      data={image.img_url}
+                      key={i}
+                      index={i}
+                      name={isHouse.name}
+                      address={`${isHouse.lga}, ${isHouse.state}`}
+                      amount={`₦${numbro(isHouse.price).format({
+                        thousandSeparated: true,
+                      })}`}
+                      selected={selected}
+                      onSelect={onSelect}
+                    />
+                  );
+                })}
+              </ScrollView>
+            ) : null}
+            {isHouse.house_image ? (
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                fadingEdgeLength={0}>
+                {isHouse.house_image.map((image, i) => {
+                  return (
+                    <PropertyImages
+                      data={image.img_url}
+                      key={i}
+                      index={i}
+                      name={isHouse.name}
+                      address={`${isHouse.lga}, ${isHouse.state}`}
+                      amount={`₦${numbro(isHouse.price).format({
+                        thousandSeparated: true,
+                      })}`}
+                      selected={selected}
+                      onSelect={onSelect}
+                    />
+                  );
+                })}
+              </ScrollView>
+            ) : null}
           </View>
           <View style={styles.inspectSection}>
-            <TouchableOpacity onPress={inspectModal} style={styles.inspect}>
+            <TouchableOpacity
+              onPress={() => inspectModal()}
+              style={styles.inspect}>
               <Image
                 style={styles.inspectImage}
                 source={require('../assets/mapIcon.png')}
               />
             </TouchableOpacity>
-            <TouchableOpacity onPress={inspectModal} style={styles.inspect}>
+            <TouchableOpacity
+              onPress={() => chargeCard()}
+              style={styles.inspect}>
               <Image
                 style={styles.inspectImage}
                 source={require('../assets/videoIcon.png')}
@@ -376,9 +425,54 @@ export const PropertyScreen = ({navigation}) => {
               </View>
             </View>
           </View>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>{isHouse.transaction}</Text>
-          </TouchableOpacity>
+          {/* <TouchableOpacity onPress={() => test()} style={styles.button}> */}
+          {/* <Text style={styles.buttonText}>{isHouse.transaction}</Text> */}
+          <PaystackWebView
+            buttonText={isHouse.transaction}
+            showPayButton={true}
+            paystackKey="pk_test_cc5a16f36a9c190775dcc8eeefeeeddd3b209d46"
+            paystackSecretKey="sk_test_f9e9909d4b7bc2e45b1c0cd26bd4761551543197"
+            amount={1000}
+            billingEmail="godswillokokon3@gmail.com"
+            billingMobile="08177024847"
+            billingName="Godswill Okokon"
+            ActivityIndicatorColor="green"
+            SafeAreaViewContainer=""
+            SafeAreaViewContainerModal=""
+            handleWebViewMessage={(e) => {
+              // handle the message
+              console.log(e, 'message');
+            }}
+            onCancel={(e) => {
+              // handle response here
+              console.log(e, 'failed');
+            }}
+            onSuccess={(res) => {
+              // handle response here
+              console.log(res, 'success');
+              const email = user.email;
+              const property_slug = isHouse.slug;
+              const amount = 1000;
+              const payment_plan = 'online-inspection';
+              const property_type = 'house';
+              const reference = res.data.reference;
+              const data = {
+                property_slug,
+                amount,
+                payment_plan,
+                email,
+                property_type,
+                reference,
+              };
+              // console.log(data)
+              dispatch(MakePayment({...data}));
+            }}
+            autoStart={false}
+            textStyles={styles.buttonText}
+            btnStyles={styles.button}
+          />
+          {/* </TouchableOpacity> */}
+
           <Modal
             visible={visibleInspect}
             animationType="slide"
@@ -411,6 +505,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignSelf: 'center',
     marginVertical: 16,
+    alignItems: 'center',
   },
   buttonText: {
     fontSize: 16,
@@ -418,6 +513,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#fff',
     fontWeight: 'bold',
+    alignSelf: 'center',
   },
   backdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
