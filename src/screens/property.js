@@ -53,7 +53,13 @@ export const PropertyScreen = ({navigation}) => {
     });
   };
   const chargeCard = () => {
-    console.log(isHouse.slug, 'corrds');
+    console.log(isHouse.coordinates, 'corrds');
+    console.log(isHouse.video_url, 'video');
+    console.log(isHouse.car_park, 'car_park');
+    console.log(isHouse.bathrooms, 'bathrooms');
+    console.log(isHouse.rooms, 'rooms');
+    console.log(isHouse.contact, 'contact');
+
   };
   const inspectModal = () => {
     const email = user.email;
@@ -62,9 +68,9 @@ export const PropertyScreen = ({navigation}) => {
     const payment_plan = 'online-inspection';
     const property_type = 'house';
     requestAnimationFrame(() => {
-      dispatch(
-        MakePayment(property_slug, amount, payment_plan, email, property_type),
-      );
+      // dispatch(
+      //   MakePayment(property_slug, amount, payment_plan, email, property_type),
+      // );
       setvisibleInspect(!visibleInspect);
     });
   };
