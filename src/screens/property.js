@@ -24,6 +24,7 @@ import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconM from 'react-native-vector-icons/MaterialIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import PropertyImages from '../components/propertyImages';
+import VideoPlayer from 'react-native-video-controls';
 
 export const PropertyScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -47,31 +48,32 @@ export const PropertyScreen = ({navigation}) => {
     });
   };
   const [visibleInspect, setvisibleInspect] = useState(false);
+  const [inspectVideo, setInspectVideo] = useState(false);
+
+  const toggleInspectVideo = () => {
+    requestAnimationFrame(() => {
+      setInspectVideo(!inspectVideo);
+    });
+  };
+
   const toggleInspect = () => {
     requestAnimationFrame(() => {
       setvisibleInspect(!visibleInspect);
     });
   };
-  const chargeCard = () => {
-    console.log(isHouse.coordinates, 'corrds');
-    console.log(isHouse.video_url, 'video');
-    console.log(isHouse.car_park, 'car_park');
-    console.log(isHouse.bathrooms, 'bathrooms');
-    console.log(isHouse.rooms, 'rooms');
-    console.log(isHouse.contact, 'contact');
 
-  };
-  const inspectModal = () => {
-    const email = user.email;
-    const property_slug = isHouse.slug;
-    const amount = 1000;
-    const payment_plan = 'online-inspection';
-    const property_type = 'house';
+  const inspectModalMap = () => {
     requestAnimationFrame(() => {
-      // dispatch(
-      //   MakePayment(property_slug, amount, payment_plan, email, property_type),
-      // );
-      setvisibleInspect(!visibleInspect);
+      isHouse.coordinates
+        ? console.log('opem map')
+        : setvisibleInspect(!visibleInspect);
+    });
+  };
+  const inspectModalVideo = () => {
+    requestAnimationFrame(() => {
+      isHouse.video_url
+        ? setInspectVideo(!inspectVideo)
+        : setvisibleInspect(!visibleInspect);
     });
   };
 
@@ -253,7 +255,28 @@ export const PropertyScreen = ({navigation}) => {
       amenities.push(terrace);
     }
   }
-  const mapElement = () => (
+  const inspectVideoElement = () => (
+    <View style={{}}>
+      <Layout style={styles.modalContainer}>
+        <TouchableOpacity style={styles.modalX} onPress={toggleInspectVideo}>
+          <Text style={styles.modalXtext}>X</Text>
+        </TouchableOpacity>
+        <View style={styles.modalBody}>
+          <VideoPlayer
+            source={{uri: isHouse.video_url}}
+            seekColor={'#0DABA8'}
+            // tapAnywhereToPause={true}
+            navigator={navigation}
+            disableFullscreen
+            onError={(err) => {
+              console.log(err);
+            }}
+          />
+        </View>
+      </Layout>
+    </View>
+  );
+  const inspectElement = () => (
     <View style={{}}>
       <Layout style={styles.modalContainer}>
         <TouchableOpacity style={styles.modalX} onPress={toggleInspect}>
@@ -264,19 +287,61 @@ export const PropertyScreen = ({navigation}) => {
           <Text style={styles.modalInfo}>
             Take a tour to our sites today, from our virtual tour to the
             physical tour. We ensure we show you everything you need to know
-            about this property for a amount of ₦
+            about this property for an amount of ₦
             {numbro(1000).format({
               thousandSeparated: true,
             })}{' '}
             only
           </Text>
           <View style={styles.modalButtons}>
-            <TouchableOpacity style={styles.modalOffline}>
+            <View style={styles.modalOffline}>
               <Text style={styles.modalBtnText}>Offline</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.modalOnline}>
-              <Text style={styles.modalBtnText}>Online</Text>
-            </TouchableOpacity>
+            </View>
+            <PaystackWebView
+              buttonText="Online"
+              showPayButton={true}
+              paystackKey="pk_test_cc5a16f36a9c190775dcc8eeefeeeddd3b209d46"
+              paystackSecretKey="sk_test_f9e9909d4b7bc2e45b1c0cd26bd4761551543197"
+              amount={1000}
+              billingEmail={user.email}
+              billingMobile={user.phone}
+              billingName={user.name}
+              ActivityIndicatorColor="#0DABA8"
+              SafeAreaViewContainer={{flex: 1}}
+              SafeAreaViewContainerModal={{backgroundColor: '#33393a'}}
+              handleWebViewMessage={(e) => {
+                // handle the message
+                console.log(e, 'message');
+              }}
+              onCancel={(e) => {
+                // handle response here
+                console.log(e, 'failed');
+              }}
+              onSuccess={(res) => {
+                // handle response here
+                console.log(res, 'success');
+                const email = user.email;
+                const property_slug = isHouse.slug;
+                const amount = 1000;
+                const payment_plan = 'online-inspection';
+                const property_type = 'house';
+                const reference = res.data.reference;
+                const data = {
+                  property_slug,
+                  amount,
+                  payment_plan,
+                  email,
+                  property_type,
+                  reference,
+                };
+                dispatch(MakePayment({...data}));
+                setInspectVideo(!inspectVideo);
+                setvisibleInspect(!visibleInspect);
+              }}
+              autoStart={false}
+              textStyles={styles.modalBtnText}
+              btnStyles={styles.modalOnline}
+            />
           </View>
         </View>
       </Layout>
@@ -339,7 +404,7 @@ export const PropertyScreen = ({navigation}) => {
           </View>
           <View style={styles.inspectSection}>
             <TouchableOpacity
-              onPress={() => inspectModal()}
+              onPress={() => inspectModalMap()}
               style={styles.inspect}>
               <Image
                 style={styles.inspectImage}
@@ -347,7 +412,7 @@ export const PropertyScreen = ({navigation}) => {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => chargeCard()}
+              onPress={() => inspectModalVideo()}
               style={styles.inspect}>
               <Image
                 style={styles.inspectImage}
@@ -371,6 +436,30 @@ export const PropertyScreen = ({navigation}) => {
           </View>
           <View style={styles.overview}>
             <Text style={styles.header}>Property Overview</Text>
+            {isHouse.house_image ? (
+              <View>
+                <View style={styles.propertyRow}>
+                  <View style={styles.propertyRowItems}>
+                    <Text style={styles.overviewTitle}>Garage</Text>
+                    <Text style={styles.overviewInfo}>{isHouse.car_park}</Text>
+                  </View>
+                  <View style={styles.propertyRowItems}>
+                    <Text style={styles.overviewTitle}>Bathrooms</Text>
+                    <Text style={styles.overviewInfo}>{isHouse.bathrooms}</Text>
+                  </View>
+                </View>
+                <View style={styles.propertyRow}>
+                  <View style={styles.propertyRowItems}>
+                    <Text style={styles.overviewTitle}>Rooms</Text>
+                    <Text style={styles.overviewInfo}>{isHouse.rooms}</Text>
+                  </View>
+                  <View style={styles.propertyRowItems}>
+                    <Text style={styles.overviewTitle}>Mobile</Text>
+                    <Text style={styles.overviewInfo}>{isHouse.contact}</Text>
+                  </View>
+                </View>
+              </View>
+            ) : null}
             <View style={styles.propertyRow}>
               <View style={styles.propertyRowItems}>
                 <Text style={styles.overviewTitle}>Payment</Text>
@@ -431,8 +520,6 @@ export const PropertyScreen = ({navigation}) => {
               </View>
             </View>
           </View>
-          {/* <TouchableOpacity onPress={() => test()} style={styles.button}> */}
-          {/* <Text style={styles.buttonText}>{isHouse.transaction}</Text> */}
           <PaystackWebView
             buttonText={isHouse.transaction}
             showPayButton={true}
@@ -442,9 +529,7 @@ export const PropertyScreen = ({navigation}) => {
             billingEmail="godswillokokon3@gmail.com"
             billingMobile="08177024847"
             billingName="Godswill Okokon"
-            ActivityIndicatorColor="green"
-            SafeAreaViewContainer=""
-            SafeAreaViewContainerModal=""
+            ActivityIndicatorColor="black"
             handleWebViewMessage={(e) => {
               // handle the message
               console.log(e, 'message');
@@ -470,22 +555,27 @@ export const PropertyScreen = ({navigation}) => {
                 property_type,
                 reference,
               };
-              // console.log(data)
               dispatch(MakePayment({...data}));
             }}
             autoStart={false}
             textStyles={styles.buttonText}
             btnStyles={styles.button}
           />
-          {/* </TouchableOpacity> */}
-
           <Modal
             visible={visibleInspect}
             animationType="slide"
             onBackdropPress={toggleInspect}
             backdropStyle={styles.backdrop}
             transparent={false}>
-            {mapElement()}
+            {inspectElement()}
+          </Modal>
+          <Modal
+            visible={inspectVideo}
+            animationType="slide"
+            onBackdropPress={toggleInspectVideo}
+            backdropStyle={styles.backdrop}
+            transparent={false}>
+            {inspectVideoElement()}
           </Modal>
         </ScrollView>
       ) : (
@@ -519,7 +609,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#fff',
     fontWeight: 'bold',
-    alignSelf: 'center',
   },
   backdrop: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -538,6 +627,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
+    justifyContent: 'center',
   },
   modalX: {
     shadowColor: '#000',
@@ -570,6 +660,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomLeftRadius: 4,
     borderBottomRightRadius: 4,
+    // justifyContent: 'center'
   },
   modalHeader: {
     color: '#3A3A3A',
@@ -584,25 +675,30 @@ const styles = StyleSheet.create({
   modalButtons: {
     flexDirection: 'row',
     marginVertical: 15,
+    width: 250,
+    // backgroundColor: 'red',
+    alignSelf: 'center',
   },
   modalOffline: {
     backgroundColor: '#0DABA8',
     paddingHorizontal: 25,
     paddingVertical: 5,
     borderRadius: 4,
-    marginHorizontal: 10,
+    width: 100,
   },
   modalOnline: {
     backgroundColor: '#0DABA8',
     paddingHorizontal: 25,
     paddingVertical: 5,
     borderRadius: 4,
-    marginHorizontal: 10,
+    width: 100,
+    left: 50,
   },
   modalBtnText: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#fff',
+    alignSelf: 'center',
   },
   container: {
     flex: 1,
