@@ -311,7 +311,6 @@ function RealEstates({id, title, subTitle, imageUrl, selected, onSelect}) {
             color: '#3A3A3A',
             fontSize: 13,
             fontWeight: 'bold',
-            alignSelf: 'center',
             lineHeight: 18,
             width: 155,
           }}>
@@ -753,7 +752,7 @@ export const HomeScreen = ({navigation}) => {
                 flex: 0.1,
               }}>
               <Text style={{fontSize: 17, color: '#3A3A3A', marginLeft: 5}}>
-                Latest Real Estates
+                Latest Houses
               </Text>
             </View>
             <View
