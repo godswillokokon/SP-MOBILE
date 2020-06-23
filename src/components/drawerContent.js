@@ -96,7 +96,7 @@ export const DrawerContent = ({props}) => {
             style={{
               flex: 1,
               width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height - 250,
+              height: Dimensions.get('window').height,
               flexDirection: 'column',
             }}>
             <View style={{flex: 1, width: Dimensions.get('window').width}}>
@@ -203,7 +203,7 @@ export const DrawerContent = ({props}) => {
               </View>
             </View>
 
-            <View style={{flex: 1, width: Dimensions.get('window').width}}>
+            <View style={{flex: 2, width: Dimensions.get('window').width}}>
               <Text
                 style={{
                   marginLeft: 20,
