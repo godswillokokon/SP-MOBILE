@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Image,
   ImageBackground,
+  BackHandler,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 
@@ -26,12 +27,20 @@ import IconF from 'react-native-vector-icons/FontAwesome';
 import IconS from 'react-native-vector-icons/SimpleLineIcons';
 
 export const SettingsScreen = ({navigation}) => {
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      navigateBack,
+    );
+    return () => backHandler.remove();
+  }, [navigateBack]);
   const {user} = useSelector((state) => state.user);
 
   //top nav
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigateBack = () => {
     requestAnimationFrame(() => {
-      navigation.goBack();
+      navigation.navigate('Tabs');
     });
   };
   const Left = () => (
