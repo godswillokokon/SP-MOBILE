@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import SplashScreen from 'react-native-splash-screen';
 import React, {useState, useEffect} from 'react';
 import {
@@ -81,7 +82,7 @@ export const LandingScreen = ({navigation}) => {
             width: 300,
             margin: 15,
             position: 'absolute',
-            top: 300,
+            top: 200,
             zIndex: 1,
           }}>
           <Text
@@ -246,7 +247,7 @@ export const LandingTwoScreen = ({navigation}) => {
             width: 300,
             margin: 15,
             position: 'absolute',
-            top: 300,
+            top: 200,
             zIndex: 1,
           }}>
           <Text
@@ -417,7 +418,7 @@ export const LandingThreeScreen = ({navigation}) => {
             width: 300,
             margin: 15,
             position: 'absolute',
-            top: 300,
+            top: 200,
             zIndex: 1,
           }}>
           <Text
