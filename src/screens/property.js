@@ -31,7 +31,7 @@ export const PropertyScreen = ({navigation}) => {
   const {house} = useSelector((state) => state.properties);
   const isHouse = house.house;
   useEffect(() => {
-    let slug = navigation.state.params.slug;
+    const slug = navigation.state.params.slug;
     dispatch(GetHouse(slug));
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
