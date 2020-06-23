@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   TouchableWithoutFeedback,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import {ToastAndroid} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
@@ -127,207 +128,221 @@ export const LoginScreen = ({navigation}) => {
             alignItems: 'center',
           }}
         />
-
-        <View style={{alignSelf: 'center', marginTop: 30, height: 100}}>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 40,
-              fontFamily: 'Muli',
-              alignSelf: 'center',
-              fontWeight: 'bold',
-            }}>
-            Welcome Back!
-          </Text>
-          <Text style={{color: '#fff', fontSize: 15, alignSelf: 'center'}}>
-            continue where you left off
-          </Text>
-        </View>
-        <View
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            height: Dimensions.get('screen').height - 390,
-            width: Dimensions.get('screen').width - 50,
-            alignSelf: 'center',
-            borderRadius: 6,
-            borderColor: '#fff',
-            borderWidth: 0.5,
-          }}>
-          <Text
-            style={{
-              color: '#fff',
-              fontSize: 28,
-              fontFamily: 'Muli',
-              alignSelf: 'center',
-              fontWeight: 'bold',
-              margin: 15,
-            }}>
-            Login
-          </Text>
-          <KeyboardAvoidingView style={styles.key} behavior="padding" enabled>
-            <Layout style={styles.form}>
-              <Input
-                value={email}
-                placeholder="Email"
-                style={styles.inputEmail}
-                textStyle={styles.inputText}
-                labelStyle={styles.inputLabel}
-                captionTextStyle={styles.inputCaption}
-                onChangeText={setValueE}
-                accessoryRight={MailIcon}
-                placeholderTextColor={'#fff'}
-                accessibilityLabel="Email"
-                textContentType="emailAddress"
-              />
-              <View style={styles.lineStyle} />
-              <Input
-                value={password}
-                placeholder="Password"
-                style={styles.inputPass}
-                textStyle={styles.inputText}
-                labelStyle={styles.inputLabel}
-                captionTextStyle={styles.inputCaption}
-                accessoryRight={renderIcon}
-                secureTextEntry={securePassword}
-                onChangeText={(nextValue) => setPassword(nextValue)}
-                placeholderTextColor={'#fff'}
-                accessibilityLabel="Password"
-                textContentType="password"
-              />
-            </Layout>
-            <TouchableOpacity onPress={ForgotPassword} style={styles.forgotBut}>
-              <Text style={styles.forgot}>Forgot password?</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => loginUser(data)}
-              style={styles.button}>
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-            <ActivityIndicator animating={load} size="large" color="#00959E" />
-          </KeyboardAvoidingView>
-        </View>
-        <View
-          style={{
-            width: Dimensions.get('screen').width - 50,
-            height: 50,
-            alignSelf: 'center',
-            margin: 10,
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-          }}>
-          <View
-            style={{
-              borderBottomColor: '#fff',
-              borderBottomWidth: 1,
-              flex: 1,
-            }}
-          />
-          <View style={{flex: 0.5}}>
+        <ScrollView>
+          <View style={{alignSelf: 'center', marginTop: 30, height: 100}}>
             <Text
               style={{
-                fontSize: 15,
+                color: '#fff',
+                fontSize: 40,
                 fontFamily: 'Muli',
                 alignSelf: 'center',
-                color: '#fff',
                 fontWeight: 'bold',
-                padding: 10,
               }}>
-              {' '}
-              OR{' '}
+              Welcome Back!
+            </Text>
+            <Text style={{color: '#fff', fontSize: 15, alignSelf: 'center'}}>
+              continue where you left off
             </Text>
           </View>
           <View
             style={{
-              borderBottomColor: '#fff',
-              borderBottomWidth: 1,
-              flex: 1,
-            }}
-          />
-        </View>
-        <View
-          style={{
-            width: Dimensions.get('screen').width - 150,
-            height: 50,
-            alignSelf: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-          }}>
-          <TouchableOpacity>
-            <View
-              style={{
-                backgroundColor: '#55ACEE',
-                borderRadius: 30,
-                width: 45,
-                height: 45,
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}>
-              <Icon
-                style={[{color: '#fff', alignSelf: 'flex-end', marginLeft: 6}]}
-                size={30}
-                name={'facebook-f'}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View
-              style={{
-                borderRadius: 30,
-                width: 45,
-                height: 45,
-                backgroundColor: '#F44336',
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}>
-              <IconA
-                style={[{color: '#fff', alignSelf: 'center'}]}
-                size={30}
-                name={'googleplus'}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <View
-              style={{
-                borderRadius: 30,
-                width: 45,
-                height: 45,
-                backgroundColor: '#55ACEE',
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}>
-              <Icon
-                style={[{color: '#fff', alignSelf: 'center'}]}
-                size={30}
-                name={'twitter'}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={{alignSelf: 'center', flexDirection: 'row', margin: 10}}>
-          <Text
-            style={{
-              fontSize: 15,
-              fontFamily: 'Muli',
-              color: '#fff',
-              marginHorizontal: -3,
-              padding: 5,
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              height: 320,
+              width: Dimensions.get('screen').width - 50,
+              alignSelf: 'center',
+              borderRadius: 6,
+              borderColor: '#fff',
+              borderWidth: 0.5,
             }}>
-            Don't have an account?
-          </Text>
-          <TouchableOpacity onPress={Signup} style={{padding: 5}}>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 28,
+                fontFamily: 'Muli',
+                alignSelf: 'center',
+                fontWeight: 'bold',
+                margin: 15,
+              }}>
+              Login
+            </Text>
+            <KeyboardAvoidingView style={styles.key} behavior="padding" enabled>
+              <Layout style={styles.form}>
+                <Input
+                  value={email}
+                  placeholder="Email"
+                  style={styles.inputEmail}
+                  textStyle={styles.inputText}
+                  labelStyle={styles.inputLabel}
+                  captionTextStyle={styles.inputCaption}
+                  onChangeText={setValueE}
+                  accessoryRight={MailIcon}
+                  placeholderTextColor={'#fff'}
+                  accessibilityLabel="Email"
+                  textContentType="emailAddress"
+                />
+                <View style={styles.lineStyle} />
+                <Input
+                  value={password}
+                  placeholder="Password"
+                  style={styles.inputPass}
+                  textStyle={styles.inputText}
+                  labelStyle={styles.inputLabel}
+                  captionTextStyle={styles.inputCaption}
+                  accessoryRight={renderIcon}
+                  secureTextEntry={securePassword}
+                  onChangeText={(nextValue) => setPassword(nextValue)}
+                  placeholderTextColor={'#fff'}
+                  accessibilityLabel="Password"
+                  textContentType="password"
+                />
+              </Layout>
+              <TouchableOpacity
+                onPress={ForgotPassword}
+                style={styles.forgotBut}>
+                <Text style={styles.forgot}>Forgot password?</Text>
+              </TouchableOpacity>
+              <ActivityIndicator
+                animating={load}
+                size="large"
+                color="#00959E"
+              />
+              <TouchableOpacity
+                onPress={() => loginUser(data)}
+                style={styles.button}>
+                <Text style={styles.buttonText}>Login</Text>
+              </TouchableOpacity>
+              
+            </KeyboardAvoidingView>
+          </View>
+          <View
+            style={{
+              width: Dimensions.get('screen').width - 50,
+              alignSelf: 'center',
+              alignItems: 'center',
+              flexDirection: 'row',
+              marginVertical: 25,
+            }}>
+            <View
+              style={{
+                borderBottomColor: '#fff',
+                borderBottomWidth: 1,
+                flex: 1,
+              }}
+            />
+            <View style={{flex: 0.5}}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Muli',
+                  alignSelf: 'center',
+                  color: '#fff',
+                  fontWeight: 'bold',
+                  padding: 10,
+                }}>
+                {' '}
+                OR{' '}
+              </Text>
+            </View>
+            <View
+              style={{
+                borderBottomColor: '#fff',
+                borderBottomWidth: 1,
+                flex: 1,
+              }}
+            />
+          </View>
+          <View
+            style={{
+              width: Dimensions.get('screen').width - 150,
+              height: 50,
+              alignSelf: 'center',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              bottom: 10,
+            }}>
+            <TouchableOpacity>
+              <View
+                style={{
+                  backgroundColor: '#55ACEE',
+                  borderRadius: 30,
+                  width: 45,
+                  height: 45,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}>
+                <Icon
+                  style={[
+                    {color: '#fff', alignSelf: 'flex-end', marginLeft: 6},
+                  ]}
+                  size={30}
+                  name={'facebook-f'}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View
+                style={{
+                  borderRadius: 30,
+                  width: 45,
+                  height: 45,
+                  backgroundColor: '#F44336',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}>
+                <IconA
+                  style={[{color: '#fff', alignSelf: 'center'}]}
+                  size={30}
+                  name={'googleplus'}
+                />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View
+                style={{
+                  borderRadius: 30,
+                  width: 45,
+                  height: 45,
+                  backgroundColor: '#55ACEE',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}>
+                <Icon
+                  style={[{color: '#fff', alignSelf: 'center'}]}
+                  size={30}
+                  name={'twitter'}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              alignSelf: 'center',
+              flexDirection: 'row',
+              bottom: 0,
+            }}>
             <Text
               style={{
                 fontSize: 15,
                 fontFamily: 'Muli',
-                color: '#00959E',
-                marginHorizontal: -3,
+                color: '#fff',
+                // marginHorizontal: -3,
+                padding: 5,
               }}>
-              Signup
+              Don't have an account?
             </Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity onPress={Signup} style={{padding: 5}}>
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Muli',
+                  color: '#00959E',
+                  marginHorizontal: -3,
+                }}>
+                Signup
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -391,8 +406,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 4,
     padding: 8,
-    marginTop: 60,
-    // top: 60
+    marginVertical: 20,
   },
   buttonText: {
     fontSize: 16,
