@@ -228,19 +228,18 @@ export const SignupScreen = ({navigation}) => {
           flex: 1,
           flexDirection: 'column',
         }}>
+        <View
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            position: 'absolute',
+            width: Dimensions.get('window').width,
+            height: Dimensions.get('window').height + 1000,
+            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        />
         <ScrollView style={{flex: 1}}>
-          <View
-            style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.6)',
-              position: 'absolute',
-              width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height + 1000,
-              justifyContent: 'center',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          />
-
           <View style={{alignSelf: 'center', height: 100, marginTop: 10}}>
             <Text
               style={{
@@ -259,7 +258,7 @@ export const SignupScreen = ({navigation}) => {
           <View
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              height: Dimensions.get('screen').height - 270,
+              height: 500,
               width: Dimensions.get('screen').width - 50,
               alignSelf: 'center',
               borderRadius: 6,
@@ -366,26 +365,25 @@ export const SignupScreen = ({navigation}) => {
                   placeholderTextColor={'#fff'}
                 />
               </Layout>
-              <TouchableOpacity
-                onPress={() => registerUser(data)}
-                style={styles.button}>
-                <Text style={styles.buttonText}>Signup</Text>
-              </TouchableOpacity>
               <ActivityIndicator
                 animating={load}
                 size="large"
                 color="#00959E"
               />
+              <TouchableOpacity
+                onPress={() => registerUser(data)}
+                style={styles.button}>
+                <Text style={styles.buttonText}>Signup</Text>
+              </TouchableOpacity>
             </KeyboardAvoidingView>
           </View>
           <View
             style={{
               width: Dimensions.get('screen').width - 50,
-              height: 50,
               alignSelf: 'center',
               alignItems: 'center',
-              justifyContent: 'space-between',
               flexDirection: 'row',
+              marginVertical: 10,
             }}>
             <View
               style={{
@@ -422,6 +420,7 @@ export const SignupScreen = ({navigation}) => {
               alignSelf: 'center',
               flexDirection: 'row',
               justifyContent: 'space-evenly',
+              marginVertical: 10,
             }}>
             <TouchableOpacity>
               <View
@@ -481,7 +480,7 @@ export const SignupScreen = ({navigation}) => {
             style={{
               alignSelf: 'center',
               flexDirection: 'row',
-              marginBottom: 10,
+              marginBottom: 20,
             }}>
             <Text
               style={{
@@ -556,8 +555,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 4,
     padding: 8,
-    marginTop: 15,
-    // top: 60
+    // marginVertical: -40,
   },
   buttonText: {
     fontSize: 16,
