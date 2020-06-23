@@ -18,7 +18,7 @@ export const CreateUser = (data, navigation, setLoad) => async (dispatch) => {
         const value = `Bearer ${response.data.token}`;
         const saveToken = Session.saveToken(value);
         if (saveToken) {
-          navigation.replace('Home');
+          navigation.navigate('Home');
           dispatch({
             type: 'USER_CREATE_ACCOUNT_SUCCESS',
             payload: {
@@ -68,7 +68,16 @@ export const Login = (data, navigation, setLoad) => async (dispatch) => {
       type: 'USER_AUTH_ERROR',
       payload: error.message,
     });
-    showToast(error.message);
+    if (
+      error.message === 'Request failed with status code 400' ||
+      'Request failed with status code 422'
+    ) {
+      showToast('Credentials not correct');
+    } else {
+      showToast(error.message);
+    }
+    // console.log(error.message)
+
     setTimeout(() => {
       setLoad(false);
     }, 5000);
