@@ -11,10 +11,10 @@ import {PropertyScreen} from '../screens/property';
 
 const App = createStackNavigator(
   {
+    Services: ServicesScreen,
     Property: PropertyScreen,
     Categories: CategoriesScreen,
     WalletTransation: WalletTransationScreen,
-    Services: ServicesScreen,
     Service: ServiceScreen,
     ServiceBooking: ServiceBookingScreen,
     Agent: AgentScreen,
