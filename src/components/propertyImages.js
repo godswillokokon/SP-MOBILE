@@ -26,9 +26,9 @@ export default PropertyImages = ({
       >
         <View style={styles.main}>
           <View style={styles.subMain}>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.address}>{address}</Text>
+            {/* <Text style={styles.name}>{name}</Text> */}
             <Text style={styles.amount}>{amount}</Text>
+            <Text style={styles.address}>{address}</Text>
           </View>
         </View>
       </ImageBackground>
