@@ -12,8 +12,8 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
   Platform,
+  ToastAndroid,
 } from 'react-native';
-import {ToastAndroid} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {CreateUser} from '../redux/actions/userActions';
 import {Layout, Text, Input} from '@ui-kitten/components';
@@ -24,6 +24,11 @@ import IconA from 'react-native-vector-icons/AntDesign';
 const PhoneIcon = () => (
   <View>
     <Icon color={'#8f9bb3'} size={18} name={'phone'} />
+  </View>
+);
+const AddressIcon = () => (
+  <View>
+    <IconA color={'#828282'} size={20} name={'home'} />
   </View>
 );
 const MailIcon = () => (
@@ -79,6 +84,17 @@ export const SignupScreen = ({navigation}) => {
       } else if (data.phone === '' || null) {
         ToastAndroid.show(
           'Phone should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.address === '' || null) {
+        ToastAndroid.show(
+          'Address should not be empty',
           ToastAndroid.LONG,
           ToastAndroid.TOP,
           25,
@@ -167,6 +183,7 @@ export const SignupScreen = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
   const [date, setDate] = useState(new Date());
   const [password, setPassword] = useState('');
   const [password_confirmation, setPassword_confirmation] = useState('');
@@ -175,10 +192,12 @@ export const SignupScreen = ({navigation}) => {
   const [securePassword, setSecurePassword] = React.useState(true);
   const [securePasswordC, setSecurePasswordC] = React.useState(true);
   const [load, setload] = useState(false);
+  let rep_code = '';
   const data = {
     email,
     name,
     password,
+    address,
     password_confirmation,
     dob,
     phone,
@@ -245,7 +264,7 @@ export const SignupScreen = ({navigation}) => {
               style={{
                 color: '#fff',
                 fontSize: 40,
-                fontFamily: 'Muli',
+                // fontFamily: 'Muli',
                 alignSelf: 'center',
                 fontWeight: 'bold',
               }}>
@@ -258,7 +277,7 @@ export const SignupScreen = ({navigation}) => {
           <View
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              height: 500,
+              height: 540,
               width: Dimensions.get('screen').width - 50,
               alignSelf: 'center',
               borderRadius: 6,
@@ -269,7 +288,7 @@ export const SignupScreen = ({navigation}) => {
               style={{
                 color: '#fff',
                 fontSize: 28,
-                fontFamily: 'Muli',
+                // fontFamily: 'Muli',
                 alignSelf: 'center',
                 fontWeight: 'bold',
                 margin: 10,
@@ -305,6 +324,15 @@ export const SignupScreen = ({navigation}) => {
                   accessoryRight={PhoneIcon}
                   placeholderTextColor={'#fff'}
                 />
+                <Input
+                  value={address}
+                  placeholder="Address"
+                  style={styles.input}
+                  textStyle={styles.inputText}
+                  onChangeText={setAddress}
+                  accessoryRight={AddressIcon}
+                  placeholderTextColor={'#fff'}
+                />
                 <View>
                   <TouchableOpacity
                     style={{
@@ -320,7 +348,7 @@ export const SignupScreen = ({navigation}) => {
                     <Text
                       style={{
                         fontSize: 14,
-                        fontFamily: 'Muli',
+                        // fontFamily: 'Muli',
                         marginLeft: 8,
                         color: '#fff',
                         flex: 1,
@@ -396,7 +424,7 @@ export const SignupScreen = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 15,
-                  fontFamily: 'Muli',
+                  // fontFamily: 'Muli',
                   alignSelf: 'center',
                   color: '#fff',
                   fontWeight: 'bold',
@@ -485,7 +513,7 @@ export const SignupScreen = ({navigation}) => {
             <Text
               style={{
                 fontSize: 15,
-                fontFamily: 'Muli',
+                // fontFamily: 'Muli',
                 color: '#fff',
                 marginHorizontal: -3,
                 padding: 5,
@@ -496,7 +524,7 @@ export const SignupScreen = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 15,
-                  fontFamily: 'Muli',
+                  // fontFamily: 'Muli',
                   color: '#00959E',
                   marginHorizontal: -3,
                 }}>
@@ -517,7 +545,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     fontSize: 14,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     margin: 2,
     color: '#fff',
   },
@@ -544,7 +572,7 @@ const styles = StyleSheet.create({
   },
   forgot: {
     fontSize: 13,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     color: '#ffffff',
     backgroundColor: 'transparent',
     marginLeft: 20,
@@ -559,7 +587,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#fff',
     fontWeight: 'bold',
