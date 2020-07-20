@@ -5,16 +5,30 @@ import {ToastAndroid} from 'react-native';
 const showToast = (message) => {
   ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
 };
-const BASE = 'https://Spreadprolimited.com/api';
-export const CreateUser = (data, navigation, setLoad) => async (dispatch) => {
-  const {email, name, password, password_confirmation, dob, phone} = data;
+const BASE = 'https://api.spreadprolimited.com/api/';
+
+export const CreateUser = (data, navigation, setLoad) => (dispatch) => {
   try {
-    await axios
+    axios
       .post(
-        `${BASE}/user?email=${email}&name=${name}&dob=${dob}&phone=${phone}&password=${password}&password_confirmation=${password_confirmation}`,
+        'https://api.spreadprolimited.com/api/user',
+        {
+          name: data.name,
+          email: data.email,
+          dob: data.dob,
+          phone: data.phone,
+          address: data.address,
+          password: data.password,
+          password_confirmation: data.password_confirmation,
+        },
+        {
+          headers: {
+            'content-type': 'application/json',
+          },
+        },
       )
       .then((response) => {
-        // console.log(response, 'res');
+        console.log(response, 'new user');
         const value = `Bearer ${response.data.token}`;
         const saveToken = Session.saveToken(value);
         if (saveToken) {
@@ -44,12 +58,22 @@ export const CreateUser = (data, navigation, setLoad) => async (dispatch) => {
 };
 
 export const Login = (data, navigation, setLoad) => async (dispatch) => {
-  const {email, password} = data;
   try {
-    await axios
-      .post(`${BASE}/user/login?email=${email}&password=${password}`)
+    axios
+      .post(
+        'https://api.spreadprolimited.com/api/user/login',
+        {
+          email: data.email,
+          password: data.password,
+        },
+        {
+          headers: {
+            'content-type': 'application/json',
+          },
+        },
+      )
       .then((response) => {
-        // console.log(response, 'res');
+        console.log(response, 'res');
         const value = `Bearer ${response.data.access_token}`;
         const saveToken = Session.saveToken(value);
         if (saveToken) {
@@ -64,6 +88,7 @@ export const Login = (data, navigation, setLoad) => async (dispatch) => {
       });
     setLoad(false);
   } catch (error) {
+    console.log(error);
     dispatch({
       type: 'USER_AUTH_ERROR',
       payload: error.message,
@@ -76,8 +101,6 @@ export const Login = (data, navigation, setLoad) => async (dispatch) => {
     } else {
       showToast(error.message);
     }
-    // console.log(error.message)
-
     setTimeout(() => {
       setLoad(false);
     }, 5000);
@@ -88,13 +111,12 @@ export const GetUserData = () => async (dispatch) => {
   try {
     const token = await Session.getData('@token');
     await axios
-      .get(`${BASE}/profile`, {
+      .get('https://api.spreadprolimited.com/api/profile', {
         headers: {
           Authorization: token,
         },
       })
       .then((response) => {
-        // console.log(response.data.user, 'innn');
         dispatch({
           type: 'USER_DATA',
           payload: {
@@ -106,6 +128,44 @@ export const GetUserData = () => async (dispatch) => {
     showToast(error.message);
     Session.logout();
     return 401;
+  }
+};
+export const UpdateUserData = (data, setLoad) => async (dispatch) => {
+  try {
+    const token = await Session.getData('@token');
+    axios
+      .post(
+        'https://api.spreadprolimited.com/api/user',
+        {
+          name: data.name,
+          email: data.email,
+          dob: data.dob,
+          phone: data.phone,
+          address: data.address,
+          picture: data.picture,
+          _method: 'PATCH',
+        },
+        {
+          headers: {
+            Authorization: token,
+            'content-type': 'application/json',
+          },
+        },
+      )
+      .then(function (response) {
+        // console.log(response, 'innn');
+        dispatch({
+          type: 'USER_DATA',
+          payload: {
+            user: response.data.user,
+          },
+        });
+      });
+    setLoad(false);
+  } catch (error) {
+    showToast(error.message);
+    console.log(error.message, 'redux error');
+    console.log(error, 'redux error');
   }
 };
 export const ForgotPassword = (email) => async (dispatch) => {
@@ -138,7 +198,7 @@ export const ForgotPassword = (email) => async (dispatch) => {
 export const Logout = (props) => (dispatch) => {
   Session.saveToken(null);
   dispatch({
-    type: 'USER_LOGOUT_SUCCES',
+    type: 'USER_LOGOUT_SUCCESS',
     payload: {
       token: null,
       user: {},
@@ -146,3 +206,15 @@ export const Logout = (props) => (dispatch) => {
   });
   props.navigation.navigate('Login');
 };
+// const url = 'https://api.spreadprolimited.com/api/user/login';
+// const options = {
+//   method: 'POST',
+//   headers: {
+//     Accept: 'application/json',
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify({
+//     email: data.email,
+//     password: data.password,
+//   }),
+// };
