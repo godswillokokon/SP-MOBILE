@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
@@ -7,18 +8,26 @@ import {
   TouchableOpacity,
   SafeAreaView,
   KeyboardAvoidingView,
+  Platform,
+  ToastAndroid,
+  ActivityIndicator,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import {UpdateUserData} from '../redux/actions/userActions';
+import {useSelector, useDispatch} from 'react-redux';
 import {TopNavigationAction, Layout, Text, Input} from '@ui-kitten/components';
 import {Avatar} from 'react-native-paper';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconF from 'react-native-vector-icons/FontAwesome5';
 import IconM from 'react-native-vector-icons/MaterialIcons';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import ImagePicker from 'react-native-image-picker';
 
 export const AccountScreen = ({navigation}) => {
   useEffect(() => {}, []);
   const {user} = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   //nav
   const openDrawer = () => {
     requestAnimationFrame(() => {
@@ -44,13 +53,178 @@ export const AccountScreen = ({navigation}) => {
       <Text style={styles.title}>Account</Text>
     </View>
   );
-  console.log(user);
-  const [FullName, setFullName] = useState(user.name);
-  const [Email, setEmail] = useState(user.email);
-  const [Phone, setPhone] = useState(user.phone);
-  const [Address, setAddress] = useState(user.address);
+  // console.log(user);
+  const updateUser = (data) => {
+    // console.log(data, 'push');
+    requestAnimationFrame(() => {
+      setload(true);
+      if (data.name === '' || null) {
+        ToastAndroid.show(
+          'Name should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.email === '' || null) {
+        ToastAndroid.show(
+          'Email should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.phone === '' || null) {
+        ToastAndroid.show(
+          'Phone should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (BirthDay === '' || null) {
+        ToastAndroid.show(
+          'Date of Birth should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else if (data.picture === '' || null) {
+        ToastAndroid.show(
+          'Profile image should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setload(false);
+        }, 5000);
+      } else {
+        dispatch(UpdateUserData(data));
+      }
+    });
+  };
+  const onChange = (event, selectedDate) => {
+    event.type === 'neutralButtonPressed' ? setDate(new Date()) : null;
+
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+    setDob(fullDate);
+    setBirthDay(fullDate);
+  };
+
+  const showMode = () => {
+    setShow(true);
+  };
+
+  const showDatepicker = () => {
+    requestAnimationFrame(() => {
+      showMode('date');
+    });
+  };
+  const [name, setFullName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [phone, setPhone] = useState(user.phone);
+  const [address, setAddress] = useState(user.address);
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const [dob, setDob] = useState('');
   const [BirthDay, setBirthDay] = useState(user.dob);
-  const [Pic, setPic] = useState(user.picture);
+  const [picture, setPic] = useState(user.picture);
+  const [load, setload] = useState(false);
+
+  const selectPhotoTapped = () => {
+    const options = {
+      title: 'Select Photo',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, (response) => {
+      // console.log('Response = ', response);
+      if (response.didCancel) {
+        // console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+        ToastAndroid.show(
+          `${response.error}`,
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+        );
+      } else {
+        const uri = response.uri;
+        const type = response.type;
+        const name = response.fileName;
+        const source = {
+          uri,
+          type,
+          name,
+        };
+        cloudinaryUpload(source);
+        console.log(source, 'scr');
+      }
+    });
+  };
+  const cloudinaryUpload = (picCloud) => {
+    console.log(picCloud.uri, 'in');
+    const data = new FormData();
+    data.append('file', picCloud);
+    data.append('upload_preset', 'ogcodes');
+    data.append('cloud_name', 'ogcodes');
+    fetch('https://api.cloudinary.com/v1_1/ogcodes/upload', {
+      method: 'post',
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((img) => {
+        setPic(img.secure_url);
+        console.log(img.secure_url, 'almost');
+        console.log(picture, 'done');
+      })
+      .catch((err) =>
+        ToastAndroid.show(
+          `${err}`,
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        ),
+      );
+  };
+  // const _method = 'PATCH';
+  const data = {
+    email,
+    name,
+    dob: BirthDay,
+    picture,
+    phone,
+    address,
+  };
+
+  let curr_date = date.getDate();
+  let curr_month = date.getMonth() + 1;
+  let month = curr_month;
+  if (curr_month <= 9) {
+    month = `0${curr_month}`;
+  }
+  let curr_year = date.getFullYear();
+  let fullDate = `${curr_date}-${month}-${curr_year}`;
 
   //icons
 
@@ -81,7 +255,7 @@ export const AccountScreen = ({navigation}) => {
   );
   const AddressText = () => <Text style={styles.leftText}>Address</Text>;
   const BirthdayIcon = () => (
-    <View>
+    <View style={{}}>
       <IconF color={'#828282'} size={20} name={'birthday-cake'} />
     </View>
   );
@@ -94,11 +268,13 @@ export const AccountScreen = ({navigation}) => {
         <View style={styles.avatar}>
           <Avatar.Image
             source={{
-              uri: Pic,
+              uri: picture,
             }}
             size={120}
           />
-          <TouchableOpacity style={styles.avatarBtn}>
+          <TouchableOpacity
+            onPress={selectPhotoTapped}
+            style={styles.avatarBtn}>
             <IconF style={styles.avatarBtnIcon} name="camera" size={20} />
           </TouchableOpacity>
         </View>
@@ -106,7 +282,7 @@ export const AccountScreen = ({navigation}) => {
         <KeyboardAvoidingView style={styles.key} behavior="padding" enabled>
           <Layout style={styles.form}>
             <Input
-              value={FullName}
+              value={name}
               style={styles.input}
               textStyle={styles.inputText}
               onChangeText={setFullName}
@@ -115,7 +291,7 @@ export const AccountScreen = ({navigation}) => {
               accessibilityLabel="Full name"
             />
             <Input
-              value={Email}
+              value={email}
               style={styles.input}
               textStyle={styles.inputText}
               onChangeText={setEmail}
@@ -124,7 +300,7 @@ export const AccountScreen = ({navigation}) => {
               accessibilityLabel="Email"
             />
             <Input
-              value={Phone}
+              value={phone}
               style={styles.input}
               textStyle={styles.inputText}
               onChangeText={setPhone}
@@ -133,7 +309,7 @@ export const AccountScreen = ({navigation}) => {
               accessibilityLabel="Phone"
             />
             <Input
-              value={Address}
+              value={address}
               style={styles.input}
               textStyle={styles.inputText}
               onChangeText={setAddress}
@@ -141,23 +317,42 @@ export const AccountScreen = ({navigation}) => {
               label={AddressText}
               accessibilityLabel="Address"
             />
-            <Input
-              value={BirthDay}
-              style={styles.input}
-              textStyle={styles.inputText}
-              onChangeText={setBirthDay}
-              accessoryRight={BirthdayIcon}
-              label={BirthdayText}
-              accessibilityLabel="BirthDay"
-            />
+            <View>
+              <TouchableOpacity onPress={showDatepicker}>
+                <Input
+                  // value={date.toLocaleDateString()}
+                  value={BirthDay}
+                  style={styles.input}
+                  textStyle={styles.inputText}
+                  onChangeText={setBirthDay}
+                  accessoryRight={BirthdayIcon}
+                  label={BirthdayText}
+                  accessibilityLabel="BirthDay"
+                  disabled
+                />
+              </TouchableOpacity>
+              {show && (
+                <DateTimePicker
+                  testID="dateTimePicker"
+                  value={date}
+                  display="default"
+                  onChange={onChange}
+                  neutralButtonLabel="clear"
+                  maximumDate={new Date()}
+                />
+              )}
+            </View>
             <TouchableOpacity
               onPress={ChangePassword}
               style={styles.changepassword}>
               <IconM color={'#828282'} size={20} name={'lock-outline'} />
               <Text style={styles.changepasswordText}>Change Password</Text>
             </TouchableOpacity>
+            <ActivityIndicator animating={load} size="large" color="#00959E" />
           </Layout>
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            onPress={() => updateUser(data)}
+            style={styles.button}>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
@@ -174,14 +369,12 @@ const styles = StyleSheet.create({
   scroll: {
     flex: 1,
     alignSelf: 'center',
-    marginVertical: 24,
   },
   leftAction: {
     padding: 5,
   },
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',
@@ -193,6 +386,7 @@ const styles = StyleSheet.create({
   avatar: {
     justifyContent: 'center',
     alignSelf: 'center',
+    marginVertical: 24,
   },
   avatarBtn: {
     backgroundColor: 'rgba(0, 149, 158, 0.5)',
@@ -233,11 +427,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 4,
     padding: 8,
-    marginTop: 60,
+    marginBottom: 30,
   },
   buttonText: {
     fontSize: 16,
-    fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#fff',
     fontWeight: 'bold',
