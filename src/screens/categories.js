@@ -1,134 +1,149 @@
-import React, { useState, useCallback } from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Dimensions,
   FlatList,
   TouchableOpacity,
   ImageBackground,
   SafeAreaView,
 } from 'react-native';
-import {
-  TopNavigationAction,
-} from '@ui-kitten/components';
+import {TopNavigationAction} from '@ui-kitten/components';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
-import { MenuItem, OverflowMenu } from '@ui-kitten/components';
+import { MenuItem, OverflowMenu, Text} from '@ui-kitten/components';
 
 const DATA_Categories = [
   {
     id: '1',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '2',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '3',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '4',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '5',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '6',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '11',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '22',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '33',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '44',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '55',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '66',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '12',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '12',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '31',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '41',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '51',
     title: 'Sale',
     subTitle: '200 appartments for sale',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
   {
     id: '61',
     title: 'Rent',
     subTitle: '200 appartments for rent',
-    imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
+    imageUrl:
+      'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png',
   },
 ];
 
-function Categories({ id, title, subTitle, imageUrl, selected, onSelect }) {
+function Categories({id, title, subTitle, imageUrl, selected, onSelect}) {
   return (
     <TouchableOpacity
       onPress={() => onSelect(id)}
@@ -139,26 +154,35 @@ function Categories({ id, title, subTitle, imageUrl, selected, onSelect }) {
         height: 153,
         borderRadius: 6,
         backgroundColor: 'transparent',
-        flex: 1
-      }}
-    >
-      <ImageBackground style={{ flex: 1, width: '100%', }}
-        source={{ uri: imageUrl }}
-        imageStyle={{ borderRadius: 6, }}
-      >
-        <View style={{
-          flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column',
-          justifyContent: 'flex-end', borderRadius: 6,
-        }}>
-          <View style={{ margin: 10 }}>
-            <Text style={{
-              fontSize: 14,
-              color: '#fff',
-            }}>{title}</Text>
-            <Text style={{
-              fontSize: 10,
-              color: '#fff',
-            }}>{subTitle}</Text>
+        flex: 1,
+      }}>
+      <ImageBackground
+        style={{flex: 1, width: '100%'}}
+        source={{uri: imageUrl}}
+        imageStyle={{borderRadius: 6}}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            flexDirection: 'column',
+            justifyContent: 'flex-end',
+            borderRadius: 6,
+          }}>
+          <View style={{margin: 10}}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: '#fff',
+              }}>
+              {title}
+            </Text>
+            <Text
+              style={{
+                fontSize: 10,
+                color: '#fff',
+              }}>
+              {subTitle}
+            </Text>
           </View>
         </View>
       </ImageBackground>
@@ -166,26 +190,28 @@ function Categories({ id, title, subTitle, imageUrl, selected, onSelect }) {
   );
 }
 
-export const CategoriesScreen = ({ navigation }) => {
+export const CategoriesScreen = ({navigation}) => {
   //top nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
       navigation.navigate('Hamburger');
-    })
+    });
   };
   const Left = () => (
-    <IconA style={[{ color: '#00959E', }]} name='arrowleft' size={25} />
+    <IconA style={[{color: '#00959E'}]} name="arrowleft" size={25} />
   );
 
   const LeftAction = () => (
-    <TopNavigationAction icon={Left} onPress={navigateBack} style={[{ padding: 5 }]} />
+    <TopNavigationAction
+      icon={Left}
+      onPress={navigateBack}
+      style={[{padding: 5}]}
+    />
   );
   const Title = () => (
-    <View >
-      <Text style={styles.title}>
-        Categories
-      </Text>
-    </View >
+    <View>
+      <Text style={styles.title}>Categories</Text>
+    </View>
   );
 
   //selected
@@ -194,7 +220,7 @@ export const CategoriesScreen = ({ navigation }) => {
   const [selected, setSelected] = useState(new Map());
 
   const onSelect = useCallback(
-    id => {
+    (id) => {
       const newSelected = new Map(selected);
       newSelected.set(id, !selected.get(id));
       setSelected(newSelected);
@@ -211,12 +237,15 @@ export const CategoriesScreen = ({ navigation }) => {
   };
 
   const renderSortToggle = () => (
-    <TouchableOpacity onPress={() => setVisibleSort(true)} style={{ flexDirection: 'row', alignItems: 'center', }}>
-      <IconMC style={[{ color: '#828282', }]} name='sort-descending' size={20} />
-      <Text style={{ fontSize: 11, marginHorizontal: 2, color: '#828282' }}>Sort By</Text>
-      <IconA style={[{ color: '#828282', top: 2 }]} name='down' size={13} />
+    <TouchableOpacity
+      onPress={() => setVisibleSort(true)}
+      style={{flexDirection: 'row', alignItems: 'center'}}>
+      <IconMC style={[{color: '#828282'}]} name="sort-descending" size={20} />
+      <Text style={{fontSize: 11, marginHorizontal: 2, color: '#828282'}}>
+        Sort By
+      </Text>
+      <IconA style={[{color: '#828282', top: 2}]} name="down" size={13} />
     </TouchableOpacity>
-
   );
   //filter
   const [selectedIndexFilter, setSelectedIndexFilter] = useState(null);
@@ -228,53 +257,58 @@ export const CategoriesScreen = ({ navigation }) => {
   };
 
   const renderFilterToggle = () => (
-    <TouchableOpacity onPress={() => setVisibleFilter(true)} style={{ flexDirection: 'row', alignItems: 'center', }}>
-      <IconA style={[{ color: '#828282', }]} name='filter' size={20} />
-      <Text style={{ fontSize: 11, marginHorizontal: 2, color: '#828282', }}>Filter</Text>
-      <IconA style={[{ color: '#828282', top: 2 }]} name='down' size={13} />
+    <TouchableOpacity
+      onPress={() => setVisibleFilter(true)}
+      style={{flexDirection: 'row', alignItems: 'center'}}>
+      <IconA style={[{color: '#828282'}]} name="filter" size={20} />
+      <Text style={{fontSize: 11, marginHorizontal: 2, color: '#828282'}}>
+        Filter
+      </Text>
+      <IconA style={[{color: '#828282', top: 2}]} name="down" size={13} />
     </TouchableOpacity>
-
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{flex: 1}}>
       <TopNav Title={Title} LeftAction={LeftAction} />
-      <View style={{
-        flexDirection: 'row', justifyContent: 'space-between',
-        width: Dimensions.get('window').width - 20,
-        alignSelf: 'center', marginTop: 16
-      }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          width: Dimensions.get('window').width - 20,
+          alignSelf: 'center',
+          marginTop: 16,
+        }}>
         <OverflowMenu
           anchor={renderSortToggle}
           visible={visibleSort}
           selectedIndex={selectedIndexSort}
-          placement='top start'
+          placement="top start"
           onSelect={onItemSelectSort}
-          backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+          backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
           onBackdropPress={() => setVisibleSort(false)}>
-          <MenuItem title='Rentals' />
-          <MenuItem title='Sale' />
-          <MenuItem title='Mortgage' />
+          <MenuItem title="Rentals" />
+          <MenuItem title="Sale" />
+          <MenuItem title="Mortgage" />
         </OverflowMenu>
 
         <OverflowMenu
           anchor={renderFilterToggle}
           visible={visibleFilter}
           selectedIndex={selectedIndexFilter}
-          placement='top end'
+          placement="top end"
           onSelect={onItemSelectFilter}
-          backdropStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+          backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
           onBackdropPress={() => setVisibleFilter(false)}>
-          <MenuItem title='Sale' />
-          <MenuItem title='Rent' />
-          <MenuItem title='Sale' />
+          <MenuItem title="Sale" />
+          <MenuItem title="Rent" />
+          <MenuItem title="Sale" />
         </OverflowMenu>
-
       </View>
       <View style={styles.MainContainer}>
         <FlatList
           data={DATA_Categories}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <Categories
               id={item.id}
               title={item.title}
@@ -284,14 +318,13 @@ export const CategoriesScreen = ({ navigation }) => {
               onSelect={onSelect}
             />
           )}
-          keyExtractor={item => item.id}
+          keyExtractor={(item) => item.id}
           extraData={selected}
           numColumns={3}
         />
       </View>
     </SafeAreaView>
-  )
-
+  );
 };
 
 const styles = StyleSheet.create({
@@ -300,7 +333,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',
@@ -315,5 +348,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 100,
   },
-})
-
+});
