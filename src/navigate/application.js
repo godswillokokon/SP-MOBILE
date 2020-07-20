@@ -7,12 +7,12 @@ import {ServiceScreen} from '../screens/service';
 import {ServiceBookingScreen} from '../screens/serviceBooking';
 import {AgentScreen} from '../screens/agent';
 import {SettingsScreen} from '../screens/settings';
-import {PropertyScreen} from '../screens/property';
+import {HouseScreen} from '../screens/house';
 
 const App = createStackNavigator(
   {
     Services: ServicesScreen,
-    Property: PropertyScreen,
+    House: HouseScreen,
     Categories: CategoriesScreen,
     WalletTransation: WalletTransationScreen,
     Service: ServiceScreen,
