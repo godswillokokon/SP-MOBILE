@@ -2,13 +2,17 @@ import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Dimensions,
   KeyboardAvoidingView,
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import {TopNavigation, TopNavigationAction, Input} from '@ui-kitten/components';
+import {
+  TopNavigation,
+  TopNavigationAction,
+  Input,
+  Text,
+} from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/AntDesign';
 import IconF from 'react-native-vector-icons/FontAwesome5';
 import IconS from 'react-native-vector-icons/SimpleLineIcons';
@@ -86,7 +90,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',
@@ -109,8 +112,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: Dimensions.get('window').width - 40,
   },
-  paraOne: {fontSize: 15, color: '#3A3A3A', alignSelf: 'center'},
-  paraTwo: {fontSize: 15, color: '#3A3A3A', alignSelf: 'center'},
+  paraOne: {fontSize: 14, color: '#3A3A3A', alignSelf: 'center'},
+  paraTwo: {fontSize: 14, color: '#3A3A3A', alignSelf: 'center'},
   inputEmail: {
     borderColor: '#3A3A3A',
     backgroundColor: 'transparent',
@@ -120,7 +123,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 13,
-    fontFamily: 'Muli',
     fontWeight: 'bold',
     color: '#3A3A3A',
   },

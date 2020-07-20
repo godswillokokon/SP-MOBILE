@@ -2,17 +2,20 @@ import React, {useState, useCallback} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Dimensions,
   FlatList,
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import {TopNavigationAction} from '@ui-kitten/components';
+import {
+  MenuItem,
+  OverflowMenu,
+  TopNavigationAction,
+  Text,
+} from '@ui-kitten/components';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
-import {MenuItem, OverflowMenu} from '@ui-kitten/components';
 
 const DATA_Categories = [
   {
@@ -59,15 +62,15 @@ const DATA_Categories = [
   },
 ];
 function Categories({id, title, date, amount, selected, onSelect, type}) {
-  if (type == 'transfer') {
+  if (type === 'transfer') {
     head = 'T';
     bg = '#EB5757';
   }
-  if (type == 'credit') {
+  if (type === 'credit') {
     head = 'C';
     bg = '#0DABA8';
   }
-  if (type == 'installment') {
+  if (type === 'installment') {
     head = 'P';
     bg = '#55ACEE';
   }
@@ -240,7 +243,6 @@ export const WalletTransationScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',

@@ -8,8 +8,8 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  Text,
 } from 'react-native';
+import {Text } from '@ui-kitten/components';
 import {useSelector, useDispatch} from 'react-redux';
 import {Logout} from '../redux/actions/userActions';
 

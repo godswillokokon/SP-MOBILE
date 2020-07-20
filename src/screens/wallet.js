@@ -2,13 +2,12 @@ import React, {useState, useCallback} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Dimensions,
   FlatList,
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import {TopNavigationAction} from '@ui-kitten/components';
+import { TopNavigationAction, Text} from '@ui-kitten/components';
 import {Avatar} from 'react-native-paper';
 import TopNav from '../components/topNav';
 import IconF from 'react-native-vector-icons/FontAwesome5';
@@ -367,7 +366,7 @@ export const WalletScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',

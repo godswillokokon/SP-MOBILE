@@ -3,7 +3,6 @@ import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Image,
   Dimensions,
   FlatList,
@@ -12,7 +11,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import {TopNavigationAction} from '@ui-kitten/components';
+import { TopNavigationAction, Text} from '@ui-kitten/components';
 import {useSelector, useDispatch} from 'react-redux';
 import {GetUserData} from '../redux/actions/userActions';
 import IconA from 'react-native-vector-icons/AntDesign';
@@ -810,7 +809,6 @@ const styles = StyleSheet.create({
   inputText: {color: '#3A3A3A'},
   placeholder: {
     fontSize: 12,
-    fontFamily: 'Muli',
   },
   item: {
     borderRadius: 6,

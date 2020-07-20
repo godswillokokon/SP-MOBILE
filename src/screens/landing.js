@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import SplashScreen from 'react-native-splash-screen';
 import React, {useState, useEffect} from 'react';
 import {
@@ -66,7 +65,6 @@ export const LandingScreen = ({navigation}) => {
               onPress={Skip}
               style={{
                 alignSelf: 'center',
-                fontFamily: 'Muli',
                 fontStyle: 'normal',
                 fontSize: 18,
                 color: '#fff',
@@ -231,7 +229,6 @@ export const LandingTwoScreen = ({navigation}) => {
             <Text
               style={{
                 alignSelf: 'center',
-                fontFamily: 'Muli',
                 fontStyle: 'normal',
                 fontSize: 18,
                 color: '#fff',
@@ -402,7 +399,6 @@ export const LandingThreeScreen = ({navigation}) => {
             <Text
               style={{
                 alignSelf: 'center',
-                fontFamily: 'Muli',
                 fontStyle: 'normal',
                 fontSize: 18,
                 color: '#fff',

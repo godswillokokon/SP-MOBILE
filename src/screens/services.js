@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Dimensions,
   FlatList,
   TouchableOpacity,
@@ -10,7 +9,7 @@ import {
   Image
 } from 'react-native';
 import {
-  TopNavigationAction,
+  TopNavigationAction, Text,
 } from '@ui-kitten/components';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
@@ -198,7 +197,7 @@ export const ServicesScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',

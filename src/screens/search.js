@@ -2,7 +2,6 @@ import React, {useState, useCallback} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Dimensions,
   FlatList,
   TouchableOpacity,
@@ -10,7 +9,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {TopNavigationAction, Input} from '@ui-kitten/components';
+import { TopNavigationAction, Input, Text} from '@ui-kitten/components';
 import TopNav from '../components/topNav';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import IconA from 'react-native-vector-icons/AntDesign';
@@ -67,7 +66,6 @@ export const SearchScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',

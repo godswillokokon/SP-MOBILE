@@ -8,7 +8,6 @@ import {
   SafeAreaView,
   ScrollView,
   KeyboardAvoidingView,
-  Text,
   TextInput,
 } from 'react-native';
 import {
@@ -18,6 +17,7 @@ import {
   OverflowMenu,
   Input,
   Datepicker,
+  Text,
 } from '@ui-kitten/components';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
@@ -287,7 +287,6 @@ export const ServiceBookingScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',
@@ -326,7 +325,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#fff',
     fontWeight: 'bold',

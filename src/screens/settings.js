@@ -1,8 +1,7 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Dimensions,
   FlatList,
   TouchableOpacity,
@@ -13,10 +12,9 @@ import {
 } from 'react-native';
 import {useSelector} from 'react-redux';
 
-import {TopNavigationAction} from '@ui-kitten/components';
+import { TopNavigationAction, Text} from '@ui-kitten/components';
 import {Avatar} from 'react-native-paper';
 import {moderateScale} from 'react-native-size-matters';
-import ToggleSwitch from 'toggle-switch-react-native';
 
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
@@ -231,7 +229,7 @@ export const SettingsScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',
