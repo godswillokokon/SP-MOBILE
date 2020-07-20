@@ -4688,6 +4688,11 @@ lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.1
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
+lodash@^4.16.4:
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
+
 log-symbols@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-2.2.0.tgz#5740e1c5d6f0dfda4ad9323b5332107ef6b4c40a"
@@ -5887,6 +5892,13 @@ react-native-gesture-handler@^1.6.1:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-gesture-responder@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-gesture-responder/-/react-native-gesture-responder-0.1.1.tgz#802552d8eb7153c0d81a396e98f4b80b404b6798"
+  integrity sha1-gCVS2OtxU8DYGjlumPS4C0BLZ5g=
+  dependencies:
+    react-timer-mixin "^0.13.3"
+
 react-native-image-picker@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-2.3.1.tgz#1977b65e07793d2c0b2d1976fb675c5f75ad7f11"
@@ -5967,6 +5979,11 @@ react-native-screens@^2.4.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.7.0.tgz#2d3cf3c39a665e9ca1c774264fccdb90e7944047"
   integrity sha512-n/23IBOkrTKCfuUd6tFeRkn3lB2QZ3cmvoubRscR0JU/Zl4/ZyKmwnFmUv1/Fr+2GH/H8UTX59kEKDYYg3dMgA==
 
+react-native-scroller@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-scroller/-/react-native-scroller-0.0.6.tgz#dea8c89bd1ca2d2445fbb6b3a90960df6c1767ff"
+  integrity sha1-3qjIm9HKLSRF+7azqQlg32wXZ/8=
+
 react-native-size-matters@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.3.0.tgz#0692e324a189884819b570c4cab24d27ecd4311d"
@@ -5990,6 +6007,14 @@ react-native-svg@^12.1.0:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
 
+react-native-transformable-image-next@^0.0.20:
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/react-native-transformable-image-next/-/react-native-transformable-image-next-0.0.20.tgz#be17b78de664b628863be0752b897e4dfbe6515e"
+  integrity sha512-U7WX/rRSJJOhSMT7vumni8+8CApqMaKAUmPtgpSlCFnVQVqp/LA9NEkDZ5k8U97NQw21uE29cfPgWmGdUUdhmQ==
+  dependencies:
+    prop-types "^15.5.10"
+    react-native-view-transformer-next "^0.0.29"
+
 react-native-vector-icons@^6.6.0:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.6.0.tgz#66cf004918eb05d90778d64bd42077c1800d481b"
@@ -5999,6 +6024,13 @@ react-native-vector-icons@^6.6.0:
     prop-types "^15.6.2"
     yargs "^13.2.2"
 
+react-native-video-controls@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-video-controls/-/react-native-video-controls-2.6.0.tgz#2301a35d7b2887a0f8dea1da93d6dd865b0ea6f0"
+  integrity sha512-JQBXFBd9Pu6shWC6fnYQlzj6zkmQai0d7XPlpegrld/uGvYHsyH9jbUqyOl+LMpuS9Sf2VzgzTozL2MBGRZXMg==
+  dependencies:
+    lodash "^4.16.4"
+
 react-native-video@^4.4.5:
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/react-native-video/-/react-native-video-4.4.5.tgz#d0db799293f8622c7894dd0f8875cb41bfafbde8"
@@ -6007,6 +6039,15 @@ react-native-video@^4.4.5:
     keymirror "^0.1.1"
     prop-types "^15.5.10"
     shaka-player "^2.4.4"
+
+react-native-view-transformer-next@^0.0.29:
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/react-native-view-transformer-next/-/react-native-view-transformer-next-0.0.29.tgz#ae00e3f707440f19fccc8c948ddbd34feb9475d1"
+  integrity sha512-NQgw3I4FU9rBwnvxVdzG2kA5bgraL1ZH7LPT6I7Gw6tQBjQJir+XNMJ8hmGjz/Leaip4lrbJVQ4VhAnfBROLAA==
+  dependencies:
+    prop-types "^15.5.10"
+    react-native-gesture-responder "0.1.1"
+    react-native-scroller "0.0.6"
 
 react-native-webview@8.1.2:
   version "8.1.2"
@@ -6104,6 +6145,11 @@ react-test-renderer@16.11.0:
     prop-types "^15.6.2"
     react-is "^16.8.6"
     scheduler "^0.17.0"
+
+react-timer-mixin@^0.13.3:
+  version "0.13.4"
+  resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
+  integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
 
 react@16.11.0:
   version "16.11.0"
