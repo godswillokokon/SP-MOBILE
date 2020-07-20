@@ -1,6 +1,6 @@
 import * as axios from 'axios';
 
-const BASE = 'https://Spreadprolimited.com/api';
+const BASE = 'https://api.spreadprolimited.com/api/';
 
 export const GetHouses = () => async (dispatch) => {
   try {
