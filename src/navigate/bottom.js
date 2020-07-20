@@ -9,7 +9,7 @@ import IconS from 'react-native-vector-icons/SimpleLineIcons';
 //screens
 import {AccountScreen} from '../screens/account';
 import {HomeScreen} from '../screens/home';
-import {PropertiesScreen} from '../screens/properties';
+import {HousesScreen} from '../screens/houses';
 import {WalletScreen} from '../screens/wallet';
 import {SearchScreen} from '../screens/search';
 
@@ -26,10 +26,10 @@ export const Bottom = createMaterialBottomTabNavigator(
         ),
       },
     },
-    Properties: {
-      screen: PropertiesScreen,
+    Houses: {
+      screen: HousesScreen,
       navigationOptions: {
-        tabBarAccessibilityLabel: 'Properties',
+        tabBarAccessibilityLabel: 'Houses',
         tabBarIcon: ({tintColor}) => (
           <View>
             <IconM
