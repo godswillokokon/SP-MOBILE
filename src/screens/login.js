@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
@@ -134,7 +133,7 @@ export const LoginScreen = ({navigation}) => {
               style={{
                 color: '#fff',
                 fontSize: 40,
-                fontFamily: 'Muli',
+                // fontFamily: 'Muli',
                 alignSelf: 'center',
                 fontWeight: 'bold',
               }}>
@@ -158,7 +157,7 @@ export const LoginScreen = ({navigation}) => {
               style={{
                 color: '#fff',
                 fontSize: 28,
-                fontFamily: 'Muli',
+                // fontFamily: 'Muli',
                 alignSelf: 'center',
                 fontWeight: 'bold',
                 margin: 15,
@@ -233,7 +232,6 @@ export const LoginScreen = ({navigation}) => {
               <Text
                 style={{
                   fontSize: 15,
-                  fontFamily: 'Muli',
                   alignSelf: 'center',
                   color: '#fff',
                   fontWeight: 'bold',
@@ -355,7 +353,7 @@ const styles = StyleSheet.create({
   },
   loginTextBut: {
     fontSize: 18,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     textAlign: 'center',
     marginTop: 97,
     color: '#FD901C',
@@ -363,7 +361,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     fontSize: 13,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     fontWeight: 'bold',
     color: '#fff',
   },
@@ -395,7 +393,7 @@ const styles = StyleSheet.create({
   },
   forgot: {
     fontSize: 13,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     color: '#ffffff',
     backgroundColor: 'transparent',
     marginLeft: 20,
@@ -410,7 +408,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    fontFamily: 'Muli',
+    // fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#fff',
     fontWeight: 'bold',
