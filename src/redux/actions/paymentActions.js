@@ -1,22 +1,27 @@
 import axios from 'axios';
-import Session from '@utils/Session';
 
 export const MakePayment = (data) => (dispatch) => {
   console.log(data, 'wetin i dey send');
   axios({
     method: 'post',
-    url: 'https://Spreadprolimited.com/api/payment',
+    url: 'https://api.spreadprolimited.com/api/payment',
     data: data,
   })
     .then(function (response) {
       //handle success
       console.log(response.data.house, 'innn');
       dispatch({
-        type: 'PAYMENT_SUCCESS',
+        type: 'FETCH_PROPERTY_SUCCESS',
         payload: {
-          payment: response.data.house,
+          house: response.data.house,
         },
       });
+      // dispatch({
+      //   type: 'PAYMENT_SUCCESS',
+      //   payload: {
+      //     payment: response.data.house,
+      //   },
+      // });
     })
     .catch(function (error) {
       //handle error
