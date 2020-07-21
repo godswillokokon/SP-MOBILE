@@ -1,4 +1,6 @@
 import * as axios from 'axios';
+import Session from '@utils/Session';
+
 
 const BASE = 'https://api.spreadprolimited.com/api';
 
@@ -28,9 +30,11 @@ export const GetHouses = () => async (dispatch) => {
 };
 export const GetHouse = (slug) => async (dispatch) => {
   try {
+    const token = await Session.getData('@token');
     await axios
       .get(`${BASE}/user/house/${slug}`, {
         headers: {
+          Authorization: token,
           Accept: 'application/json',
         },
       })
