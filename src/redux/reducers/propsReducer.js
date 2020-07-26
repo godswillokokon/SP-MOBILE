@@ -1,6 +1,7 @@
 const initialState = {
   houses: {},
   house: {},
+  reserve: {},
   fetchError: null,
 };
 export const propsReducer = (state = initialState, action) => {
@@ -14,6 +15,11 @@ export const propsReducer = (state = initialState, action) => {
       return {
         ...state,
         house: action.payload,
+      };
+    case 'RESRVE_PROPERTY_SUCCESS':
+      return {
+        ...state,
+        reserve: action.payload,
       };
     case 'FETCH_FAILED':
       return {
