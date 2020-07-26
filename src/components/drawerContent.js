@@ -9,7 +9,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import {Text } from '@ui-kitten/components';
+import {Text} from '@ui-kitten/components';
 import {useSelector, useDispatch} from 'react-redux';
 import {Logout} from '../redux/actions/userActions';
 
@@ -19,6 +19,7 @@ import IconF from 'react-native-vector-icons/FontAwesome';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconI from 'react-native-vector-icons/Ionicons';
 import IconE from 'react-native-vector-icons/Entypo';
+import IconS from 'react-native-vector-icons/SimpleLineIcons';
 
 export const DrawerContent = ({props}) => {
   const dispatch = useDispatch();
@@ -42,6 +43,12 @@ export const DrawerContent = ({props}) => {
   const navigateSettings = () => {
     requestAnimationFrame(() => {
       props.navigation.navigate('Settings');
+    });
+  };
+
+  const navigateWallet = () => {
+    requestAnimationFrame(() => {
+      props.navigation.navigate('Wallet');
     });
   };
 
@@ -190,6 +197,29 @@ export const DrawerContent = ({props}) => {
                     <Text
                       style={{marginLeft: 10, fontSize: 15, color: '#3A3A3A'}}>
                       Services
+                    </Text>
+                  </View>
+
+                  <IconF
+                    name="angle-right"
+                    color="#00959E"
+                    size={25}
+                    style={{alignSelf: 'flex-end', flex: 1}}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={navigateWallet}
+                  style={{flexDirection: 'row', marginVertical: 5}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      flex: 17,
+                      alignItems: 'center',
+                    }}>
+                    <IconS name="wallet" color="#828282" size={20} style={{}} />
+                    <Text
+                      style={{marginLeft: 10, fontSize: 15, color: '#3A3A3A'}}>
+                      Wallet
                     </Text>
                   </View>
 

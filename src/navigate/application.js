@@ -8,6 +8,7 @@ import {ServiceBookingScreen} from '../screens/serviceBooking';
 import {AgentScreen} from '../screens/agent';
 import {SettingsScreen} from '../screens/settings';
 import {HouseScreen} from '../screens/house';
+import {WalletScreen} from '../screens/wallet';
 
 const App = createStackNavigator(
   {
@@ -19,6 +20,7 @@ const App = createStackNavigator(
     ServiceBooking: ServiceBookingScreen,
     Agent: AgentScreen,
     Settings: SettingsScreen,
+    Wallet: WalletScreen,
   },
   {
     headerMode: 'none',
