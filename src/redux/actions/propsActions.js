@@ -107,3 +107,32 @@ export const ReserveHouse = (slug) => async (dispatch) => {
     });
   }
 };
+
+export const GetReservedProps = () => async (dispatch) => {
+  try {
+    const token = await Session.getData('@token');
+    await axios
+      .get(`${BASE}/user/reserved`, {
+        headers: {
+          Authorization: token,
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: 'FETCH_RESERVED_PROPERTIES_SUCCESS',
+          payload: {
+            reserved_houses: response.data,
+            // reserved_lands: response.data.land,
+          },
+        });
+      });
+  } catch (error) {
+    console.log(error, 'err');
+    dispatch({
+      type: 'FETCH_FAILED',
+      fetchError: error,
+    });
+  }
+};
