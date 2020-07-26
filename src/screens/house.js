@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import PaystackWebView from 'react-native-paystack-webview';
 import {useSelector, useDispatch} from 'react-redux';
-import {GetHouse} from '../redux/actions/propsActions';
+import {GetHouse, ReserveHouse} from '../redux/actions/propsActions';
 import {MakePayment} from '../redux/actions/paymentActions';
 import {TopNavigationAction, Modal, Layout, Text} from '@ui-kitten/components';
 import {moderateScale} from 'react-native-size-matters';
@@ -31,6 +31,7 @@ import VideoPlayer from 'react-native-video-controls';
 export const HouseScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const {house} = useSelector((state) => state.properties);
+
   const isHouse = house.house;
   useEffect(() => {
     const slug = navigation.state.params.slug;
@@ -43,6 +44,7 @@ export const HouseScreen = ({navigation}) => {
     return () => backHandler.remove();
   }, [dispatch, navigateBack, navigation.state.params.slug]);
   const {user} = useSelector((state) => state.user);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigateBack = () => {
     requestAnimationFrame(() => {
@@ -341,7 +343,7 @@ export const HouseScreen = ({navigation}) => {
                   property_type,
                   reference,
                 };
-                dispatch(MakePayment({ ...data }));
+                dispatch(MakePayment({...data}));
                 setInspectVideo(!inspectVideo);
                 setvisibleInspect(!visibleInspect);
               }}
@@ -354,6 +356,7 @@ export const HouseScreen = ({navigation}) => {
       </Layout>
     </View>
   );
+  const childRef = useRef();
   return (
     <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
@@ -517,47 +520,75 @@ export const HouseScreen = ({navigation}) => {
               </View>
             </View>
           </View>
-          <PaystackWebView
-            buttonText={isHouse.transaction}
-            showPayButton={true}
-            paystackKey="pk_test_cc5a16f36a9c190775dcc8eeefeeeddd3b209d46"
-            paystackSecretKey="sk_test_f9e9909d4b7bc2e45b1c0cd26bd4761551543197"
-            amount={1000}
-            billingEmail="godswillokokon3@gmail.com"
-            billingMobile="08177024847"
-            billingName="Godswill Okokon"
-            ActivityIndicatorColor="black"
-            handleWebViewMessage={(e) => {
-              // handle the message
-              console.log(e, 'message');
-            }}
-            onCancel={(e) => {
-              // handle response here
-              console.log(e, 'failed');
-            }}
-            onSuccess={(res) => {
-              // handle response here
-              console.log(res, 'success');
-              const email = user.email;
-              const property_slug = isHouse.slug;
-              const amount = 1000;
-              const payment_plan = 'online-inspection';
-              const property_type = 'house';
-              const reference = res.data.reference;
-              const data = {
-                property_slug,
-                amount,
-                payment_plan,
-                email,
-                property_type,
-                reference,
-              };
-              dispatch(MakePayment({...data}));
-            }}
-            autoStart={false}
-            textStyles={styles.buttonText}
-            btnStyles={styles.button}
-          />
+          <View
+            style={{
+              flexDirection: 'row',
+              flex: 1,
+              justifyContent: 'space-evenly',
+            }}>
+            <View>
+              <PaystackWebView
+                buttonText="Rent"
+                showPayButton={false}
+                ref={childRef}
+                paystackKey="pk_test_cc5a16f36a9c190775dcc8eeefeeeddd3b209d46"
+                paystackSecretKey="sk_test_f9e9909d4b7bc2e45b1c0cd26bd4761551543197"
+                amount={1000}
+                billingEmail={user.email}
+                billingMobile={user.phone}
+                billingName={user.name}
+                ActivityIndicatorColor="#0DABA8"
+                SafeAreaViewContainer={{marginHorizontal: 15}}
+                SafeAreaViewContainerModal={{backgroundColor: '#33393a'}}
+                handleWebViewMessage={(e) => {
+                  // handle the message
+                  console.log(e, 'message');
+                }}
+                onCancel={(e) => {
+                  // handle response here
+                  console.log(e, 'failed');
+                }}
+                onSuccess={(res) => {
+                  // handle response here
+                  console.log(res, 'success');
+                  const email = user.email;
+                  const property_slug = isHouse.slug;
+                  const amount = 1000;
+                  const payment_plan = 'online-inspection';
+                  const property_type = 'house';
+                  const reference = res.data.reference;
+                  const data = {
+                    property_slug,
+                    amount,
+                    payment_plan,
+                    email,
+                    property_type,
+                    reference,
+                  };
+                  // dispatch(MakePayment({...data}));
+                  // setInspectVideo(!inspectVideo);
+                  // setvisibleInspect(!visibleInspect);
+                }}
+                autoStart={false}
+                textStyles={styles.modalBtnText}
+                btnStyles={styles.modalOnline}
+              />
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => childRef.current.StartTransaction()}>
+                <Text style={styles.buttonText}>{isHouse.transaction}</Text>
+              </TouchableOpacity>
+            </View>
+            {isHouse.is_reservable ? (
+              <TouchableOpacity
+                onPress={() =>
+                  dispatch(ReserveHouse(navigation.state.params.slug))
+                }
+                style={styles.button}>
+                <Text style={styles.buttonText}>reserve</Text>
+              </TouchableOpacity>
+            ) : null}
+          </View>
           <Modal
             visible={visibleInspect}
             animationType="slide"
