@@ -5,12 +5,13 @@ import IconF from 'react-native-vector-icons/Feather';
 import IconO from 'react-native-vector-icons/Octicons';
 import IconM from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconA from 'react-native-vector-icons/AntDesign';
-import IconS from 'react-native-vector-icons/SimpleLineIcons';
+import IconFO from 'react-native-vector-icons/Fontisto';
+
 //screens
 import {AccountScreen} from '../screens/account';
 import {HomeScreen} from '../screens/home';
 import {HousesScreen} from '../screens/houses';
-import {WalletScreen} from '../screens/wallet';
+import {LandsScreen} from '../screens/lands';
 import {SearchScreen} from '../screens/search';
 
 export const Bottom = createMaterialBottomTabNavigator(
@@ -52,13 +53,13 @@ export const Bottom = createMaterialBottomTabNavigator(
         ),
       },
     },
-    Wallet: {
-      screen: WalletScreen,
+    Lands: {
+      screen: LandsScreen,
       navigationOptions: {
-        tabBarAccessibilityLabel: 'Wallet',
+        tabBarAccessibilityLabel: 'Lands',
         tabBarIcon: ({tintColor}) => (
           <View>
-            <IconS style={[{color: tintColor}]} size={20} name={'wallet'} />
+            <IconFO style={[{color: tintColor}]} size={20} name={'island'} />
           </View>
         ),
       },
