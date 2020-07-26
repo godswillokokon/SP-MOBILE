@@ -7,9 +7,69 @@ const showToast = (message) => {
 };
 const BASE = 'https://api.spreadprolimited.com/api/';
 
-export const CreateUser = (data, navigation, setLoad) => (dispatch) => {
+const parseError = (err) => {
+  if (err?.response?.data?.errors) {
+    const message = Object.values(err.response.data.errors)[0];
+    ToastAndroid.show(
+      `${message}`,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50,
+    );
+    // console.log(message);
+  } else if (err?.response?.data?.error?.message) {
+    ToastAndroid.show(
+      `${err.response.data.error.message}`,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50,
+    );
+    // console.log(err.response.data.error.message);
+  } else if (err?.response?.data?.message) {
+    ToastAndroid.show(
+      `${err.response.data.message}`,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50,
+    );
+    // console.log(err.response.data.message);
+  } else if (err?.response?.data) {
+    ToastAndroid.show(
+      `${err.response.data}`,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50,
+    );
+    // console.log(err.response.data);
+  } else if (err.message) {
+    ToastAndroid.show(
+      `${err.message}`,
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50,
+    );
+    // console.log(err.message);
+  } else {
+    // console.log('Error Occured');
+    ToastAndroid.show(
+      'Error Occured',
+      ToastAndroid.LONG,
+      ToastAndroid.TOP,
+      25,
+      50,
+    );
+  }
+};
+export default parseError;
+
+export const CreateUser = (data, navigation, setLoad) => async (dispatch) => {
   try {
-    axios
+    await axios
       .post(
         'https://api.spreadprolimited.com/api/user',
         {
@@ -43,14 +103,14 @@ export const CreateUser = (data, navigation, setLoad) => (dispatch) => {
           });
         }
       });
-    setLoad(false);
+    await setLoad(false);
   } catch (error) {
     dispatch({
       type: 'USER_AUTH_ERROR',
       payload: error.message,
     });
-    showToast(error.message);
-    console.log(error);
+    // showToast(error.message);
+    parseError(error);
     setTimeout(() => {
       setLoad(false);
     }, 5000);
@@ -59,7 +119,7 @@ export const CreateUser = (data, navigation, setLoad) => (dispatch) => {
 
 export const Login = (data, navigation, setLoad) => async (dispatch) => {
   try {
-    axios
+    await axios
       .post(
         'https://api.spreadprolimited.com/api/user/login',
         {
@@ -73,7 +133,6 @@ export const Login = (data, navigation, setLoad) => async (dispatch) => {
         },
       )
       .then((response) => {
-        console.log(response, 'res');
         const value = `Bearer ${response.data.access_token}`;
         const saveToken = Session.saveToken(value);
         if (saveToken) {
@@ -86,21 +145,21 @@ export const Login = (data, navigation, setLoad) => async (dispatch) => {
           });
         }
       });
-    setLoad(false);
+    await setLoad(false);
   } catch (error) {
-    console.log(error);
+    parseError(error);
     dispatch({
       type: 'USER_AUTH_ERROR',
       payload: error.message,
     });
-    if (
-      error.message === 'Request failed with status code 400' ||
-      'Request failed with status code 422'
-    ) {
-      showToast('Credentials not correct');
-    } else {
-      showToast(error.message);
-    }
+    // if (
+    //   error.message === 'Request failed with status code 400' ||
+    //   'Request failed with status code 422'
+    // ) {
+    //   showToast('Credentials not correct');
+    // } else {
+    //   showToast(error.message);
+    // }
     setTimeout(() => {
       setLoad(false);
     }, 5000);
@@ -117,6 +176,7 @@ export const GetUserData = () => async (dispatch) => {
         },
       })
       .then((response) => {
+        // console.log(response.data.user);
         dispatch({
           type: 'USER_DATA',
           payload: {
@@ -125,6 +185,7 @@ export const GetUserData = () => async (dispatch) => {
         });
       });
   } catch (error) {
+    parseError(error);
     showToast(error.message);
     Session.logout();
     return 401;
@@ -164,8 +225,7 @@ export const UpdateUserData = (data, setLoad) => async (dispatch) => {
     setLoad(false);
   } catch (error) {
     showToast(error.message);
-    console.log(error.message, 'redux error');
-    console.log(error, 'redux error');
+    parseError(error);
   }
 };
 export const ForgotPassword = (email) => async (dispatch) => {
