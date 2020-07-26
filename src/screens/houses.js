@@ -75,7 +75,7 @@ export const HousesScreen = ({navigation}) => {
         <ImageBackground
           style={styles.bgImg}
           source={{
-            uri: take_two_images[0].img_url,
+            uri: take_two_images[0]?.img_url,
           }}
           imageStyle={styles.bgImgBorder}>
           <View style={styles.cardBody}>
@@ -186,14 +186,14 @@ export const HousesScreen = ({navigation}) => {
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => (
                 <Properties
-                  id={item.id}
-                  name={item.name}
-                  state={item.state}
-                  price={item.price}
-                  take_two_images={item.take_two_images}
-                  slug={item.slug}
-                  payment_type={item.payment_type}
-                  lga={item.lga}
+                  id={item?.id}
+                  name={item?.name}
+                  state={item?.state}
+                  price={item?.price}
+                  take_two_images={item?.take_two_images}
+                  slug={item?.slug}
+                  payment_type={item?.payment_type}
+                  lga={item?.lga}
                 />
               )}
               keyExtractor={(item) => item.id.toString()}
@@ -205,14 +205,14 @@ export const HousesScreen = ({navigation}) => {
               showsVerticalScrollIndicator={false}
               renderItem={({item}) => (
                 <Properties
-                  id={item.id}
-                  name={item.name}
-                  state={item.state}
-                  price={item.price}
-                  take_two_images={item.take_two_images}
-                  slug={item.slug}
-                  payment_type={item.payment_type}
-                  lga={item.lga}
+                  id={item?.id}
+                  name={item?.name}
+                  state={item?.state}
+                  price={item?.price}
+                  take_two_images={item?.take_two_images}
+                  slug={item?.slug}
+                  payment_type={item?.payment_type}
+                  lga={item?.lga}
                 />
               )}
               keyExtractor={(item) => item.id.toString()}
