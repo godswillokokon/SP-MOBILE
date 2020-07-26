@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,20 +8,21 @@ import {
   ImageBackground,
   SafeAreaView,
 } from 'react-native';
-import { TopNavigationAction } from '@ui-kitten/components';
-import { useSelector, useDispatch } from 'react-redux';
-import { GetHouses } from '../redux/actions/propsActions';
+import {TopNavigationAction} from '@ui-kitten/components';
+import {useSelector, useDispatch} from 'react-redux';
+import {GetHouses} from '../redux/actions/propsActions';
 import PropertiesPlaceholder from '../components/propertiesStaging';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
-import { MenuItem, OverflowMenu, Text } from '@ui-kitten/components';
+import {MenuItem, OverflowMenu, Text} from '@ui-kitten/components';
 import numbro from 'numbro';
 
-export const LandsScreen = ({ navigation }) => {
+export const LandsScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const { houses } = useSelector((state) => state.properties);
+  const {houses} = useSelector((state) => state.properties);
+  console.log(houses);
 
   useEffect(() => {
     dispatch(GetHouses());
@@ -88,7 +89,7 @@ export const LandsScreen = ({ navigation }) => {
                 Payment Type: {payment_type}
               </Text>
               <Text style={styles.amount}>
-                ₦{numbro(price).format({ thousandSeparated: true })}
+                ₦{numbro(price).format({thousandSeparated: true})}
               </Text>
             </View>
           </View>
@@ -102,7 +103,7 @@ export const LandsScreen = ({ navigation }) => {
     <TopNavigationAction
       icon={Left}
       onPress={openDrawer}
-      style={[{ padding: 5 }]}
+      style={[{padding: 5}]}
     />
   );
   const Title = () => (
@@ -126,7 +127,7 @@ export const LandsScreen = ({ navigation }) => {
       style={styles.sortToggle}>
       <IconMC color={'#828282'} name="sort-descending" size={20} />
       <Text style={styles.sortToggleText}>Sort By</Text>
-      <IconA style={[{ top: 2 }]} color={'#828282'} name="down" size={13} />
+      <IconA style={[{top: 2}]} color={'#828282'} name="down" size={13} />
     </TouchableOpacity>
   );
   //filter
@@ -144,7 +145,7 @@ export const LandsScreen = ({ navigation }) => {
       style={styles.filterToggle}>
       <IconA color={'#828282'} name="filter" size={20} />
       <Text style={styles.filterToggleText}>Filter</Text>
-      <IconA style={[{ top: 2 }]} color={'#828282'} name="down" size={13} />
+      <IconA style={[{top: 2}]} color={'#828282'} name="down" size={13} />
     </TouchableOpacity>
   );
   const renderPlaceholders = () =>
@@ -184,7 +185,7 @@ export const LandsScreen = ({ navigation }) => {
             <FlatList
               data={isHouses}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
+              renderItem={({item}) => (
                 <Properties
                   id={item?.id}
                   name={item?.name}
@@ -200,29 +201,29 @@ export const LandsScreen = ({ navigation }) => {
               numColumns={1}
             />
           ) : (
-              <FlatList
-                data={isHouses}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  <Properties
-                    id={item?.id}
-                    name={item?.name}
-                    state={item?.state}
-                    price={item?.price}
-                    take_two_images={item?.take_two_images}
-                    slug={item?.slug}
-                    payment_type={item?.payment_type}
-                    lga={item?.lga}
-                  />
-                )}
-                keyExtractor={(item) => item.id.toString()}
-                numColumns={1}
-              />
-            )}
+            <FlatList
+              data={isHouses}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => (
+                <Properties
+                  id={item?.id}
+                  name={item?.name}
+                  state={item?.state}
+                  price={item?.price}
+                  take_two_images={item?.take_two_images}
+                  slug={item?.slug}
+                  payment_type={item?.payment_type}
+                  lga={item?.lga}
+                />
+              )}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={1}
+            />
+          )}
         </View>
       ) : (
-          renderPlaceholders()
-        )}
+        renderPlaceholders()
+      )}
     </SafeAreaView>
   );
 };
