@@ -9,6 +9,7 @@ import {AgentScreen} from '../screens/agent';
 import {SettingsScreen} from '../screens/settings';
 import {HouseScreen} from '../screens/house';
 import {WalletScreen} from '../screens/wallet';
+import {ReservedPropsScreen} from '../screens/reservedProps';
 
 const App = createStackNavigator(
   {
@@ -21,6 +22,7 @@ const App = createStackNavigator(
     Agent: AgentScreen,
     Settings: SettingsScreen,
     Wallet: WalletScreen,
+    ReservedProps: ReservedPropsScreen,
   },
   {
     headerMode: 'none',
