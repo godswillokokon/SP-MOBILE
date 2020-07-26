@@ -48,7 +48,8 @@ export const HouseScreen = ({navigation}) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigateBack = () => {
     requestAnimationFrame(() => {
-      navigation.navigate('Houses');
+      // navigation.navigate('Houses');
+      navigation.goBack();
     });
   };
   const [visibleInspect, setvisibleInspect] = useState(false);
