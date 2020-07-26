@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,11 +6,12 @@ import {
   FlatList,
   TouchableOpacity,
   SafeAreaView,
+  BackHandler,
 } from 'react-native';
-import { TopNavigationAction, Text} from '@ui-kitten/components';
+import {TopNavigationAction, Text} from '@ui-kitten/components';
 import {Avatar} from 'react-native-paper';
 import TopNav from '../components/topNav';
-import IconF from 'react-native-vector-icons/FontAwesome5';
+import IconA from 'react-native-vector-icons/AntDesign';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconS from 'react-native-vector-icons/SimpleLineIcons';
 
@@ -118,26 +119,35 @@ function Categories({id, title, date, amount, selected, onSelect, type}) {
 }
 
 export const WalletScreen = ({navigation}) => {
-  //top nav
-  const openDrawer = () => {
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      navigateBack,
+    );
+
+    return () => backHandler.remove();
+  }, [navigateBack]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const navigateBack = () => {
     requestAnimationFrame(() => {
-      navigation.openDrawer();
+      navigation.navigate('Tabs');
     });
   };
+  //top nav
   const navigateTransactions = () => {
     requestAnimationFrame(() => {
       navigation.navigate('WalletTransation');
     });
   };
-  const Left = () => (
-    <IconF style={[{color: '#00959E'}]} name="bars" size={25} />
-  );
+  const Left = () => <IconA color={'#00959E'} name="arrowleft" size={25} />;
+
 
   const LeftAction = () => (
     <TopNavigationAction
       icon={Left}
-      onPress={openDrawer}
-      style={[{padding: 5}]}
+      onPress={navigateBack}
+      style={styles.left}
     />
   );
   const Title = () => (
@@ -159,7 +169,7 @@ export const WalletScreen = ({navigation}) => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff',}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <TopNav Title={Title} LeftAction={LeftAction} />
 
       <View
