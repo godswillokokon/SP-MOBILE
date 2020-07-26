@@ -298,6 +298,7 @@ export const AccountScreen = ({navigation}) => {
               accessoryRight={EmailIcon}
               label={EmailText}
               accessibilityLabel="Email"
+              disabled
             />
             <Input
               value={phone}
@@ -318,7 +319,7 @@ export const AccountScreen = ({navigation}) => {
               accessibilityLabel="Address"
             />
             <View>
-              <TouchableOpacity onPress={showDatepicker}>
+              <View >
                 <Input
                   // value={date.toLocaleDateString()}
                   value={BirthDay}
@@ -330,8 +331,8 @@ export const AccountScreen = ({navigation}) => {
                   accessibilityLabel="BirthDay"
                   disabled
                 />
-              </TouchableOpacity>
-              {show && (
+              </View>
+              {/* {show && (
                 <DateTimePicker
                   testID="dateTimePicker"
                   value={date}
@@ -340,7 +341,7 @@ export const AccountScreen = ({navigation}) => {
                   neutralButtonLabel="clear"
                   maximumDate={new Date()}
                 />
-              )}
+              )} */}
             </View>
             <TouchableOpacity
               onPress={ChangePassword}
