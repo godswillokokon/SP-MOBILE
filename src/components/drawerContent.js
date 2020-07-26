@@ -19,6 +19,7 @@ import IconF from 'react-native-vector-icons/FontAwesome';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconI from 'react-native-vector-icons/Ionicons';
 import IconE from 'react-native-vector-icons/Entypo';
+import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconS from 'react-native-vector-icons/SimpleLineIcons';
 
 export const DrawerContent = ({props}) => {
@@ -49,6 +50,12 @@ export const DrawerContent = ({props}) => {
   const navigateWallet = () => {
     requestAnimationFrame(() => {
       props.navigation.navigate('Wallet');
+    });
+  };
+
+  const navigateReservedProps = () => {
+    requestAnimationFrame(() => {
+      props.navigation.navigate('ReservedProps');
     });
   };
 
@@ -230,10 +237,61 @@ export const DrawerContent = ({props}) => {
                     style={{alignSelf: 'flex-end', flex: 1}}
                   />
                 </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={navigateWallet}
+                  style={{flexDirection: 'row', marginVertical: 5}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      flex: 17,
+                      alignItems: 'center',
+                    }}>
+                    <IconMC
+                      name="rhombus-split"
+                      color="#828282"
+                      size={20}
+                      style={{}}
+                    />
+                    <Text
+                      style={{marginLeft: 10, fontSize: 15, color: '#3A3A3A'}}>
+                      My Properties
+                    </Text>
+                  </View>
+
+                  <IconF
+                    name="angle-right"
+                    color="#00959E"
+                    size={25}
+                    style={{alignSelf: 'flex-end', flex: 1}}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={navigateReservedProps}
+                  style={{flexDirection: 'row', marginVertical: 5}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      flex: 17,
+                      alignItems: 'center',
+                    }}>
+                    <IconS name="heart" color="#828282" size={20} style={{}} />
+                    <Text
+                      style={{marginLeft: 10, fontSize: 15, color: '#3A3A3A'}}>
+                      Reserved Properties
+                    </Text>
+                  </View>
+
+                  <IconF
+                    name="angle-right"
+                    color="#00959E"
+                    size={25}
+                    style={{alignSelf: 'flex-end', flex: 1}}
+                  />
+                </TouchableOpacity>
               </View>
             </View>
 
-            <View style={{flex: 2, width: Dimensions.get('window').width}}>
+            <View style={{flex: 1, width: Dimensions.get('window').width}}>
               <Text
                 style={{
                   marginLeft: 20,
