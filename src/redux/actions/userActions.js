@@ -194,7 +194,7 @@ export const GetUserData = () => async (dispatch) => {
 export const UpdateUserData = (data, setLoad) => async (dispatch) => {
   try {
     const token = await Session.getData('@token');
-    axios
+    await axios
       .post(
         'https://api.spreadprolimited.com/api/user',
         {
@@ -225,7 +225,7 @@ export const UpdateUserData = (data, setLoad) => async (dispatch) => {
     setLoad(false);
   } catch (error) {
     showToast(error.message);
-    parseError(error);
+    // parseError(error);
   }
 };
 export const ForgotPassword = (email) => async (dispatch) => {
