@@ -14,8 +14,12 @@ import {
 } from 'react-native';
 import PaystackWebView from 'react-native-paystack-webview';
 import {useSelector, useDispatch} from 'react-redux';
-import {GetHouse, ReserveHouse} from '../redux/actions/propsActions';
-import {MakePayment} from '../redux/actions/paymentActions';
+import {
+  GetHouse,
+  ReserveHouse,
+  MakePayment,
+} from '../redux/actions/propsActions';
+// import {MakePayment} from '../redux/actions/paymentActions';
 import {TopNavigationAction, Modal, Layout, Text} from '@ui-kitten/components';
 import {moderateScale} from 'react-native-size-matters';
 import numbro from 'numbro';
@@ -31,7 +35,6 @@ import VideoPlayer from 'react-native-video-controls';
 export const HouseScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const {house} = useSelector((state) => state.properties);
-
   const isHouse = house.house;
   useEffect(() => {
     const slug = navigation.state.params.slug;
@@ -48,8 +51,8 @@ export const HouseScreen = ({navigation}) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigateBack = () => {
     requestAnimationFrame(() => {
-      // navigation.navigate('Houses');
-      navigation.goBack();
+      navigation.navigate('Tabs');
+      // navigation.goBack();
     });
   };
   const [visibleInspect, setvisibleInspect] = useState(false);
@@ -378,6 +381,7 @@ export const HouseScreen = ({navigation}) => {
                       key={i}
                       index={i}
                       name={isHouse.name}
+                      transaction={isHouse.transaction}
                       address={`${isHouse.lga}, ${isHouse.state}`}
                       amount={`₦${numbro(isHouse.price).format({
                         thousandSeparated: true,
@@ -534,7 +538,7 @@ export const HouseScreen = ({navigation}) => {
                 ref={childRef}
                 paystackKey="pk_test_cc5a16f36a9c190775dcc8eeefeeeddd3b209d46"
                 paystackSecretKey="sk_test_f9e9909d4b7bc2e45b1c0cd26bd4761551543197"
-                amount={1000}
+                amount={isHouse.price}
                 billingEmail={user.email}
                 billingMobile={user.phone}
                 billingName={user.name}
@@ -554,8 +558,8 @@ export const HouseScreen = ({navigation}) => {
                   console.log(res, 'success');
                   const email = user.email;
                   const property_slug = isHouse.slug;
-                  const amount = 1000;
-                  const payment_plan = 'online-inspection';
+                  const amount = isHouse.price;
+                  const payment_plan = 'outright';
                   const property_type = 'house';
                   const reference = res.data.reference;
                   const data = {
@@ -566,9 +570,7 @@ export const HouseScreen = ({navigation}) => {
                     property_type,
                     reference,
                   };
-                  // dispatch(MakePayment({...data}));
-                  // setInspectVideo(!inspectVideo);
-                  // setvisibleInspect(!visibleInspect);
+                  dispatch(MakePayment({...data}));
                 }}
                 autoStart={false}
                 textStyles={styles.modalBtnText}
@@ -577,7 +579,7 @@ export const HouseScreen = ({navigation}) => {
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => childRef.current.StartTransaction()}>
-                <Text style={styles.buttonText}>{isHouse.transaction}</Text>
+                <Text style={styles.buttonText}>Pay</Text>
               </TouchableOpacity>
             </View>
             {isHouse.is_reservable ? (
@@ -586,7 +588,7 @@ export const HouseScreen = ({navigation}) => {
                   dispatch(ReserveHouse(navigation.state.params.slug))
                 }
                 style={styles.button}>
-                <Text style={styles.buttonText}>reserve</Text>
+                <Text style={styles.buttonText}>Reserve</Text>
               </TouchableOpacity>
             ) : null}
           </View>
