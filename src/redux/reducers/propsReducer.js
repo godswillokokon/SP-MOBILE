@@ -4,6 +4,8 @@ const initialState = {
   reserve: {},
   reserved_houses: {},
   reserved_lands: {},
+  payment: {},
+  paymentError: null,
   fetchError: null,
 };
 export const propsReducer = (state = initialState, action) => {
@@ -28,6 +30,16 @@ export const propsReducer = (state = initialState, action) => {
         ...state,
         reserved_houses: action.payload.reserved_houses,
         reserved_lands: action.payload.reserved_lands,
+      };
+    case 'PAYMENT_SUCCESS':
+      return {
+        ...state,
+        house: action.payload,
+      };
+    case 'PAYMENT_FAILED':
+      return {
+        ...state,
+        paymentError: action.payload,
       };
     case 'FETCH_FAILED':
       return {
