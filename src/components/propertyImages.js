@@ -7,7 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import { Text } from '@ui-kitten/components';
+import {Text} from '@ui-kitten/components';
 
 import Image from 'react-native-transformable-image-next';
 const {width, height} = Dimensions.get('window');
@@ -18,12 +18,28 @@ const PropertyImages = ({
   address,
   amount,
   selected,
+  transaction,
   onSelect,
 }) => {
   return (
     <TouchableOpacity onPress={() => onSelect(index)} style={styles.container}>
       <ImageBackground style={styles.imgBg} source={{uri: data}}>
         <View style={styles.main}>
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 16,
+              fontWeight: 'bold',
+              // marginVertical: 3,
+              alignSelf: 'flex-end',
+              // margin: 12,
+              backgroundColor: '#0DABA8',
+              opacity: 0.8,
+              padding: 5
+            }}>
+            {transaction}
+          </Text>
+
           <View style={styles.subMain}>
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.address}>{address}</Text>
