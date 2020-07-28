@@ -1,10 +1,11 @@
 import * as axios from 'axios';
 import Session from '@utils/Session';
-import { ToastAndroid } from 'react-native';
+import {ToastAndroid} from 'react-native';
 
 const showToast = (message) => {
   ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
 };
+
 
 const BASE = 'https://api.spreadprolimited.com/api';
 
@@ -135,4 +136,46 @@ export const GetReservedProps = () => async (dispatch) => {
       fetchError: error,
     });
   }
+};
+export const MakePayment = (data) => async (dispatch) => {
+  console.log(data, 'wetin i dey send');
+  const token = await Session.getData('@token');
+
+  await axios
+    .post(
+      'https://api.spreadprolimited.com/api/payment',
+      {
+        property_slug: data.property_slug,
+        amount: data.amount,
+        payment_plan: data.payment_plan,
+        email: data.email,
+        property_type: data.property_type,
+        reference: data.reference,
+      },
+      {
+        headers: {
+          Authorization: token,
+          'content-type': 'application/json',
+        },
+      },
+    )
+    .then((response) => {
+      //handle success
+      console.log(response.data, 'innn');
+      dispatch({
+        type: 'PAYMENT_SUCCESS',
+        payload: {
+          house: response.data.house,
+        },
+      });
+    })
+    .catch(function (error) {
+      //handle error
+      // console.log(error, 'err');
+      parseError(error)
+      dispatch({
+        type: 'PAYMENT_FAILED',
+        paymentError: error,
+      });
+    });
 };
