@@ -115,7 +115,7 @@ export const ReservedPropsScreen = ({navigation}) => {
     );
   }
 
-  const Left = () => <IconA color={'#00959E'} name="arrowleft" size={25} />;
+  const Left = () => <IconF color={'#00959E'} name="bars" size={25} />;
   const LeftAction = () => (
     <TopNavigationAction
       icon={Left}
