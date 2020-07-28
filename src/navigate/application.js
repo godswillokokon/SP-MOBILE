@@ -13,15 +13,16 @@ import {ReservedPropsScreen} from '../screens/reservedProps';
 
 const App = createStackNavigator(
   {
+   
     Services: ServicesScreen,
-    House: HouseScreen,
     Categories: CategoriesScreen,
-    WalletTransation: WalletTransationScreen,
     Service: ServiceScreen,
+    House: HouseScreen,
     ServiceBooking: ServiceBookingScreen,
     Agent: AgentScreen,
     Settings: SettingsScreen,
     Wallet: WalletScreen,
+    WalletTransation: WalletTransationScreen,
     ReservedProps: ReservedPropsScreen,
   },
   {
