@@ -8,5 +8,5 @@ export const allReducers = combineReducers({
   counter: counterReducer,
   user: userReducer,
   properties: propsReducer,
-  payment: paymentReducer,
+  // payment: paymentReducer,
 });
