@@ -10,59 +10,59 @@ const BASE = 'https://api.spreadprolimited.com/api/';
 const parseError = (err) => {
   if (err?.response?.data?.errors) {
     const message = Object.values(err.response.data.errors)[0];
-    ToastAndroid.show(
-      `${message}`,
-      ToastAndroid.LONG,
-      ToastAndroid.TOP,
-      25,
-      50,
-    );
-    // console.log(message);
+    // ToastAndroid.show(
+    //   `${message}`,
+    //   ToastAndroid.LONG,
+    //   ToastAndroid.TOP,
+    //   25,
+    //   50,
+    // );
+    console.log(message);
   } else if (err?.response?.data?.error?.message) {
-    ToastAndroid.show(
-      `${err.response.data.error.message}`,
-      ToastAndroid.LONG,
-      ToastAndroid.TOP,
-      25,
-      50,
-    );
-    // console.log(err.response.data.error.message);
+    // ToastAndroid.show(
+    //   `${err.response.data.error.message}`,
+    //   ToastAndroid.LONG,
+    //   ToastAndroid.TOP,
+    //   25,
+    //   50,
+    // );
+    console.log(err.response.data.error.message);
   } else if (err?.response?.data?.message) {
-    ToastAndroid.show(
-      `${err.response.data.message}`,
-      ToastAndroid.LONG,
-      ToastAndroid.TOP,
-      25,
-      50,
-    );
-    // console.log(err.response.data.message);
+    // ToastAndroid.show(
+    //   `${err.response.data.message}`,
+    //   ToastAndroid.LONG,
+    //   ToastAndroid.TOP,
+    //   25,
+    //   50,
+    // );
+    console.log(err.response.data.message);
   } else if (err?.response?.data) {
-    ToastAndroid.show(
-      `${err.response.data}`,
-      ToastAndroid.LONG,
-      ToastAndroid.TOP,
-      25,
-      50,
-    );
-    // console.log(err.response.data);
+    // ToastAndroid.show(
+    //   `${err.response.data}`,
+    //   ToastAndroid.LONG,
+    //   ToastAndroid.TOP,
+    //   25,
+    //   50,
+    // );
+    console.log(err.response.data);
   } else if (err.message) {
-    ToastAndroid.show(
-      `${err.message}`,
-      ToastAndroid.LONG,
-      ToastAndroid.TOP,
-      25,
-      50,
-    );
-    // console.log(err.message);
+    // ToastAndroid.show(
+    //   `${err.message}`,
+    //   ToastAndroid.LONG,
+    //   ToastAndroid.TOP,
+    //   25,
+    //   50,
+    // );
+    console.log(err.message);
   } else {
-    // console.log('Error Occured');
-    ToastAndroid.show(
-      'Error Occured',
-      ToastAndroid.LONG,
-      ToastAndroid.TOP,
-      25,
-      50,
-    );
+    console.log('Error Occured');
+    // ToastAndroid.show(
+    //   'Error Occured',
+    //   ToastAndroid.LONG,
+    //   ToastAndroid.TOP,
+    //   25,
+    //   50,
+    // );
   }
 };
 export default parseError;
@@ -214,7 +214,8 @@ export const UpdateUserData = (data, setLoad) => async (dispatch) => {
         },
       )
       .then(function (response) {
-        // console.log(response, 'innn');
+        // console.log(response, 'response.data.success');
+        showToast('Profile Updated Successfully');
         dispatch({
           type: 'USER_DATA',
           payload: {
@@ -222,10 +223,10 @@ export const UpdateUserData = (data, setLoad) => async (dispatch) => {
           },
         });
       });
-    setLoad(false);
+    await setLoad(false);
   } catch (error) {
-    showToast(error.message);
-    // parseError(error);
+    // showToast(error.message);
+    parseError(error);
   }
 };
 
