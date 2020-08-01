@@ -12,7 +12,10 @@ import {
   ToastAndroid,
   ActivityIndicator,
 } from 'react-native';
-import {UpdateUserData} from '../redux/actions/userActions';
+import {
+  UpdateUserData,
+  REQUEST_VERIFICATION,
+} from '../redux/actions/userActions';
 import {useSelector, useDispatch} from 'react-redux';
 import {TopNavigationAction, Layout, Text, Input} from '@ui-kitten/components';
 import {Avatar} from 'react-native-paper';
@@ -53,6 +56,11 @@ export const AccountScreen = ({navigation}) => {
       <Text style={styles.title}>Account</Text>
     </View>
   );
+  const verifyUser = (email) => {
+    requestAnimationFrame(() => {
+      REQUEST_VERIFICATION(email);
+    });
+  };
   // console.log(user);
   const updateUser = (data) => {
     // console.log(data, 'push');
@@ -265,6 +273,28 @@ export const AccountScreen = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
       <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
+        {!user.verified ? (
+          <TouchableOpacity
+            onPress={verifyUser(email)}
+            style={{
+              backgroundColor: '#FF3864',
+              width: Dimensions.get('window').width - 50,
+              alignSelf: 'center',
+              borderRadius: 10,
+              padding: 8,
+              marginTop: 20,
+            }}>
+            <Text
+              style={{
+                fontSize: 16,
+                alignSelf: 'center',
+                color: '#fff',
+                fontWeight: 'bold',
+              }}>
+              VERIFY ACCOUNT!!!
+            </Text>
+          </TouchableOpacity>
+        ) : null}
         <View style={styles.avatar}>
           <Avatar.Image
             source={{
@@ -319,7 +349,7 @@ export const AccountScreen = ({navigation}) => {
               accessibilityLabel="Address"
             />
             <View>
-              <View >
+              <View>
                 <Input
                   // value={date.toLocaleDateString()}
                   value={BirthDay}
