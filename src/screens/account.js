@@ -62,10 +62,10 @@ export const AccountScreen = ({navigation}) => {
     });
   };
   // console.log(user);
-  const updateUser = (data) => {
+  const updateUser = (data, setLoad) => {
     // console.log(data, 'push');
     requestAnimationFrame(() => {
-      setload(true);
+      setLoad(true);
       if (data.name === '' || null) {
         ToastAndroid.show(
           'Name should not be empty',
@@ -75,7 +75,7 @@ export const AccountScreen = ({navigation}) => {
           50,
         );
         setTimeout(() => {
-          setload(false);
+          setLoad(false);
         }, 5000);
       } else if (data.email === '' || null) {
         ToastAndroid.show(
@@ -86,7 +86,7 @@ export const AccountScreen = ({navigation}) => {
           50,
         );
         setTimeout(() => {
-          setload(false);
+          setLoad(false);
         }, 5000);
       } else if (data.phone === '' || null) {
         ToastAndroid.show(
@@ -97,7 +97,7 @@ export const AccountScreen = ({navigation}) => {
           50,
         );
         setTimeout(() => {
-          setload(false);
+          setLoad(false);
         }, 5000);
       } else if (BirthDay === '' || null) {
         ToastAndroid.show(
@@ -108,7 +108,7 @@ export const AccountScreen = ({navigation}) => {
           50,
         );
         setTimeout(() => {
-          setload(false);
+          setLoad(false);
         }, 5000);
       } else if (data.picture === '' || null) {
         ToastAndroid.show(
@@ -119,10 +119,10 @@ export const AccountScreen = ({navigation}) => {
           50,
         );
         setTimeout(() => {
-          setload(false);
+          setLoad(false);
         }, 5000);
       } else {
-        dispatch(UpdateUserData(data));
+        dispatch(UpdateUserData(data, setLoad));
       }
     });
   };
@@ -154,7 +154,7 @@ export const AccountScreen = ({navigation}) => {
   const [dob, setDob] = useState('');
   const [BirthDay, setBirthDay] = useState(user.dob);
   const [picture, setPic] = useState(user.picture);
-  const [load, setload] = useState(false);
+  const [load, setLoad] = useState(false);
 
   const selectPhotoTapped = () => {
     const options = {
@@ -268,6 +268,7 @@ export const AccountScreen = ({navigation}) => {
     </View>
   );
   const BirthdayText = () => <Text style={styles.leftText}>BirthDay</Text>;
+// console.log(user);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -328,7 +329,7 @@ export const AccountScreen = ({navigation}) => {
               accessoryRight={EmailIcon}
               label={EmailText}
               accessibilityLabel="Email"
-              disabled
+              // disabled
             />
             <Input
               value={phone}
@@ -382,7 +383,7 @@ export const AccountScreen = ({navigation}) => {
             <ActivityIndicator animating={load} size="large" color="#00959E" />
           </Layout>
           <TouchableOpacity
-            onPress={() => updateUser(data)}
+            onPress={() => updateUser(data, setLoad)}
             style={styles.button}>
             <Text style={styles.buttonText}>Save</Text>
           </TouchableOpacity>
