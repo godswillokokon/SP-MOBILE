@@ -1,6 +1,8 @@
 const initialState = {
   token: null,
   user: {},
+  verify: {},
+  verifyError: {},
   authError: null,
   createResponse: {},
 };
@@ -27,6 +29,16 @@ export const userReducer = (state = initialState, action) => {
         createResponse: action.payload,
         user: action.payload.user,
         token: action.payload.token,
+      };
+    case 'REQUEST_VERIFICATION':
+      return {
+        ...state,
+        verify: action.payload,
+      };
+    case 'REQUEST_VERIFICATION_ERROR':
+      return {
+        ...state,
+        verifyError: action.payload,
       };
     case 'USER_LOGOUT_SUCCESS':
       return {
