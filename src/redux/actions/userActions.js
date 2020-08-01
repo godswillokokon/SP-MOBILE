@@ -228,6 +228,37 @@ export const UpdateUserData = (data, setLoad) => async (dispatch) => {
     // parseError(error);
   }
 };
+
+export const REQUEST_VERIFICATION = (email) => async (dispatch) => {
+  console.log(email);
+  try {
+    const token = await Session.getData('@token');
+    await axios
+      .post(
+        'https://api.spreadprolimited.com/api/verify_account',
+        {
+          email: email,
+        },
+        {
+          headers: {
+            Authorization: token,
+            // 'content-type': 'application/json',
+            Accept: 'application/json',
+          },
+        },
+      )
+      .then((response) => {
+        console.log(response);
+      });
+  } catch (error) {
+    parseError(error);
+    dispatch({
+      type: 'REQUEST_VERIFICATION_ERROR',
+      payload: error.message,
+    });
+  }
+};
+
 export const ForgotPassword = (email) => async (dispatch) => {
   try {
     const token = await Session.getData('@token');
