@@ -230,12 +230,12 @@ export const UpdateUserData = (data, setLoad) => async (dispatch) => {
   }
 };
 
-export const REQUEST_VERIFICATION = (email) => async (dispatch) => {
+export const REQUEST_VERIFICATION = (email, setLoad) => async (dispatch) => {
   console.log(email);
   try {
     const token = await Session.getData('@token');
     await axios
-      .post(
+      .get(
         'https://api.spreadprolimited.com/api/verify_account',
         {
           email: email,
@@ -249,8 +249,10 @@ export const REQUEST_VERIFICATION = (email) => async (dispatch) => {
         },
       )
       .then((response) => {
-        console.log(response);
+        console.log(response, 'very');
+         showToast('VERIFICATION MAIL SENT');
       });
+    await setLoad(false);
   } catch (error) {
     parseError(error);
     dispatch({

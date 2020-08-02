@@ -33,20 +33,27 @@ import PropertyImages from '../components/propertyImages';
 import VideoPlayer from 'react-native-video-controls';
 
 export const HouseScreen = ({navigation}) => {
-  const dispatch = useDispatch();
   const {house} = useSelector((state) => state.properties);
+  const {user} = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
   const isHouse = house.house;
+  // const [isHouse, setHouse] = useState(null);
+
   useEffect(() => {
     const slug = navigation.state.params.slug;
     dispatch(GetHouse(slug));
+    // setHouse(House);
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       navigateBack,
     );
-
-    return () => backHandler.remove();
+    return () => {
+      backHandler.remove();
+      // setHouse(null);
+      // isHouse=null
+    };
   }, [dispatch, navigateBack, navigation.state.params.slug]);
-  const {user} = useSelector((state) => state.user);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const navigateBack = () => {
@@ -570,7 +577,7 @@ export const HouseScreen = ({navigation}) => {
                     property_type,
                     reference,
                   };
-                  dispatch(MakePayment({...data}));
+                  dispatch(MakePayment({...data}, navigation));
                 }}
                 autoStart={false}
                 textStyles={styles.modalBtnText}
@@ -582,7 +589,7 @@ export const HouseScreen = ({navigation}) => {
                 <Text style={styles.buttonText}>Pay</Text>
               </TouchableOpacity>
             </View>
-            {isHouse.is_reservable ? (
+            {isHouse.is_reservable && !isHouse.is_reserved ? (
               <TouchableOpacity
                 onPress={() =>
                   dispatch(ReserveHouse(navigation.state.params.slug))

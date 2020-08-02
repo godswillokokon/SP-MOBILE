@@ -137,9 +137,10 @@ export const GetReservedProps = () => async (dispatch) => {
     });
   }
 };
-export const MakePayment = (data) => async (dispatch) => {
-  console.log(data, 'wetin i dey send');
+export const MakePayment = (data, navigation) => async (dispatch) => {
+  // console.log(data, 'wetin i dey send');
   const token = await Session.getData('@token');
+  // navigation.navigate('Houses');
 
   await axios
     .post(
@@ -161,18 +162,20 @@ export const MakePayment = (data) => async (dispatch) => {
     )
     .then((response) => {
       //handle success
-      console.log(response.data, 'innn');
+      console.log(response.data.success, 'innn');
+      showToast(response.data.success);
       dispatch({
         type: 'PAYMENT_SUCCESS',
-        payload: {
-          house: response.data.house,
-        },
+        payload: response.data.success,
       });
+      // setTimeout(() => {
+      //   navigation.navigate('Houses');
+      // }, 2000);
     })
     .catch(function (error) {
       //handle error
       // console.log(error, 'err');
-      parseError(error)
+      parseError(error);
       dispatch({
         type: 'PAYMENT_FAILED',
         paymentError: error,

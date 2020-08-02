@@ -53,7 +53,7 @@ export const LandingScreen = ({navigation}) => {
             height: Dimensions.get('window').height,
           }}
         />
-        <View tyle={{alignSelf: 'flex-start'}}>
+        <View style={{alignSelf: 'flex-start'}}>
           <TouchableOpacity
             style={{
               alignContent: 'space-around',

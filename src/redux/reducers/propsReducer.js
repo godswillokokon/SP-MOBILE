@@ -34,7 +34,7 @@ export const propsReducer = (state = initialState, action) => {
     case 'PAYMENT_SUCCESS':
       return {
         ...state,
-        house: action.payload,
+        payment: action.payload,
       };
     case 'PAYMENT_FAILED':
       return {

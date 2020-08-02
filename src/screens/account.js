@@ -23,6 +23,7 @@ import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconF from 'react-native-vector-icons/FontAwesome5';
 import IconM from 'react-native-vector-icons/MaterialIcons';
+import PropertyPlaceholder from '../components/propertyStaging';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ImagePicker from 'react-native-image-picker';
 
@@ -56,9 +57,9 @@ export const AccountScreen = ({navigation}) => {
       <Text style={styles.title}>Account</Text>
     </View>
   );
-  const verifyUser = (email) => {
+  const verifyUser = (email, setLoad) => {
     requestAnimationFrame(() => {
-      REQUEST_VERIFICATION(email);
+      dispatch(REQUEST_VERIFICATION(email, setLoad));
     });
   };
   // console.log(user);
@@ -268,102 +269,122 @@ export const AccountScreen = ({navigation}) => {
     </View>
   );
   const BirthdayText = () => <Text style={styles.leftText}>BirthDay</Text>;
-// console.log(user);
+  // console.log(user);
+  const dummy = [
+    {
+      id: '1',
+    },
+    {
+      id: '2',
+    },
+    {
+      id: '3',
+    },
+    {
+      id: '4',
+    },
+    {
+      id: '5',
+    },
+  ];
+  const renderPlaceholders = () =>
+    dummy.map((e, i) => <PropertyPlaceholder key={i} />);
 
   return (
     <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
-        {!user.verified ? (
-          <TouchableOpacity
-            onPress={verifyUser(email)}
-            style={{
-              backgroundColor: '#FF3864',
-              width: Dimensions.get('window').width - 50,
-              alignSelf: 'center',
-              borderRadius: 10,
-              padding: 8,
-              marginTop: 20,
-            }}>
-            <Text
+      {user ? (
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
+          {!user.verified ? (
+            <TouchableOpacity
+              onPress={() => verifyUser(email, setLoad)}
               style={{
-                fontSize: 16,
+                backgroundColor: '#FF3864',
+                width: Dimensions.get('window').width - 50,
                 alignSelf: 'center',
-                color: '#fff',
-                fontWeight: 'bold',
+                borderRadius: 10,
+                padding: 8,
+                marginTop: 20,
               }}>
-              VERIFY ACCOUNT!!!
-            </Text>
-          </TouchableOpacity>
-        ) : null}
-        <View style={styles.avatar}>
-          <Avatar.Image
-            source={{
-              uri: picture,
-            }}
-            size={120}
-          />
-          <TouchableOpacity
-            onPress={selectPhotoTapped}
-            style={styles.avatarBtn}>
-            <IconF style={styles.avatarBtnIcon} name="camera" size={20} />
-          </TouchableOpacity>
-        </View>
+              <Text
+                style={{
+                  fontSize: 16,
+                  alignSelf: 'center',
+                  color: '#fff',
+                  fontWeight: 'bold',
+                }}>
+                VERIFY ACCOUNT!!!
+              </Text>
+            </TouchableOpacity>
+          ) : null}
+          <View style={styles.avatar}>
+            <Avatar.Image
+              source={{
+                uri: picture,
+              }}
+              size={120}
+            />
+            <TouchableOpacity
+              onPress={selectPhotoTapped}
+              style={styles.avatarBtn}>
+              <IconF style={styles.avatarBtnIcon} name="camera" size={20} />
+            </TouchableOpacity>
+          </View>
 
-        <KeyboardAvoidingView style={styles.key} behavior="padding" enabled>
-          <Layout style={styles.form}>
-            <Input
-              value={name}
-              style={styles.input}
-              textStyle={styles.inputText}
-              onChangeText={setFullName}
-              accessoryRight={FullNameIcon}
-              label={FullNameText}
-              accessibilityLabel="Full name"
-            />
-            <Input
-              value={email}
-              style={styles.input}
-              textStyle={styles.inputText}
-              onChangeText={setEmail}
-              accessoryRight={EmailIcon}
-              label={EmailText}
-              accessibilityLabel="Email"
-              // disabled
-            />
-            <Input
-              value={phone}
-              style={styles.input}
-              textStyle={styles.inputText}
-              onChangeText={setPhone}
-              accessoryRight={PhoneIcon}
-              label={PhoneText}
-              accessibilityLabel="Phone"
-            />
-            <Input
-              value={address}
-              style={styles.input}
-              textStyle={styles.inputText}
-              onChangeText={setAddress}
-              accessoryRight={AddressIcon}
-              label={AddressText}
-              accessibilityLabel="Address"
-            />
-            <View>
+          <KeyboardAvoidingView style={styles.key} enabled>
+            <Layout style={styles.form}>
+              <Input
+                value={name}
+                style={styles.input}
+                textStyle={styles.inputText}
+                onChangeText={setFullName}
+                accessoryRight={FullNameIcon}
+                label={FullNameText}
+                accessibilityLabel="Full name"
+              />
+              <Input
+                value={email}
+                style={styles.input}
+                textStyle={styles.inputText}
+                onChangeText={setEmail}
+                accessoryRight={EmailIcon}
+                label={EmailText}
+                accessibilityLabel="Email"
+                disabled
+              />
+              <Input
+                value={phone}
+                style={styles.input}
+                textStyle={styles.inputText}
+                onChangeText={setPhone}
+                accessoryRight={PhoneIcon}
+                label={PhoneText}
+                accessibilityLabel="Phone"
+              />
+              <Input
+                value={address}
+                style={styles.input}
+                textStyle={styles.inputText}
+                onChangeText={setAddress}
+                accessoryRight={AddressIcon}
+                label={AddressText}
+                accessibilityLabel="Address"
+              />
               <View>
-                <Input
-                  // value={date.toLocaleDateString()}
-                  value={BirthDay}
-                  style={styles.input}
-                  textStyle={styles.inputText}
-                  onChangeText={setBirthDay}
-                  accessoryRight={BirthdayIcon}
-                  label={BirthdayText}
-                  accessibilityLabel="BirthDay"
-                  disabled
-                />
-              </View>
-              {/* {show && (
+                <View>
+                  <Input
+                    // value={date.toLocaleDateString()}
+                    value={BirthDay}
+                    style={styles.input}
+                    textStyle={styles.inputText}
+                    onChangeText={setBirthDay}
+                    accessoryRight={BirthdayIcon}
+                    label={BirthdayText}
+                    accessibilityLabel="BirthDay"
+                    disabled
+                  />
+                </View>
+                {/* {show && (
                 <DateTimePicker
                   testID="dateTimePicker"
                   value={date}
@@ -373,22 +394,29 @@ export const AccountScreen = ({navigation}) => {
                   maximumDate={new Date()}
                 />
               )} */}
-            </View>
+              </View>
+              <TouchableOpacity
+                onPress={ChangePassword}
+                style={styles.changepassword}>
+                <IconM color={'#828282'} size={20} name={'lock-outline'} />
+                <Text style={styles.changepasswordText}>Change Password</Text>
+              </TouchableOpacity>
+              <ActivityIndicator
+                animating={load}
+                size="large"
+                color="#00959E"
+              />
+            </Layout>
             <TouchableOpacity
-              onPress={ChangePassword}
-              style={styles.changepassword}>
-              <IconM color={'#828282'} size={20} name={'lock-outline'} />
-              <Text style={styles.changepasswordText}>Change Password</Text>
+              onPress={() => updateUser(data, setLoad)}
+              style={styles.button}>
+              <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
-            <ActivityIndicator animating={load} size="large" color="#00959E" />
-          </Layout>
-          <TouchableOpacity
-            onPress={() => updateUser(data, setLoad)}
-            style={styles.button}>
-            <Text style={styles.buttonText}>Save</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </ScrollView>
+          </KeyboardAvoidingView>
+        </ScrollView>
+      ) : (
+        renderPlaceholders()
+      )}
     </SafeAreaView>
   );
 };
