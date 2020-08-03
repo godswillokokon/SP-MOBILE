@@ -156,6 +156,7 @@ export const AccountScreen = ({navigation}) => {
   const [BirthDay, setBirthDay] = useState(user.dob);
   const [picture, setPic] = useState(user.picture);
   const [load, setLoad] = useState(false);
+  const [Imgload, setImgLoad] = useState(false);
 
   const selectPhotoTapped = () => {
     const options = {
@@ -177,6 +178,7 @@ export const AccountScreen = ({navigation}) => {
           ToastAndroid.TOP,
         );
       } else {
+        setImgLoad(true);
         const uri = response.uri;
         const type = response.type;
         const name = response.fileName;
@@ -203,8 +205,9 @@ export const AccountScreen = ({navigation}) => {
       .then((res) => res.json())
       .then((img) => {
         setPic(img.secure_url);
-        console.log(img.secure_url, 'almost');
-        console.log(picture, 'done');
+        // console.log(img.secure_url, 'almost');
+        // console.log(picture, 'done');
+        setImgLoad(false);
       })
       .catch((err) =>
         ToastAndroid.show(
@@ -327,7 +330,13 @@ export const AccountScreen = ({navigation}) => {
             <TouchableOpacity
               onPress={selectPhotoTapped}
               style={styles.avatarBtn}>
-              <IconF style={styles.avatarBtnIcon} name="camera" size={20} />
+              <IconF style={styles.avatarBtnIcon} name="camera" size={18} />
+              <ActivityIndicator
+                animating={Imgload}
+                size="large"
+                color="white"
+                style={{position: 'absolute', left: 2}}
+              />
             </TouchableOpacity>
           </View>
 
@@ -451,8 +460,8 @@ const styles = StyleSheet.create({
   avatarBtn: {
     backgroundColor: 'rgba(0, 149, 158, 0.5)',
     position: 'absolute',
-    width: 41,
-    height: 41,
+    width: 50,
+    height: 50,
     borderRadius: 100,
     justifyContent: 'center',
     alignSelf: 'center',
