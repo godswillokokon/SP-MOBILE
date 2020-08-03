@@ -53,12 +53,12 @@ export const LandingScreen = ({navigation}) => {
             height: Dimensions.get('window').height,
           }}
         />
-        <View style={{alignSelf: 'flex-start'}}>
+        <View style={{alignSelf: 'flex-end',}}>
           <TouchableOpacity
             style={{
               alignContent: 'space-around',
               width: 50,
-              alignSelf: 'flex-end',
+              // alignSelf: 'flex-end',
               margin: 15,
             }}>
             <Text
@@ -66,7 +66,7 @@ export const LandingScreen = ({navigation}) => {
               style={{
                 alignSelf: 'center',
                 fontStyle: 'normal',
-                fontSize: 18,
+                fontSize: 20,
                 color: '#fff',
                 textShadowColor: '#000',
                 fontWeight: 'bold',
