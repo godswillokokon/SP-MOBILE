@@ -11,6 +11,7 @@ import {
   FlatList,
   Linking,
   Platform,
+  ToastAndroid,
 } from 'react-native';
 import PaystackWebView from 'react-native-paystack-webview';
 import {useSelector, useDispatch} from 'react-redux';
@@ -369,8 +370,13 @@ export const HouseScreen = ({navigation}) => {
     </View>
   );
   const childRef = useRef();
+  const showToast = (message) => {
+    ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+  };
   const Pay = () => {
-    user.verified ? childRef.current.StartTransaction() : null;
+    user.verified
+      ? childRef.current.StartTransaction()
+      : showToast('Get your account Verified');
   };
   return (
     <SafeAreaView style={styles.container}>
