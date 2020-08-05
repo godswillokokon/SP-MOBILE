@@ -19,6 +19,7 @@ import {
   ReserveHouse,
   MakePayment,
 } from '../redux/actions/propsActions';
+import {v4 as uuidv4} from 'uuid';
 // import {MakePayment} from '../redux/actions/paymentActions';
 import {TopNavigationAction, Modal, Layout, Text} from '@ui-kitten/components';
 import {moderateScale} from 'react-native-size-matters';
@@ -368,6 +369,9 @@ export const HouseScreen = ({navigation}) => {
     </View>
   );
   const childRef = useRef();
+  const Pay = () => {
+    user.verified ? childRef.current.StartTransaction() : null;
+  };
   return (
     <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
@@ -552,6 +556,7 @@ export const HouseScreen = ({navigation}) => {
                 ActivityIndicatorColor="#0DABA8"
                 SafeAreaViewContainer={{marginHorizontal: 15}}
                 SafeAreaViewContainerModal={{backgroundColor: '#33393a'}}
+                refNumber={uuidv4()}
                 handleWebViewMessage={(e) => {
                   // handle the message
                   console.log(e, 'message');
@@ -583,9 +588,7 @@ export const HouseScreen = ({navigation}) => {
                 textStyles={styles.modalBtnText}
                 btnStyles={styles.modalOnline}
               />
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => childRef.current.StartTransaction()}>
+              <TouchableOpacity style={styles.button} onPress={() => Pay()}>
                 <Text style={styles.buttonText}>Pay</Text>
               </TouchableOpacity>
             </View>
