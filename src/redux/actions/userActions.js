@@ -176,7 +176,7 @@ export const GetUserData = () => async (dispatch) => {
         },
       })
       .then((response) => {
-        console.log('got users');
+        // console.log('got users');
         dispatch({
           type: 'USER_DATA',
           payload: {
