@@ -78,9 +78,9 @@ export const Bottom = createMaterialBottomTabNavigator(
   },
   {
     initialRouteName: 'Home',
-    activeColor: '#00959E',
-    inactiveColor: '#8B95A6',
-    barStyle: {backgroundColor: '#fff', paddingVertical: 3},
+    activeColor: '#fff',
+    inactiveColor: '#3A3A3A',
+    barStyle: {backgroundColor: '#00959E', paddingVertical: 3},
     labelStyle: {fontSize: 12},
     shifting: false,
     labeled: true,
