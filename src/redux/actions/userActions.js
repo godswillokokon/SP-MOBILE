@@ -176,7 +176,7 @@ export const GetUserData = () => async (dispatch) => {
         },
       })
       .then((response) => {
-        // console.log(response.data.user);
+        console.log('got users');
         dispatch({
           type: 'USER_DATA',
           payload: {
@@ -187,8 +187,8 @@ export const GetUserData = () => async (dispatch) => {
   } catch (error) {
     parseError(error);
     showToast(error.message);
-    Session.logout();
-    return 401;
+    // Session.logout();
+    // return 401;
   }
 };
 export const UpdateUserData = (data, setLoad) => async (dispatch) => {
@@ -235,7 +235,7 @@ export const REQUEST_VERIFICATION = (email, setLoad) => async (dispatch) => {
   try {
     const token = await Session.getData('@token');
     await axios
-      .get(
+      .post(
         'https://api.spreadprolimited.com/api/verify_account',
         {
           email: email,
@@ -243,14 +243,14 @@ export const REQUEST_VERIFICATION = (email, setLoad) => async (dispatch) => {
         {
           headers: {
             Authorization: token,
-            // 'content-type': 'application/json',
+            'content-type': 'application/json',
             Accept: 'application/json',
           },
         },
       )
       .then((response) => {
         console.log(response, 'very');
-         showToast('VERIFICATION MAIL SENT');
+        showToast('VERIFICATION MAIL SENT, CHECK YOUR INBOX');
       });
     await setLoad(false);
   } catch (error) {
