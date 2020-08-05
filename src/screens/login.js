@@ -178,6 +178,7 @@ export const LoginScreen = ({navigation}) => {
                   placeholderTextColor={'#fff'}
                   accessibilityLabel="Email"
                   textContentType="emailAddress"
+                  disabled={load}
                 />
                 <View style={styles.lineStyle} />
                 <Input
@@ -193,6 +194,7 @@ export const LoginScreen = ({navigation}) => {
                   placeholderTextColor={'#fff'}
                   accessibilityLabel="Password"
                   textContentType="password"
+                  disabled={load}
                 />
               </Layout>
               <TouchableOpacity
