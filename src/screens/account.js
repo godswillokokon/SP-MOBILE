@@ -11,10 +11,12 @@ import {
   Platform,
   ToastAndroid,
   ActivityIndicator,
+  Pressable,
 } from 'react-native';
 import {
   UpdateUserData,
   REQUEST_VERIFICATION,
+  GetUserData,
 } from '../redux/actions/userActions';
 import {useSelector, useDispatch} from 'react-redux';
 import {TopNavigationAction, Layout, Text, Input} from '@ui-kitten/components';
@@ -28,7 +30,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import ImagePicker from 'react-native-image-picker';
 
 export const AccountScreen = ({navigation}) => {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(GetUserData());
+  }, [dispatch]);
   const {user} = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -271,7 +275,7 @@ export const AccountScreen = ({navigation}) => {
       <IconF color={'#828282'} size={20} name={'birthday-cake'} />
     </View>
   );
-  const BirthdayText = () => <Text style={styles.leftText}>BirthDay</Text>;
+  const BirthdayText = () => <Text style={styles.leftText}>Birthday</Text>;
   // console.log(user);
   const dummy = [
     {
@@ -302,7 +306,7 @@ export const AccountScreen = ({navigation}) => {
             <TouchableOpacity
               onPress={() => verifyUser(email, setLoad)}
               style={{
-                backgroundColor: '#FF3864',
+                backgroundColor: '#FCAD0A',
                 width: Dimensions.get('window').width - 50,
                 alignSelf: 'center',
                 borderRadius: 10,
@@ -326,6 +330,7 @@ export const AccountScreen = ({navigation}) => {
                 uri: picture,
               }}
               size={120}
+              style={{backgroundColor: '#00959E'}}
             />
             <TouchableOpacity
               onPress={selectPhotoTapped}
@@ -335,7 +340,7 @@ export const AccountScreen = ({navigation}) => {
                 animating={Imgload}
                 size="large"
                 color="white"
-                style={{position: 'absolute', left: 2}}
+                style={{position: 'absolute', left: 6}}
               />
             </TouchableOpacity>
           </View>
@@ -350,11 +355,12 @@ export const AccountScreen = ({navigation}) => {
                 accessoryRight={FullNameIcon}
                 label={FullNameText}
                 accessibilityLabel="Full name"
+                disabled={load}
               />
               <Input
                 value={email}
                 style={styles.input}
-                textStyle={styles.inputText}
+                textStyle={styles.inputTextDisabled}
                 onChangeText={setEmail}
                 accessoryRight={EmailIcon}
                 label={EmailText}
@@ -369,6 +375,7 @@ export const AccountScreen = ({navigation}) => {
                 accessoryRight={PhoneIcon}
                 label={PhoneText}
                 accessibilityLabel="Phone"
+                disabled={load}
               />
               <Input
                 value={address}
@@ -378,6 +385,7 @@ export const AccountScreen = ({navigation}) => {
                 accessoryRight={AddressIcon}
                 label={AddressText}
                 accessibilityLabel="Address"
+                disabled={load}
               />
               <View>
                 <View>
@@ -385,11 +393,11 @@ export const AccountScreen = ({navigation}) => {
                     // value={date.toLocaleDateString()}
                     value={BirthDay}
                     style={styles.input}
-                    textStyle={styles.inputText}
+                    textStyle={styles.inputTextDisabled}
                     onChangeText={setBirthDay}
                     accessoryRight={BirthdayIcon}
                     label={BirthdayText}
-                    accessibilityLabel="BirthDay"
+                    accessibilityLabel="Birthday"
                     disabled
                   />
                 </View>
@@ -404,12 +412,13 @@ export const AccountScreen = ({navigation}) => {
                 />
               )} */}
               </View>
-              <TouchableOpacity
+              <Pressable
                 onPress={ChangePassword}
+                disabled={load}
                 style={styles.changepassword}>
                 <IconM color={'#828282'} size={20} name={'lock-outline'} />
                 <Text style={styles.changepasswordText}>Change Password</Text>
-              </TouchableOpacity>
+              </Pressable>
               <ActivityIndicator
                 animating={load}
                 size="large"
@@ -486,7 +495,13 @@ const styles = StyleSheet.create({
     borderBottomColor: '#CFCBCB',
     marginVertical: 5,
   },
-  inputText: {color: '#3A3A3A', fontSize: 16, fontWeight: 'bold'},
+  inputText: {color: '#3A3A3A', fontSize: 16, fontWeight: '400', right: 20},
+  inputTextDisabled: {
+    color: '#B4B4B4',
+    fontSize: 16,
+    fontWeight: '400',
+    right: 20,
+  },
   fullNameLabel: {color: '#fff'},
   inputCaption: {color: '#fff'},
 
