@@ -13,6 +13,7 @@ import {
   ActivityIndicator,
   Platform,
   ToastAndroid,
+  Pressable,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 import {CreateUser} from '../redux/actions/userActions';
@@ -305,6 +306,7 @@ export const SignupScreen = ({navigation}) => {
                   onChangeText={setName}
                   accessoryRight={NameIcon}
                   placeholderTextColor={'#fff'}
+                  disabled={load}
                 />
                 <Input
                   value={email}
@@ -314,6 +316,7 @@ export const SignupScreen = ({navigation}) => {
                   onChangeText={setEmail}
                   accessoryRight={MailIcon}
                   placeholderTextColor={'#fff'}
+                  disabled={load}
                 />
                 <Input
                   value={phone}
@@ -323,6 +326,7 @@ export const SignupScreen = ({navigation}) => {
                   onChangeText={setPhone}
                   accessoryRight={PhoneIcon}
                   placeholderTextColor={'#fff'}
+                  disabled={load}
                 />
                 <Input
                   value={address}
@@ -332,9 +336,11 @@ export const SignupScreen = ({navigation}) => {
                   onChangeText={setAddress}
                   accessoryRight={AddressIcon}
                   placeholderTextColor={'#fff'}
+                  disabled={load}
                 />
                 <View>
-                  <TouchableOpacity
+                  <Pressable
+                    disabled={load}
                     style={{
                       borderColor: 'transparent',
                       backgroundColor: 'transparent',
@@ -356,7 +362,7 @@ export const SignupScreen = ({navigation}) => {
                       Date of Birth: {date.toLocaleDateString()}
                     </Text>
                     <CalendarIcon />
-                  </TouchableOpacity>
+                  </Pressable>
                   {show && (
                     <DateTimePicker
                       testID="dateTimePicker"
@@ -378,6 +384,7 @@ export const SignupScreen = ({navigation}) => {
                   secureTextEntry={securePassword}
                   onChangeText={(nextValue) => setPassword(nextValue)}
                   placeholderTextColor={'#fff'}
+                  disabled={load}
                 />
                 <Input
                   value={password_confirmation}
@@ -391,6 +398,7 @@ export const SignupScreen = ({navigation}) => {
                     setPassword_confirmation(nextValue)
                   }
                   placeholderTextColor={'#fff'}
+                  disabled={load}
                 />
               </Layout>
               <ActivityIndicator
