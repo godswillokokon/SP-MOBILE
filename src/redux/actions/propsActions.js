@@ -6,7 +6,6 @@ const showToast = (message) => {
   ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
 };
 
-
 const BASE = 'https://api.spreadprolimited.com/api';
 
 const parseError = (err) => {
@@ -78,10 +77,11 @@ export const GetHouses = () => async (dispatch) => {
         },
       })
       .then((response) => {
+        // console.log(response.data.houses.data);
         dispatch({
           type: 'FETCH_PROPERTIES_SUCCESS',
           payload: {
-            houses: response.data.houses,
+            houses: response.data.houses.data,
           },
         });
       });
@@ -118,6 +118,14 @@ export const GetHouse = (slug) => async (dispatch) => {
       fetchError: error,
     });
   }
+};
+export const NullHouse = () => async (dispatch) => {
+  dispatch({
+    type: 'FETCH_PROPERTY_SUCCESS',
+    payload: {
+      house: null,
+    },
+  });
 };
 
 export const ReserveHouse = (slug) => async (dispatch) => {

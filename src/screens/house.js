@@ -19,6 +19,7 @@ import {
   GetHouse,
   ReserveHouse,
   MakePayment,
+  NullHouse,
 } from '../redux/actions/propsActions';
 import {v4 as uuidv4} from 'uuid';
 // import {MakePayment} from '../redux/actions/paymentActions';
@@ -52,6 +53,7 @@ export const HouseScreen = ({navigation}) => {
     );
     return () => {
       backHandler.remove();
+      dispatch(NullHouse(slug));
       // setHouse(null);
       // isHouse=null
     };
