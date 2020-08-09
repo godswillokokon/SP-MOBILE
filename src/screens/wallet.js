@@ -1,4 +1,5 @@
-import React, {useState, useCallback, useEffect} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState, useCallback, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,8 +8,22 @@ import {
   TouchableOpacity,
   SafeAreaView,
   BackHandler,
+  ToastAndroid,
 } from 'react-native';
-import {TopNavigationAction, Text} from '@ui-kitten/components';
+import {
+  TopNavigationAction,
+  Text,
+  Modal,
+  Layout,
+  Input,
+} from '@ui-kitten/components';
+import PaystackWebView from 'react-native-paystack-webview';
+import {useSelector, useDispatch} from 'react-redux';
+import {Credit} from '../redux/actions/walletActions';
+import {GetUserData} from '../redux/actions/userActions';
+import numbro from 'numbro';
+
+import {v4 as uuidv4} from 'uuid';
 import {Avatar} from 'react-native-paper';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
@@ -59,6 +74,8 @@ const DATA_Categories = [
     type: 'transfer',
   },
 ];
+let head;
+let bg;
 function Categories({id, title, date, amount, selected, onSelect, type}) {
   if (type == 'transfer') {
     head = 'T';
@@ -119,6 +136,51 @@ function Categories({id, title, date, amount, selected, onSelect, type}) {
 }
 
 export const WalletScreen = ({navigation}) => {
+  const {user} = useSelector((state) => state.user);
+  const [visibleInspect, setvisibleInspect] = useState(false);
+  const [fundAmount, setFundAmount] = useState('');
+
+  const toggleInspect = () => {
+    requestAnimationFrame(() => {
+      setvisibleInspect(!visibleInspect);
+    });
+  };
+  const inspectElement = () => (
+    <View style={{}}>
+      <Layout style={styles.modalContainer}>
+        <TouchableOpacity style={styles.modalX} onPress={toggleInspect}>
+          <Text style={styles.modalXtext}>X</Text>
+        </TouchableOpacity>
+        <View style={styles.modalBody}>
+          <Text style={styles.modalHeader}>Enter Credit Amount</Text>
+          <View style={styles.modalButtons}>
+            <Input
+              value={fundAmount}
+              placeholder="20,000"
+              style={styles.inputEmail}
+              textStyle={styles.inputText}
+              labelStyle={styles.inputLabel}
+              captionTextStyle={styles.inputCaption}
+              onChangeText={setFundAmount}
+              // accessoryRight={MailIcon}
+              returnKeyType="next"
+              keyboardType="number-pad"
+              placeholderTextColor={'#fff'}
+              accessibilityLabel="Amount"
+              // disabled={load}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={() => FundFinal()}
+            style={styles.modalOffline}>
+            <Text style={styles.modalBtnText}>Next</Text>
+          </TouchableOpacity>
+        </View>
+      </Layout>
+    </View>
+  );
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -141,7 +203,6 @@ export const WalletScreen = ({navigation}) => {
     });
   };
   const Left = () => <IconA color={'#00959E'} name="arrowleft" size={25} />;
-
 
   const LeftAction = () => (
     <TopNavigationAction
@@ -167,7 +228,22 @@ export const WalletScreen = ({navigation}) => {
     },
     [selected],
   );
+  let lastAct = new Date(user.property_balance.updated_at).toDateString();
+  // new Date(created_at).toDateString()
+  // console.log(lastAct);
 
+  const childRef = useRef();
+  const showToast = (message) => {
+    ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
+  };
+  const Fund = () => {
+    user.verified
+      ? setvisibleInspect(!visibleInspect)
+      : showToast('Get your account Verified');
+  };
+  const FundFinal = () => {
+    childRef.current.StartTransaction();
+  };
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <TopNav Title={Title} LeftAction={LeftAction} />
@@ -183,31 +259,77 @@ export const WalletScreen = ({navigation}) => {
         <View style={{flexDirection: 'row'}}>
           <Avatar.Image
             source={{
-              uri:
-                'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg',
+              uri: user.picture,
             }}
             size={71}
           />
           <View style={{alignSelf: 'center', marginLeft: 10}}>
             <Text style={{fontSize: 14, fontWeight: 'bold', color: '#000'}}>
-              Godswill Effiong Okokon
+              {user.name}
             </Text>
-            <Text style={{fontSize: 12, color: '#828282'}}>
-              Real estate investor
-            </Text>
+            <Text style={{fontSize: 12, color: '#828282'}}>{user.email}</Text>
           </View>
         </View>
         <TouchableOpacity style={{flexDirection: 'row', alignSelf: 'center'}}>
-          <Text
-            style={{
-              color: '#0DABA8',
-              fontSize: 12,
-              fontWeight: 'bold',
-              alignSelf: 'center',
-              marginHorizontal: 5,
-            }}>
-            Fund Wallet
-          </Text>
+          <View>
+            <PaystackWebView
+              // buttonText="Rent"
+              showPayButton={false}
+              ref={childRef}
+              paystackKey="pk_test_cc5a16f36a9c190775dcc8eeefeeeddd3b209d46"
+              paystackSecretKey="sk_test_f9e9909d4b7bc2e45b1c0cd26bd4761551543197"
+              amount={fundAmount}
+              billingEmail={user.email}
+              billingMobile={user.phone}
+              billingName={user.name}
+              ActivityIndicatorColor="#0DABA8"
+              SafeAreaViewContainer={{marginHorizontal: 15}}
+              SafeAreaViewContainerModal={{backgroundColor: '#33393a'}}
+              refNumber={uuidv4()}
+              handleWebViewMessage={(e) => {
+                // handle the message
+                console.log(e, 'message');
+              }}
+              onCancel={(e) => {
+                // handle response here
+                console.log(e, 'failed');
+              }}
+              onSuccess={(res) => {
+                // handle response here
+                console.log(res, 'success');
+                const amount = fundAmount;
+                const payment_plan = 'outright';
+                const property_type = 'save';
+                const reference = res.data.reference;
+                const data = {
+                  amount,
+                  payment_plan,
+                  property_type,
+                  reference,
+                };
+                dispatch(Credit({...data}, navigation));
+                setTimeout(() => {
+                  dispatch(GetUserData());
+                }, 3000);
+              }}
+              autoStart={false}
+              textStyles={styles.modalBtnText}
+              btnStyles={styles.modalOnline}
+            />
+            <TouchableOpacity style={{padding: 5}} onPress={() => Fund()}>
+              <Text
+                style={{
+                  color: '#0DABA8',
+                  fontSize: 12,
+                  fontWeight: 'bold',
+                  alignSelf: 'center',
+                  marginHorizontal: 5,
+                }}>
+                Fund Wallet
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           <IconMC
             style={[{color: '#0DABA8'}]}
             size={10}
@@ -302,10 +424,12 @@ export const WalletScreen = ({navigation}) => {
           <IconS name="wallet" color="#fff" size={80} style={{}} />
           <View>
             <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>
-              Total
+              Property Balance
             </Text>
             <Text style={{color: '#fff', fontSize: 28, fontWeight: 'bold'}}>
-              ₦23, 000.00
+              {`₦${numbro(user.property_balance.balance).format({
+                thousandSeparated: true,
+              })}`}
             </Text>
           </View>
         </View>
@@ -316,7 +440,7 @@ export const WalletScreen = ({navigation}) => {
             marginBottom: 13,
             marginLeft: 40,
           }}>
-          Last wallet activity 2 days ago
+          Last wallet activity {}
         </Text>
       </View>
       <View style={{flex: 1}}>
@@ -369,6 +493,14 @@ export const WalletScreen = ({navigation}) => {
           />
         </View>
       </View>
+      <Modal
+        visible={visibleInspect}
+        animationType="slide"
+        onBackdropPress={toggleInspect}
+        backdropStyle={styles.backdrop}
+        transparent={false}>
+        {inspectElement()}
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -380,5 +512,103 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',
+  },
+  inputText: {color: '#fff'},
+  inputLabel: {color: '#fff'},
+  inputCaption: {color: '#fff'},
+  inputEmail: {
+    margin: 2,
+    borderColor: 'transparent',
+    backgroundColor: '#3A3A3A',
+    borderBottomColor: 'white',
+    width: 150,
+  },
+  modalContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    height: 200,
+    width: Dimensions.get('window').width - 50,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+    justifyContent: 'center',
+  },
+  modalX: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
+    backgroundColor: 'white',
+    borderRadius: 30,
+    alignSelf: 'flex-end',
+    flexDirection: 'row',
+    bottom: 20,
+    left: 15,
+    height: 35,
+    width: 35,
+    justifyContent: 'center',
+  },
+  modalXtext: {
+    alignSelf: 'center',
+    fontSize: 15,
+    color: '#0DABA8',
+    fontWeight: 'bold',
+  },
+  modalBody: {
+    flex: 1,
+    width: Dimensions.get('window').width - 50,
+    alignItems: 'center',
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
+    // justifyContent: 'center'
+  },
+  modalHeader: {
+    color: '#3A3A3A',
+    fontSize: 18,
+  },
+  modalInfo: {
+    color: '#828282',
+    fontSize: 13,
+    margin: 15,
+    textAlign: 'center',
+  },
+  modalButtons: {
+    flexDirection: 'row',
+    marginVertical: 15,
+    width: 250,
+    // backgroundColor: 'red',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  modalOffline: {
+    backgroundColor: '#0DABA8',
+    // paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 4,
+    width: 100,
+  },
+  modalOnline: {
+    backgroundColor: '#0DABA8',
+    paddingHorizontal: 25,
+    paddingVertical: 5,
+    borderRadius: 4,
+    width: 100,
+    left: 50,
+  },
+  modalBtnText: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#fff',
+    alignSelf: 'center',
   },
 });
