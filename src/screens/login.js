@@ -89,7 +89,7 @@ export const LoginScreen = ({navigation}) => {
   };
   const [email, setValueE] = useState('');
   const [password, setPassword] = useState('');
-  const [securePassword, setSecurePassword] = React.useState(true);
+  const [securePassword, setSecurePassword] = useState(true);
   const [load, setLoad] = useState(false);
   const data = {
     email,
