@@ -380,6 +380,11 @@ export const HouseScreen = ({navigation}) => {
       ? childRef.current.StartTransaction()
       : showToast('Get your account Verified');
   };
+  const reserveHouse = () => {
+    user.verified
+      ? dispatch(ReserveHouse(navigation.state.params.slug))
+      : showToast('Get your account Verified');
+  };
   return (
     <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
@@ -602,9 +607,7 @@ export const HouseScreen = ({navigation}) => {
             </View>
             {isHouse.is_reservable && !isHouse.is_reserved ? (
               <TouchableOpacity
-                onPress={() =>
-                  dispatch(ReserveHouse(navigation.state.params.slug))
-                }
+                onPress={() => reserveHouse()}
                 style={styles.button}>
                 <Text style={styles.buttonText}>Reserve</Text>
               </TouchableOpacity>
