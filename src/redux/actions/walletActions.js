@@ -1,6 +1,6 @@
 import * as axios from 'axios';
 import Session from '@utils/Session';
-import { ToastAndroid } from 'react-native';
+import {ToastAndroid} from 'react-native';
 
 const showToast = (message) => {
   ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
@@ -68,8 +68,7 @@ const parseError = (err) => {
 };
 export default parseError;
 
-export const Credit = (data, navigation) => async (dispatch) => {
-  // console.log(data, 'wetin i dey send');
+export const Credit = (data) => async (dispatch) => {
   const token = await Session.getData('@token');
   await axios
     .post(
@@ -99,7 +98,34 @@ export const Credit = (data, navigation) => async (dispatch) => {
       parseError(error);
       dispatch({
         type: 'FUND_FAILED',
-        paymentError: error,
+        walletError: error,
       });
     });
+};
+
+export const GetTransactionOverview = () => async (dispatch) => {
+  try {
+    const token = await Session.getData('@token');
+    await axios
+      .get(`${BASE}/user/transactions?limit=6`, {
+        headers: {
+          Authorization: token,
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then((response) => {
+        // console.log(response.data.data, 'kkkkkkkkk')
+        dispatch({
+          type: 'GET_OVERVIEW_SUCCESS',
+          payload: response.data.data.data,
+        });
+      });
+  } catch (error) {
+    console.log(error, 'err');
+    dispatch({
+      type: 'GET_OVERVIEW_FAILED',
+      transactionOverviewError: error,
+    });
+  }
 };
