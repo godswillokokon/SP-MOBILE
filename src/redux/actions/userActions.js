@@ -266,27 +266,34 @@ export const ForgotPassword = (email) => async (dispatch) => {
   try {
     const token = await Session.getData('@token');
     await axios
-      .get(`${BASE}/profile`, {
-        headers: {
-          Authorization: token,
-          email,
+      .post(
+        'https://api.spreadprolimited.com/api/forgot_password',
+        {
+          email: email,
         },
-      })
-      .then((response) => {
-        // console.log(response.data.user, 'innn');
-        dispatch({
-          type: 'USER_DATA',
-          payload: {
-            user: response.data.user,
+        {
+          headers: {
+            Authorization: token,
+            'content-type': 'application/json',
+            Accept: 'application/json',
           },
+        },
+      )
+      .then((response) => {
+        console.log(response, 'innn');
+        dispatch({
+          type: 'FORGOT_PASSWORD',
         });
       });
   } catch (error) {
-    showToast(error.message);
-    // toast.error("Error Notification !");
-    Session.logout();
-    return 401;
+    parseError(error);
+    dispatch({
+      type: 'FORGOT_PASSWORD_ERROR',
+      payload: error.message,
+    });
   }
+    // Session.logout();
+    // return 401;
 };
 
 export const Logout = (props) => (dispatch) => {
