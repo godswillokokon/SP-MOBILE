@@ -129,3 +129,30 @@ export const GetTransactionOverview = () => async (dispatch) => {
     });
   }
 };
+
+export const GetTransactionFull = () => async (dispatch) => {
+  try {
+    const token = await Session.getData('@token');
+    await axios
+      .get(`${BASE}/user/transactions`, {
+        headers: {
+          Authorization: token,
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then((response) => {
+        // console.log(response.data.data, 'kkkkkkkkk')
+        dispatch({
+          type: 'GET_FULL_SUCCESS',
+          payload: response.data.data.data,
+        });
+      });
+  } catch (error) {
+    console.log(error, 'err');
+    dispatch({
+      type: 'GET_FULL_FAILED',
+      transactionOverviewError: error,
+    });
+  }
+};
