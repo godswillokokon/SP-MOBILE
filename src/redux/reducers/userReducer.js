@@ -40,6 +40,16 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         verifyError: action.payload,
       };
+    case 'FORGOT_PASSWORD':
+      return {
+        ...state,
+        // verify: action.payload,
+      };
+    case 'FORGOT_PASSWORD_ERROR':
+      return {
+        ...state,
+        // verifyError: action.payload,
+      };
     case 'USER_LOGOUT_SUCCESS':
       return {
         ...state,
