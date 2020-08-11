@@ -3,6 +3,8 @@ const initialState = {
   walletError: null,
   transactionOverview: {},
   transactionOverviewError: null,
+  transactionFull: {},
+  transactionFullError: null,
 };
 export const walletReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -25,6 +27,16 @@ export const walletReducer = (state = initialState, action) => {
       return {
         ...state,
         transactionOverviewError: action.payload,
+      };
+    case 'GET_FULL_SUCCESS':
+      return {
+        ...state,
+        transactionFull: action.payload,
+      };
+    case 'GET_FULL_FAILED':
+      return {
+        ...state,
+        transactionFullError: action.payload,
       };
     default:
       return {...state};
