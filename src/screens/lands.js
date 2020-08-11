@@ -22,7 +22,6 @@ import numbro from 'numbro';
 export const LandsScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const {houses} = useSelector((state) => state.properties);
-  console.log(houses);
 
   useEffect(() => {
     dispatch(GetHouses());
