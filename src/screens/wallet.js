@@ -213,7 +213,7 @@ export const WalletScreen = ({navigation}) => {
     },
     [selected],
   );
-  // let lastAct = new Date(user.property_balance.updated_at).toDateString();
+  // let lastAct = new Date('Mon, 10 Aug 2020 16:21:22 GMT')();
   // new Date(created_at).toDateString()
   // console.log(lastAct);
 
