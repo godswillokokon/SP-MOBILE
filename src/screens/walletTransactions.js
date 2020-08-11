@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,7 +6,10 @@ import {
   FlatList,
   TouchableOpacity,
   SafeAreaView,
+  BackHandler,
+  ToastAndroid,
 } from 'react-native';
+import PropertiesPlaceholder from '../components/propertiesStaging';
 import {
   MenuItem,
   OverflowMenu,
@@ -17,51 +20,13 @@ import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const DATA_Categories = [
-  {
-    id: '1',
-    title: 'Transfer to Naruto Uzumaki',
-    date: '24th April 2020',
-    amount: '23, 000.00',
-    type: 'transfer',
-  },
-  {
-    id: '2',
-    title: 'Credited Wallet',
-    date: '20th April 2020',
-    amount: '50, 000.00',
-    type: 'credit',
-  },
-  {
-    id: '3',
-    title: 'Monthly Property Installment',
-    date: '4th April 2020',
-    amount: '200, 000.00',
-    type: 'installment',
-  },
-  {
-    id: '4',
-    title: 'Transfer to Obito Uchiha',
-    date: '2nd March 2020',
-    amount: '3, 000.00',
-    type: 'transfer',
-  },
-  {
-    id: '5',
-    title: 'Credited Wallet',
-    date: '2nd March 2020',
-    amount: '19, 000.00',
-    type: 'credit',
-  },
-  {
-    id: '6',
-    title: 'Transfer to Madara Uchiha',
-    date: '10th January 2020',
-    amount: '3, 000.00',
-    type: 'transfer',
-  },
-];
-function Categories({id, title, date, amount, selected, onSelect, type}) {
+import {useSelector, useDispatch} from 'react-redux';
+import {GetTransactionFull} from '../redux/actions/walletActions';
+import numbro from 'numbro';
+
+let head;
+let bg;
+function Categories({id, description, date, amount, selected, onSelect, type}) {
   if (type === 'transfer') {
     head = 'T';
     bg = '#EB5757';
@@ -107,25 +72,60 @@ function Categories({id, title, date, amount, selected, onSelect, type}) {
               width: 170,
               height: 16,
             }}>
-            {title}
+            {description}
           </Text>
           <Text style={{color: '#3A3A3A', fontSize: 12}}>{date}</Text>
         </View>
       </View>
 
       <Text style={{color: '#EB5757', fontSize: 16, alignSelf: 'center'}}>
-        ₦{amount}
+        {`₦${numbro(amount).format({
+          thousandSeparated: true,
+        })}`}
       </Text>
     </TouchableOpacity>
   );
 }
 
 export const WalletTransationScreen = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      navigateBack,
+    );
+    dispatch(GetTransactionFull());
+
+    return () => backHandler.remove();
+  }, [dispatch, navigateBack]);
+  const {transactionFull} = useSelector((state) => state.wallet);
+
+  const dummy = [
+    {
+      id: '1',
+    },
+    {
+      id: '2',
+    },
+    {
+      id: '3',
+    },
+    {
+      id: '4',
+    },
+    {
+      id: '5',
+    },
+  ];
+  const renderPlaceholders = () =>
+    dummy.map((e, i) => <PropertiesPlaceholder key={i} />);
+
   //top nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
       // navigation.navigate('Draw');
-      navigation.goBack();
+      navigation.navigate('Wallet');
     });
   };
   const Left = () => (
@@ -211,30 +211,34 @@ export const WalletTransationScreen = ({navigation}) => {
           }}
         />
 
-        <View
-          style={{
-            width: Dimensions.get('window').width - 20,
-            alignSelf: 'center',
-            flex: 1,
-          }}>
-          <FlatList
-            data={DATA_Categories}
-            renderItem={({item}) => (
-              <Categories
-                id={item.id}
-                title={item.title}
-                date={item.date}
-                amount={item.amount}
-                type={item.type}
-                selected={!!selected.get(item.id)}
-                onSelect={onSelect}
-              />
-            )}
-            keyExtractor={(item) => item.id}
-            extraData={selected}
-            numColumns={1}
-          />
-        </View>
+        {transactionFull ? (
+          <View
+            style={{
+              width: Dimensions.get('window').width - 20,
+              alignSelf: 'center',
+              flex: 1,
+            }}>
+            <FlatList
+              data={transactionFull}
+              renderItem={({item}) => (
+                <Categories
+                  id={item.id}
+                  description={item.description}
+                  date={item.updated_at}
+                  amount={item.amount}
+                  type={item.type}
+                  selected={!!selected.get(item.id)}
+                  onSelect={onSelect}
+                />
+              )}
+              keyExtractor={(item) => item.id.toString()}
+              extraData={selected}
+              numColumns={1}
+            />
+          </View>
+        ) : (
+          renderPlaceholders()
+        )}
       </View>
     </SafeAreaView>
   );
