@@ -98,8 +98,8 @@ export const DrawerContent = ({props}) => {
                       style={{fontSize: 14, fontWeight: 'bold', color: '#fff'}}>
                       {user.name}
                     </Text>
-                    <Text style={{fontSize: 12, color: '#fff'}}>
-                      Real estate investor
+                    <Text style={{fontSize: 11, color: '#fff'}}>
+                      Spread Properties Investor
                     </Text>
                   </View>
                 </View>
@@ -160,6 +160,7 @@ export const DrawerContent = ({props}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
+                  onPress={navigateServices}
                   style={{flexDirection: 'row', marginVertical: 5}}>
                   <View
                     style={{
@@ -176,34 +177,6 @@ export const DrawerContent = ({props}) => {
                     <Text
                       style={{marginLeft: 6, fontSize: 15, color: '#3A3A3A'}}>
                       Careers
-                    </Text>
-                  </View>
-
-                  <IconF
-                    name="angle-right"
-                    color="#00959E"
-                    size={25}
-                    style={{alignSelf: 'flex-end', flex: 1}}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={navigateServices}
-                  style={{flexDirection: 'row', marginVertical: 5}}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      flex: 17,
-                      alignItems: 'center',
-                    }}>
-                    <IconI
-                      name="md-business"
-                      color="#828282"
-                      size={20}
-                      style={{}}
-                    />
-                    <Text
-                      style={{marginLeft: 10, fontSize: 15, color: '#3A3A3A'}}>
-                      Services
                     </Text>
                   </View>
 
@@ -291,7 +264,7 @@ export const DrawerContent = ({props}) => {
               </View>
             </View>
 
-            <View style={{flex: 1, width: Dimensions.get('window').width}}>
+            <View style={{flex: 1.4, width: Dimensions.get('window').width}}>
               <Text
                 style={{
                   marginLeft: 20,
@@ -307,6 +280,27 @@ export const DrawerContent = ({props}) => {
                   height: 150,
                   width: 210,
                 }}>
+                <TouchableOpacity
+                  onPress={navigateSettings}
+                  style={{flexDirection: 'row', marginVertical: 5}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      flex: 17,
+                      alignItems: 'center',
+                    }}>
+                    <IconI
+                      name="md-business"
+                      color="#828282"
+                      size={18}
+                      style={{}}
+                    />
+                    <Text
+                      style={{marginLeft: 10, fontSize: 15, color: '#3A3A3A'}}>
+                      Become An Agent
+                    </Text>
+                  </View>
+                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={navigateSettings}
                   style={{flexDirection: 'row', marginVertical: 5}}>
