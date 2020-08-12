@@ -27,8 +27,8 @@ import numbro from 'numbro';
 let head;
 let bg;
 function Categories({id, description, date, amount, selected, onSelect, type}) {
-  if (type === 'transfer') {
-    head = 'T';
+  if (type === 'debit') {
+    head = 'D';
     bg = '#EB5757';
   }
   if (type === 'credit') {
