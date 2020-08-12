@@ -35,8 +35,8 @@ import IconS from 'react-native-vector-icons/SimpleLineIcons';
 let head;
 let bg;
 function Categories({id, description, date, amount, selected, onSelect, type}) {
-  if (type === 'transfer') {
-    head = 'T';
+  if (type === 'debit') {
+    head = 'D';
     bg = '#EB5757';
   }
   if (type === 'credit') {
@@ -105,12 +105,13 @@ export const WalletScreen = ({navigation}) => {
       navigateBack,
     );
     dispatch(GetTransactionOverview());
+    dispatch(GetUserData());
 
     return () => backHandler.remove();
   }, [dispatch, navigateBack]);
   const {user} = useSelector((state) => state.user);
   const {transactionOverview} = useSelector((state) => state.wallet);
-  // console.log(transactionOverview);
+  console.log(transactionOverview);
 
   const [visibleInspect, setvisibleInspect] = useState(false);
   const [fundAmount, setFundAmount] = useState('');
