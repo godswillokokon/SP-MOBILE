@@ -202,6 +202,7 @@ export const MakePayment = (data, navigation) => async (dispatch) => {
         email: data.email,
         property_type: data.property_type,
         reference: data.reference,
+        wallet: data.wallet,
       },
       {
         headers: {
