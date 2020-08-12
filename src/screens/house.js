@@ -68,6 +68,32 @@ export const HouseScreen = ({navigation}) => {
   };
   const [visibleInspect, setvisibleInspect] = useState(false);
   const [inspectVideo, setInspectVideo] = useState(false);
+  const [wallet, setWallet] = useState(false);
+  const [paymentMeduim, setPaymentMeduim] = useState(false);
+
+  const proceedWallet = () => {
+    requestAnimationFrame(() => {
+      setWallet(true);
+      setTimeout(() => {
+        Pay();
+      }, 500);
+    });
+  };
+
+  const proceedCard = () => {
+    requestAnimationFrame(() => {
+      setWallet(false);
+      setTimeout(() => {
+        Pay();
+      }, 500);
+    });
+  };
+
+  const togglePaymentModal = () => {
+    requestAnimationFrame(() => {
+      setPaymentMeduim(!paymentMeduim);
+    });
+  };
 
   const toggleInspectVideo = () => {
     requestAnimationFrame(() => {
@@ -300,6 +326,51 @@ export const HouseScreen = ({navigation}) => {
       </Layout>
     </View>
   );
+  const paymentMed = () => (
+    <View style={{}}>
+      <Layout style={styles.modalContainer}>
+        <TouchableOpacity style={styles.modalX} onPress={toggleInspect}>
+          <Text style={styles.modalXtext}>X</Text>
+        </TouchableOpacity>
+        <View style={styles.modalBody}>
+          {user.verified ? (
+            <>
+              <Text style={styles.modalHeader}>Payment Method</Text>
+              <Text style={styles.modalInfo}>
+                You can choose between using your SpreadPro wallet or card for
+                payment
+              </Text>
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  onPress={() => proceedWallet()}
+                  style={styles.modalOffline}>
+                  <Text style={styles.modalBtnText}>Wallet</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => proceedCard()}
+                  style={styles.modalOnline}>
+                  <Text style={styles.modalBtnText}>Card</Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          ) : (
+            <>
+              <Text
+                style={{
+                  color: '#828282',
+                  fontSize: 18,
+                  margin: 20,
+                  textAlign: 'center',
+                }}>
+                Get your account verified, only verified account can have this
+                feature.
+              </Text>
+            </>
+          )}
+        </View>
+      </Layout>
+    </View>
+  );
   const inspectElement = () => (
     <View style={{}}>
       <Layout style={styles.modalContainer}>
@@ -357,6 +428,7 @@ export const HouseScreen = ({navigation}) => {
                   email,
                   property_type,
                   reference,
+                  wallet,
                 };
                 dispatch(MakePayment({...data}));
                 setInspectVideo(!inspectVideo);
@@ -371,14 +443,16 @@ export const HouseScreen = ({navigation}) => {
       </Layout>
     </View>
   );
-  const childRef = useRef();
+  const paymentRef = useRef();
   const showToast = (message) => {
     ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
   };
+  const ProcessPayment = () => {
+    togglePaymentModal();
+  };
   const Pay = () => {
-    user.verified
-      ? childRef.current.StartTransaction()
-      : showToast('Get your account Verified');
+    paymentRef.current.StartTransaction();
+    // : showToast('Get your account Verified');
   };
   const reserveHouse = () => {
     user.verified
@@ -559,7 +633,7 @@ export const HouseScreen = ({navigation}) => {
               <PaystackWebView
                 buttonText="Rent"
                 showPayButton={false}
-                ref={childRef}
+                ref={paymentRef}
                 paystackKey="pk_test_cc5a16f36a9c190775dcc8eeefeeeddd3b209d46"
                 paystackSecretKey="sk_test_f9e9909d4b7bc2e45b1c0cd26bd4761551543197"
                 amount={isHouse.price}
@@ -594,6 +668,7 @@ export const HouseScreen = ({navigation}) => {
                     email,
                     property_type,
                     reference,
+                    wallet,
                   };
                   dispatch(MakePayment({...data}, navigation));
                 }}
@@ -601,7 +676,9 @@ export const HouseScreen = ({navigation}) => {
                 textStyles={styles.modalBtnText}
                 btnStyles={styles.modalOnline}
               />
-              <TouchableOpacity style={styles.button} onPress={() => Pay()}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => ProcessPayment()}>
                 <Text style={styles.buttonText}>Pay</Text>
               </TouchableOpacity>
             </View>
@@ -628,6 +705,14 @@ export const HouseScreen = ({navigation}) => {
             backdropStyle={styles.backdrop}
             transparent={false}>
             {inspectVideoElement()}
+          </Modal>
+          <Modal
+            visible={paymentMeduim}
+            animationType="slide"
+            onBackdropPress={togglePaymentModal}
+            backdropStyle={styles.backdrop}
+            transparent={false}>
+            {paymentMed()}
           </Modal>
         </ScrollView>
       ) : (
