@@ -31,10 +31,9 @@ import IconA from 'react-native-vector-icons/AntDesign';
 import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconS from 'react-native-vector-icons/SimpleLineIcons';
 
-
 let head;
 let bg;
-function Categories({id, description, date, amount, selected, onSelect, type}) {
+function Trans({id, description, date, amount, selected, onSelect, type}) {
   if (type === 'debit') {
     head = 'D';
     bg = '#EB5757';
@@ -57,7 +56,6 @@ function Categories({id, description, date, amount, selected, onSelect, type}) {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-    
       }}>
       <View style={{flexDirection: 'row'}}>
         <View
@@ -83,7 +81,9 @@ function Categories({id, description, date, amount, selected, onSelect, type}) {
             }}>
             {description}
           </Text>
-          <Text style={{color: '#3A3A3A', fontSize: 12}}>{date}</Text>
+          <Text style={{color: '#3A3A3A', fontSize: 12}}>
+            {new Date(date).toUTCString()}
+          </Text>
         </View>
       </View>
 
@@ -111,7 +111,7 @@ export const WalletScreen = ({navigation}) => {
   }, [dispatch, navigateBack]);
   const {user} = useSelector((state) => state.user);
   const {transactionOverview} = useSelector((state) => state.wallet);
-  console.log(transactionOverview);
+  // console.log(transactionOverview);
 
   const [visibleInspect, setvisibleInspect] = useState(false);
   const [fundAmount, setFundAmount] = useState('');
@@ -297,7 +297,7 @@ export const WalletScreen = ({navigation}) => {
                 dispatch(Credit({...data}));
                 setTimeout(() => {
                   dispatch(GetUserData());
-                dispatch(GetTransactionOverview());
+                  dispatch(GetTransactionOverview());
                 }, 3000);
               }}
               autoStart={false}
@@ -409,6 +409,7 @@ export const WalletScreen = ({navigation}) => {
             flex: 1,
             alignItems: 'center',
           }}>
+          {/* {console.log(user)} */}
           <IconS name="wallet" color="#fff" size={80} style={{}} />
           <View>
             <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>
@@ -428,7 +429,8 @@ export const WalletScreen = ({navigation}) => {
             marginBottom: 13,
             marginLeft: 40,
           }}>
-          Last wallet activity {}
+          Last wallet activity{' '}
+          {new Date(user.property_balance.updated_at).toUTCString()}
         </Text>
       </View>
       <View style={{flex: 1}}>
@@ -465,7 +467,7 @@ export const WalletScreen = ({navigation}) => {
             <FlatList
               data={transactionOverview}
               renderItem={({item}) => (
-                <Categories
+                <Trans
                   id={item.id}
                   description={item.description}
                   date={item.updated_at}

@@ -26,7 +26,7 @@ import numbro from 'numbro';
 
 let head;
 let bg;
-function Categories({id, description, date, amount, selected, onSelect, type}) {
+function Trans({id, description, date, amount, selected, onSelect, type}) {
   if (type === 'debit') {
     head = 'D';
     bg = '#EB5757';
@@ -74,7 +74,9 @@ function Categories({id, description, date, amount, selected, onSelect, type}) {
             }}>
             {description}
           </Text>
-          <Text style={{color: '#3A3A3A', fontSize: 12}}>{date}</Text>
+          <Text style={{color: '#3A3A3A', fontSize: 12}}>
+            {new Date(date).toUTCString()}
+          </Text>
         </View>
       </View>
 
@@ -221,7 +223,7 @@ export const WalletTransationScreen = ({navigation}) => {
             <FlatList
               data={transactionFull}
               renderItem={({item}) => (
-                <Categories
+                <Trans
                   id={item.id}
                   description={item.description}
                   date={item.updated_at}
