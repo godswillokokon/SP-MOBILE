@@ -105,6 +105,8 @@ export const DrawerContent = ({props}) => {
                       uri: user.picture,
                     }}
                     size={71}
+                    style={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'}}
                   />
                   <View style={{alignSelf: 'center', marginLeft: 10}}>
                     <Text
