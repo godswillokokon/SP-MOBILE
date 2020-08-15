@@ -47,6 +47,12 @@ export const DrawerContent = ({props}) => {
     });
   };
 
+  const navigateBeAgent = () => {
+    requestAnimationFrame(() => {
+      props.navigation.navigate('BeAgent');
+    });
+  };
+
   const navigateWallet = () => {
     requestAnimationFrame(() => {
       props.navigation.navigate('Wallet');
@@ -281,7 +287,7 @@ export const DrawerContent = ({props}) => {
                   width: 210,
                 }}>
                 <TouchableOpacity
-                  onPress={navigateSettings}
+                  onPress={navigateBeAgent}
                   style={{flexDirection: 'row', marginVertical: 5}}>
                   <View
                     style={{
