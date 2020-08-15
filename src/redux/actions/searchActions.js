@@ -1,6 +1,6 @@
 import * as axios from 'axios';
 import Session from '@utils/Session';
-import { ToastAndroid } from 'react-native';
+import {ToastAndroid} from 'react-native';
 
 const showToast = (message) => {
   ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
@@ -68,7 +68,7 @@ const parseError = (err) => {
 };
 export default parseError;
 
-export const Search = (query, setLoad) => async (dispatch) => {
+export const Search = (query) => async (dispatch) => {
   // console.log(query, 'wetin i dey send');
   const token = await Session.getData('@token');
   // navigation.navigate('Houses');
@@ -89,22 +89,22 @@ export const Search = (query, setLoad) => async (dispatch) => {
     .then((response) => {
       //handle success
       console.log(response.data, 'innn');
-      showToast(response.data.success);
+      showToast(response.data.message);
       dispatch({
         type: 'FETCH_SEARCH_SUCCESS',
-        payload: response.data.success,
+        payload: response.data,
       });
       // setTimeout(() => {
       //   navigation.navigate('Houses');
       // }, 2000);
+    })
+    .catch(function (error) {
+      //handle error
+      // console.log(error, 'err');
+      parseError(error);
+      dispatch({
+        type: 'FETCH_SEARCH_FAILED',
+        searchError: error,
+      });
     });
-  await setLoad(false).catch(function (error) {
-    //handle error
-    // console.log(error, 'err');
-    parseError(error);
-    dispatch({
-      type: 'FETCH_SEARCH_FAILED',
-      searchError: error,
-    });
-  });
 };
