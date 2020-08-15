@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useCallback, useEffect} from 'react';
 import {
   StyleSheet,
@@ -8,6 +9,7 @@ import {
   SafeAreaView,
   Image,
   BackHandler,
+  ImageBackground,
 } from 'react-native';
 import {TopNavigationAction, Text} from '@ui-kitten/components';
 import TopNav from '../components/topNav';
@@ -70,15 +72,15 @@ export const ServicesScreen = ({navigation}) => {
     onSelect,
     approved_experts,
   }) {
-    // console.log(approved_experts, "oo")
+    // console.log(image, "oo")
     return (
       <TouchableOpacity
-        onPress={() => navigateService(approved_experts)}
+        // onPress={() => navigateService(approved_experts)}
         style={{
           marginVertical: 12,
           marginHorizontal: 5,
-          width: 104,
-          height: 126,
+          // width: Dimensions.get('window').width - 10,
+          // height: 200,
           borderRadius: 4,
           backgroundColor: '#fff',
           shadowColor: '#000',
@@ -89,47 +91,61 @@ export const ServicesScreen = ({navigation}) => {
           shadowOpacity: 0.25,
           shadowRadius: 3.84,
           elevation: 5,
+          justifyContent: 'center',
         }}>
         <View
           style={{
             flex: 1,
-            width: 100,
-            height: 100,
+            width: Dimensions.get('window').width - 35,
+            height: 200,
             borderRadius: 4,
             alignSelf: 'center',
           }}>
-          <Image
-            style={{flex: 1, width: 100, height: 100}}
-            source={{uri: image}}
-          />
-          <View
+          <ImageBackground
             style={{
-              flex: 1,
-              backgroundColor: '#fff',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              borderRadius: 6,
-            }}>
-            <View style={{margin: 5}}>
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: '#0DABA8',
-                  lineHeight: 13,
-                }}>
-                {name}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 10,
-                  color: '#828282',
-                  lineHeight: 14,
-                  maxHeight: 50,
-                }}>
-                {description}
-              </Text>
+              // flex: 1,
+              width: Dimensions.get('window').width - 35,
+              height: 200,
+            }}
+            source={{uri: image}}>
+            <View
+              style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                position: 'absolute',
+                width: Dimensions.get('window').width - 35,
+                height: 200,
+              }}
+            />
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                borderRadius: 6,
+              }}>
+              <View style={{}}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: '#9edddc',
+                    alignSelf: 'center',
+                    marginBottom: 15,
+                  }}>
+                  {name}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: '#e6f6f6',
+                    lineHeight: 20,
+                    maxHeight: 100,
+                    alignSelf: 'flex-start',
+                  }}>
+                  {description}
+                </Text>
+              </View>
             </View>
-          </View>
+          </ImageBackground>
         </View>
       </TouchableOpacity>
     );
@@ -164,9 +180,9 @@ export const ServicesScreen = ({navigation}) => {
               onSelect={onSelect}
             />
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           extraData={selected}
-          numColumns={3}
+          numColumns={1}
         />
       </View>
     </SafeAreaView>
