@@ -59,6 +59,13 @@ export const DrawerContent = ({props}) => {
     });
   };
 
+
+  const navigateBoughtProps = () => {
+    requestAnimationFrame(() => {
+      props.navigation.navigate('BoughtProps');
+    });
+  };
+
   const navigateReservedProps = () => {
     requestAnimationFrame(() => {
       props.navigation.navigate('ReservedProps');
@@ -217,7 +224,7 @@ export const DrawerContent = ({props}) => {
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={navigateWallet}
+                  onPress={navigateBoughtProps}
                   style={{flexDirection: 'row', marginVertical: 5}}>
                   <View
                     style={{
