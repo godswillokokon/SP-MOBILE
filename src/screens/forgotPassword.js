@@ -54,12 +54,8 @@ export const ForgotPasswordScreen = ({navigation}) => {
         <IconS color={'#515C6F'} name="lock" size={50} />
       </View>
       <View style={styles.textMain}>
-        <Text style={styles.paraOne}>
-          If you forgot your password, please enter your
-        </Text>
-        <Text style={styles.paraTwo}>
-          email below and reset link would be sent to you
-        </Text>
+        <Text style={styles.paraOne}>please enter your email below and</Text>
+        <Text style={styles.paraTwo}>a reset link would be sent to you</Text>
       </View>
       <KeyboardAvoidingView style={styles.key} behavior="padding" enabled>
         <Input
