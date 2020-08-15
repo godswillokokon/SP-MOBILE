@@ -79,9 +79,34 @@ export const GetHouses = () => async (dispatch) => {
       .then((response) => {
         // console.log(response.data.houses.data);
         dispatch({
-          type: 'FETCH_PROPERTIES_SUCCESS',
+          type: 'FETCH_HOUSES_SUCCESS',
           payload: {
             houses: response.data.houses.data,
+          },
+        });
+      });
+  } catch (error) {
+    console.log(error, 'err');
+    dispatch({
+      type: 'FETCH_FAILED',
+      fetchError: error,
+    });
+  }
+};
+export const GetHousesOverview = () => async (dispatch) => {
+  try {
+    await axios
+      .get(`${BASE}/houses?limit=6`, {
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+      .then((response) => {
+        // console.log(response.data.houses.data);
+        dispatch({
+          type: 'FETCH_HOUSES_OVERVIEW_SUCCESS',
+          payload: {
+            houses_overview: response.data.houses.data,
           },
         });
       });
@@ -105,7 +130,7 @@ export const GetHouse = (slug) => async (dispatch) => {
       })
       .then((response) => {
         dispatch({
-          type: 'FETCH_PROPERTY_SUCCESS',
+          type: 'FETCH_HOUSE_SUCCESS',
           payload: {
             house: response.data.house,
           },
@@ -121,7 +146,7 @@ export const GetHouse = (slug) => async (dispatch) => {
 };
 export const NullHouse = () => async (dispatch) => {
   dispatch({
-    type: 'FETCH_PROPERTY_SUCCESS',
+    type: 'FETCH_HOUSE_SUCCESS',
     payload: {
       house: null,
     },

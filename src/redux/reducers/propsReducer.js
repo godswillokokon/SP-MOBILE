@@ -1,23 +1,31 @@
 const initialState = {
   houses: {},
   house: {},
+  lands: {},
+  land: {},
   reserve: {},
   reserved_houses: {},
   reserved_lands: {},
   bought_houses: {},
   bought_lands: {},
+  houses_overview: {},
   payment: {},
   paymentError: null,
   fetchError: null,
 };
 export const propsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'FETCH_PROPERTIES_SUCCESS':
+    case 'FETCH_HOUSES_SUCCESS':
       return {
         ...state,
         houses: action.payload,
       };
-    case 'FETCH_PROPERTY_SUCCESS':
+    case 'FETCH_HOUSES_OVERVIEW_SUCCESS':
+      return {
+        ...state,
+        houses_overview: action.payload,
+      };
+    case 'FETCH_HOUSE_SUCCESS':
       return {
         ...state,
         house: action.payload,

@@ -11,15 +11,19 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import { TopNavigationAction, Text} from '@ui-kitten/components';
+import {TopNavigationAction, Text} from '@ui-kitten/components';
+import {GetHouses} from '../redux/actions/propsActions';
 import {useSelector, useDispatch} from 'react-redux';
 import {GetUserData} from '../redux/actions/userActions';
+import {GetHousesOverview} from '../redux/actions/propsActions';
+import PropertiesPlaceholder from '../components/propertiesStaging';
 import IconA from 'react-native-vector-icons/AntDesign';
 import IconF from 'react-native-vector-icons/FontAwesome5';
 import IconE from 'react-native-vector-icons/EvilIcons';
 import IconI from 'react-native-vector-icons/Ionicons';
 import {moderateScale} from 'react-native-size-matters';
 import TopNav from '../components/topNav';
+import numbro from 'numbro';
 
 const DATA_Categories = [
   {
@@ -244,98 +248,7 @@ function Categories({id, title, subTitle, imageUrl, selected, onSelect}) {
     </TouchableOpacity>
   );
 }
-
-// RealEstates
-function RealEstates({id, title, subTitle, imageUrl, selected, onSelect}) {
-  return (
-    <TouchableOpacity
-      onPress={() => onSelect(id)}
-      style={{
-        marginVertical: 2,
-        marginHorizontal: 6,
-        width: 170,
-        height: 200,
-        borderRadius: 6,
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 1,
-        },
-        shadowOpacity: 0.06,
-        shadowRadius: 1.41,
-        elevation: 1,
-        padding: 4.5,
-      }}>
-      <ImageBackground
-        style={{flex: 3, width: '100%'}}
-        source={{uri: imageUrl}}
-        imageStyle={{borderRadius: 6}}>
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
-            flexDirection: 'column',
-            justifyContent: 'flex-end',
-            borderRadius: 6,
-          }}>
-          <View style={{margin: 10}}>
-            <Text
-              style={{
-                fontSize: 14,
-                color: '#fff',
-              }}>
-              {title}
-            </Text>
-            <Text
-              style={{
-                fontSize: 10,
-                color: '#fff',
-              }}>
-              {subTitle}
-            </Text>
-          </View>
-        </View>
-      </ImageBackground>
-      <View
-        style={{
-          height: 60,
-          borderBottomLeftRadius: 17,
-          borderBottomRightRadius: 15,
-          justifyContent: 'center',
-          padding: 1,
-        }}>
-        <Text
-          style={{
-            alignSelf: 'center',
-            color: '#3A3A3A',
-            fontSize: 13,
-            fontWeight: 'bold',
-            lineHeight: 18,
-            width: 155,
-          }}>
-          Ancient Bungalo Ancient
-        </Text>
-        <Text
-          style={{color: '#828282', fontSize: 10, width: 155, marginLeft: -5}}>
-          <IconE style={[{color: '#00959E'}]} size={15} name={'location'} /> 45
-          ntoe asi layout , Calabar
-        </Text>
-        <View style={{flexDirection: 'row', margin: 1}}>
-          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
-          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
-          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
-          <IconI style={[{color: '#00959E'}]} size={15} name={'md-star'} />
-          <IconI
-            style={[{color: '#00959E'}]}
-            size={15}
-            name={'md-star-outline'}
-          />
-          <Text style={{color: '#828282', fontSize: 10}}> (234) Reviews</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-}
+// Houses
 
 ///LatestLands
 
@@ -520,23 +433,15 @@ function LatestEstates({id, title, subTitle, imageUrl, selected, onSelect}) {
 
 export const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  // const resetAction = StackActions.reset({
-  //   index: 0,
-  //   actions: [NavigationActions.navigate({routeName: 'Draw'})],
-  // });
-
-  // navigation.dispatch(resetAction);
-
+  const {houses_overview} = useSelector((state) => state.properties);
+  // console.log(houses_overview.houses_overview);
+  const isHouse = houses_overview.houses_overview;
   useEffect(() => {
     dispatch(GetUserData());
+    dispatch(GetHousesOverview());
   }, [dispatch]);
 
   //top nav
-  const navigateBack = () => {
-    requestAnimationFrame(() => {
-      navigation.goBack();
-    });
-  };
   const openDrawer = () => {
     requestAnimationFrame(() => {
       navigation.openDrawer();
@@ -547,7 +452,19 @@ export const HomeScreen = ({navigation}) => {
       navigation.navigate('Categories');
     });
   };
+  const navigateHouses = () => {
+    requestAnimationFrame(() => {
+      navigation.navigate('Houses');
+    });
+  };
 
+  const navigateHouse = (data) => {
+    requestAnimationFrame(() => {
+      navigation.navigate('House', {
+        slug: data,
+      });
+    });
+  };
   const Left = () => (
     <IconF style={[{color: '#00959E'}]} name="bars" size={25} />
   );
@@ -590,6 +507,98 @@ export const HomeScreen = ({navigation}) => {
     },
     [selected],
   );
+  function Houses({
+    id,
+    name,
+    transaction,
+    take_two_images,
+    price,
+    lga,
+    state,
+    slug,
+  }) {
+    return (
+      <TouchableOpacity
+        onPress={() => navigateHouse(slug)}
+        style={{
+          marginVertical: 2,
+          marginHorizontal: 6,
+          width: 170,
+          height: 200,
+          borderRadius: 6,
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowOpacity: 0.06,
+          shadowRadius: 1.41,
+          elevation: 1,
+          padding: 4.5,
+        }}>
+        <ImageBackground
+          style={{flex: 3, width: '100%'}}
+          source={{uri: take_two_images[0]?.img_url}}
+          imageStyle={{borderRadius: 6}}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              borderRadius: 6,
+            }}>
+            <View style={{margin: 10}}>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#fff',
+                }}>
+                ₦{numbro(price).format({thousandSeparated: true})}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: '#fff',
+                }}>
+                For {transaction}
+              </Text>
+            </View>
+          </View>
+        </ImageBackground>
+        <View
+          style={{
+            height: 40,
+            borderBottomLeftRadius: 17,
+            borderBottomRightRadius: 15,
+            justifyContent: 'center',
+            padding: 1,
+          }}>
+          <Text
+            style={{
+              alignSelf: 'center',
+              color: '#3A3A3A',
+              fontSize: 13,
+              fontWeight: 'bold',
+              lineHeight: 18,
+              width: 155,
+            }}>
+            {name}
+          </Text>
+          <Text
+            style={{
+              color: '#828282',
+              fontSize: 13,
+              width: 155,
+              // marginLeft: -5,
+            }}>
+            {lga}, {state}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   return (
     <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
       <TopNav Title={Title} LeftAction={LeftAction} />
@@ -610,21 +619,10 @@ export const HomeScreen = ({navigation}) => {
                 flex: 0.1,
               }}>
               <Text style={{fontSize: 17, color: '#3A3A3A', marginLeft: 5}}>
-                Categories
+                Promotions
               </Text>
             </View>
-            <View style={{alignSelf: 'flex-end', width: 100, height: 30}}>
-              <TouchableOpacity onPress={navigateCategories}>
-                <Text
-                  style={{
-                    fontSize: 13,
-                    color: '#00959E',
-                    alignSelf: 'flex-end',
-                  }}>
-                  See all >
-                </Text>
-              </TouchableOpacity>
-            </View>
+            <View style={{alignSelf: 'flex-end', width: 100, height: 30}} />
             <View style={{flex: 1}}>
               <FlatList
                 data={DATA_Categories}
@@ -725,19 +723,21 @@ export const HomeScreen = ({navigation}) => {
             </View>
             <View style={{flex: 1}}>
               <FlatList
-                data={DATA_RealEstates}
+                data={isHouse}
                 horizontal
                 renderItem={({item}) => (
-                  <RealEstates
-                    id={item.id}
-                    title={item.title}
-                    subTitle={item.subTitle}
-                    imageUrl={item.imageUrl}
-                    selected={!!selected.get(item.id)}
-                    onSelect={onSelect}
+                  <Houses
+                    id={item?.id}
+                    name={item?.name}
+                    state={item?.state}
+                    price={item?.price}
+                    take_two_images={item?.take_two_images}
+                    slug={item?.slug}
+                    payment_type={item?.payment_type}
+                    lga={item?.lga}
                   />
                 )}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id.toString()}
                 extraData={selected}
               />
             </View>
@@ -761,7 +761,7 @@ export const HomeScreen = ({navigation}) => {
                 height: 30,
                 flex: 0.1,
               }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigateHouses()}>
                 <Text
                   style={{
                     fontSize: 13,
@@ -774,19 +774,22 @@ export const HomeScreen = ({navigation}) => {
             </View>
             <View style={{flex: 1}}>
               <FlatList
-                data={DATA_LatestEstates}
+                data={isHouse}
                 horizontal
                 renderItem={({item}) => (
-                  <LatestEstates
-                    id={item.id}
-                    title={item.title}
-                    subTitle={item.subTitle}
-                    imageUrl={item.imageUrl}
-                    selected={!!selected.get(item.id)}
-                    onSelect={onSelect}
+                  <Houses
+                    id={item?.id}
+                    name={item?.name}
+                    state={item?.state}
+                    price={item?.price}
+                    take_two_images={item?.take_two_images}
+                    slug={item?.slug}
+                    transaction={item?.transaction}
+                    payment_type={item?.payment_type}
+                    lga={item?.lga}
                   />
                 )}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item.id.toString()}
                 extraData={selected}
               />
             </View>
