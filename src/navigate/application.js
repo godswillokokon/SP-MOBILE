@@ -5,25 +5,23 @@ import {WalletTransationScreen} from '../screens/walletTransactions';
 import {ServicesScreen} from '../screens/services';
 import {ServiceScreen} from '../screens/service';
 import {ServiceBookingScreen} from '../screens/serviceBooking';
-import {AgentScreen} from '../screens/agent';
 import {SettingsScreen} from '../screens/settings';
 import {HouseScreen} from '../screens/house';
 import {WalletScreen} from '../screens/wallet';
 import {ReservedPropsScreen} from '../screens/reservedProps';
-
+import {BeAgentScreen} from '../screens/agent';
 const App = createStackNavigator(
   {
-   
     Services: ServicesScreen,
     Categories: CategoriesScreen,
     Service: ServiceScreen,
     House: HouseScreen,
     ServiceBooking: ServiceBookingScreen,
-    Agent: AgentScreen,
     Settings: SettingsScreen,
     Wallet: WalletScreen,
     WalletTransation: WalletTransationScreen,
     ReservedProps: ReservedPropsScreen,
+    BeAgent: BeAgentScreen,
   },
   {
     headerMode: 'none',
