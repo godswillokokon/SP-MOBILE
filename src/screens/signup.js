@@ -449,69 +449,7 @@ export const SignupScreen = ({navigation}) => {
               }}
             />
           </View>
-          <View
-            style={{
-              width: Dimensions.get('screen').width - 150,
-              height: 50,
-              alignSelf: 'center',
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-              marginVertical: 10,
-            }}>
-            <TouchableOpacity>
-              <View
-                style={{
-                  backgroundColor: '#55ACEE',
-                  borderRadius: 30,
-                  width: 45,
-                  height: 45,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}>
-                <Icon
-                  style={[
-                    {color: '#fff', alignSelf: 'flex-end', marginLeft: 6},
-                  ]}
-                  size={30}
-                  name={'facebook-f'}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View
-                style={{
-                  borderRadius: 30,
-                  width: 45,
-                  height: 45,
-                  backgroundColor: '#F44336',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}>
-                <IconA
-                  style={[{color: '#fff', alignSelf: 'center'}]}
-                  size={30}
-                  name={'googleplus'}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View
-                style={{
-                  borderRadius: 30,
-                  width: 45,
-                  height: 45,
-                  backgroundColor: '#55ACEE',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}>
-                <Icon
-                  style={[{color: '#fff', alignSelf: 'center'}]}
-                  size={30}
-                  name={'twitter'}
-                />
-              </View>
-            </TouchableOpacity>
-          </View>
+         
           <View
             style={{
               alignSelf: 'center',
