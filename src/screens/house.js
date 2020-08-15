@@ -54,6 +54,7 @@ export const HouseScreen = ({navigation}) => {
     return () => {
       backHandler.remove();
       dispatch(NullHouse(slug));
+
       // setHouse(null);
       // isHouse=null
     };
@@ -68,23 +69,68 @@ export const HouseScreen = ({navigation}) => {
   };
   const [visibleInspect, setvisibleInspect] = useState(false);
   const [inspectVideo, setInspectVideo] = useState(false);
-  const [wallet, setWallet] = useState(false);
+  // const [wallet, setWallet] = useState(false);
   const [paymentMeduim, setPaymentMeduim] = useState(false);
 
   const proceedWallet = () => {
     requestAnimationFrame(() => {
-      setWallet(true);
       setTimeout(() => {
-        Pay();
+        const email = user.email;
+        const property_slug = isHouse.slug;
+        const amount = isHouse.price;
+        const payment_plan = 'outright';
+        const property_type = 'house';
+        const wallet = true;
+        const reference = uuidv4();
+        const data = {
+          property_slug,
+          amount,
+          payment_plan,
+          email,
+          property_type,
+          reference,
+          wallet,
+        };
+        console.log(data);
+
+        // dispatch(MakePayment({ ...data }, navigation));
+        togglePaymentModal();
+      }, 500);
+    });
+  };
+
+  const WalletInspect = () => {
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        const email = user.email;
+        const property_slug = isHouse.slug;
+        const amount = 1000;
+        const payment_plan = 'inspection';
+        const property_type = 'house';
+        const wallet = true;
+        const reference = uuidv4();
+        const data = {
+          property_slug,
+          amount,
+          payment_plan,
+          email,
+          property_type,
+          reference,
+          wallet,
+        };
+        console.log(data);
+
+        // dispatch(MakePayment({ ...data }, navigation));
+        toggleInspect();
       }, 500);
     });
   };
 
   const proceedCard = () => {
     requestAnimationFrame(() => {
-      setWallet(false);
       setTimeout(() => {
         Pay();
+        togglePaymentModal();
       }, 500);
     });
   };
@@ -329,7 +375,7 @@ export const HouseScreen = ({navigation}) => {
   const paymentMed = () => (
     <View style={{}}>
       <Layout style={styles.modalContainer}>
-        <TouchableOpacity style={styles.modalX} onPress={toggleInspect}>
+        <TouchableOpacity style={styles.modalX} onPress={togglePaymentModal}>
           <Text style={styles.modalXtext}>X</Text>
         </TouchableOpacity>
         <View style={styles.modalBody}>
@@ -349,7 +395,7 @@ export const HouseScreen = ({navigation}) => {
                 <TouchableOpacity
                   onPress={() => proceedCard()}
                   style={styles.modalOnline}>
-                  <Text style={styles.modalBtnText}>Card</Text>
+                  <Text style={styles.modalBtnText}>Paystack</Text>
                 </TouchableOpacity>
               </View>
             </>
@@ -389,66 +435,84 @@ export const HouseScreen = ({navigation}) => {
             only
           </Text>
           <View style={styles.modalButtons}>
-            <View style={styles.modalOffline}>
-              <Text style={styles.modalBtnText}>Offline</Text>
+            <TouchableOpacity
+              onPress={() => WalletInspect()}
+              style={styles.modalOffline}>
+              <Text style={styles.modalBtnText}>Wallet</Text>
+            </TouchableOpacity>
+            <View>
+              <PaystackWebView
+                buttonText="Outright"
+                ref={inspectRef}
+                showPayButton={false}
+                paystackKey="pk_test_cc5a16f36a9c190775dcc8eeefeeeddd3b209d46"
+                paystackSecretKey="sk_test_f9e9909d4b7bc2e45b1c0cd26bd4761551543197"
+                amount={1000}
+                billingEmail={user.email}
+                billingMobile={user.phone}
+                billingName={user.name}
+                ActivityIndicatorColor="#0DABA8"
+                SafeAreaViewContainer={{marginHorizontal: 15}}
+                SafeAreaViewContainerModal={{backgroundColor: '#33393a'}}
+                refNumber={uuidv4()}
+                handleWebViewMessage={(e) => {
+                  // handle the message
+                  console.log(e, 'message');
+                }}
+                onCancel={(e) => {
+                  // handle response here
+                  console.log(e, 'failed');
+                }}
+                onSuccess={(res) => {
+                  // handle response here
+                  console.log(res, 'success');
+                  const email = user.email;
+                  const property_slug = isHouse.slug;
+                  const amount = 1000;
+                  const payment_plan = 'online-inspection';
+                  const property_type = 'house';
+                  const reference = res.data.reference;
+                  const wallet = false;
+
+                  const data = {
+                    property_slug,
+                    amount,
+                    payment_plan,
+                    email,
+                    property_type,
+                    reference,
+                    wallet,
+                  };
+                  console.log(data);
+
+                  // dispatch(MakePayment({...data}));
+                  // setInspectVideo(!inspectVideo);
+                  // setvisibleInspect(!visibleInspect);
+                }}
+                autoStart={false}
+              />
+              <TouchableOpacity
+                style={styles.modalOnline}
+                onPress={() => InspectHouse()}>
+                <Text style={styles.modalBtnText}>Paystack</Text>
+              </TouchableOpacity>
             </View>
-            <PaystackWebView
-              buttonText="Online"
-              showPayButton={true}
-              paystackKey="pk_test_cc5a16f36a9c190775dcc8eeefeeeddd3b209d46"
-              paystackSecretKey="sk_test_f9e9909d4b7bc2e45b1c0cd26bd4761551543197"
-              amount={1000}
-              billingEmail={user.email}
-              billingMobile={user.phone}
-              billingName={user.name}
-              ActivityIndicatorColor="#0DABA8"
-              SafeAreaViewContainer={{flex: 1}}
-              SafeAreaViewContainerModal={{backgroundColor: '#33393a'}}
-              handleWebViewMessage={(e) => {
-                // handle the message
-                console.log(e, 'message');
-              }}
-              onCancel={(e) => {
-                // handle response here
-                console.log(e, 'failed');
-              }}
-              onSuccess={(res) => {
-                // handle response here
-                console.log(res, 'success');
-                const email = user.email;
-                const property_slug = isHouse.slug;
-                const amount = 1000;
-                const payment_plan = 'online-inspection';
-                const property_type = 'house';
-                const reference = res.data.reference;
-                const data = {
-                  property_slug,
-                  amount,
-                  payment_plan,
-                  email,
-                  property_type,
-                  reference,
-                  wallet,
-                };
-                dispatch(MakePayment({...data}));
-                setInspectVideo(!inspectVideo);
-                setvisibleInspect(!visibleInspect);
-              }}
-              autoStart={false}
-              textStyles={styles.modalBtnText}
-              btnStyles={styles.modalOnline}
-            />
           </View>
         </View>
       </Layout>
     </View>
   );
   const paymentRef = useRef();
+  const inspectRef = useRef();
   const showToast = (message) => {
     ToastAndroid.show(message, ToastAndroid.LONG, ToastAndroid.TOP, 25, 50);
   };
   const ProcessPayment = () => {
     togglePaymentModal();
+  };
+  const InspectHouse = () => {
+    inspectRef.current.StartTransaction();
+    // : showToast('Get your account Verified');
   };
   const Pay = () => {
     paymentRef.current.StartTransaction();
@@ -661,6 +725,7 @@ export const HouseScreen = ({navigation}) => {
                   const payment_plan = 'outright';
                   const property_type = 'house';
                   const reference = res.data.reference;
+                  const wallet = false;
                   const data = {
                     property_slug,
                     amount,
@@ -670,7 +735,8 @@ export const HouseScreen = ({navigation}) => {
                     reference,
                     wallet,
                   };
-                  dispatch(MakePayment({...data}, navigation));
+                  console.log(data);
+                  // dispatch(MakePayment({...data}, navigation));
                 }}
                 autoStart={false}
                 textStyles={styles.modalBtnText}
@@ -826,25 +892,25 @@ const styles = StyleSheet.create({
   },
   modalButtons: {
     flexDirection: 'row',
-    marginVertical: 15,
-    width: 250,
-    // backgroundColor: 'red',
+    marginVertical: 5,
+    width: 300,
     alignSelf: 'center',
+    justifyContent: 'space-evenly',
   },
   modalOffline: {
     backgroundColor: '#0DABA8',
     paddingHorizontal: 25,
     paddingVertical: 5,
     borderRadius: 4,
-    width: 100,
+    width: 120,
   },
   modalOnline: {
     backgroundColor: '#0DABA8',
     paddingHorizontal: 25,
     paddingVertical: 5,
     borderRadius: 4,
-    width: 100,
-    left: 50,
+    width: 120,
+    // left: 50,
   },
   modalBtnText: {
     fontSize: 14,
