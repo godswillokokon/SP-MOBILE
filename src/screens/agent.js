@@ -1,336 +1,442 @@
-import React, { useState, useCallback } from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Dimensions,
-  FlatList,
+  ScrollView,
   TouchableOpacity,
   SafeAreaView,
-  Image,
-  ImageBackground,
-  ScrollView
+  KeyboardAvoidingView,
+  ToastAndroid,
+  ActivityIndicator,
 } from 'react-native';
-import {
-  Avatar,
-} from 'react-native-paper';
+import {REQUEST_VERIFICATION, GetUserData} from '../redux/actions/userActions';
+import {BeAgent} from '../redux/actions/agentActions';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   TopNavigationAction,
+  IndexPath,
+  Layout,
+  Select,
+  SelectItem,
+  Text,
+  Input,
 } from '@ui-kitten/components';
 import TopNav from '../components/topNav';
 import IconA from 'react-native-vector-icons/AntDesign';
-import IconI from 'react-native-vector-icons/Ionicons';
-import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconF from 'react-native-vector-icons/FontAwesome5';
 import IconM from 'react-native-vector-icons/MaterialIcons';
-import IconF from 'react-native-vector-icons/FontAwesome';
-import IconE from 'react-native-vector-icons/EvilIcons';
-// import { ScrollView } from 'react-native-gesture-handler';
+import IconMC from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconFF from 'react-native-vector-icons/Fontisto';
 
+export const BeAgentScreen = ({navigation}) => {
+  useEffect(() => {
+    dispatch(GetUserData());
+  }, [dispatch]);
+  const {user} = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-
-
-export const AgentScreen = ({ navigation }) => {
-  const DATA_LatestEstates = [
-    {
-      id: '1',
-      title: 'Rent',
-      subTitle: '200 appartments for rent',
-      imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
-    },
-    {
-      id: '2',
-      title: 'Sale',
-      subTitle: '200 appartments for sale',
-      imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
-    },
-    {
-      id: '3',
-      title: 'Rent',
-      subTitle: '200 appartments for rent',
-      imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
-    },
-    {
-      id: '4',
-      title: 'Rent',
-      subTitle: '200 appartments for rent',
-      imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
-    },
-    {
-      id: '5',
-      title: 'Sale',
-      subTitle: '200 appartments for sale',
-      imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
-    },
-    {
-      id: '6',
-      title: 'Rent',
-      subTitle: '200 appartments for rent',
-      imageUrl: 'https://res.cloudinary.com/ogcodes/image/upload/v1587369546/house.png'
-    },
-  ];
-
-  function LatestEstates({ id, title, subTitle, imageUrl, selected, onSelect }) {
-    return (
-      <TouchableOpacity
-        onPress={() => onSelect(id)}
-        style={{
-          marginVertical: 2,
-          marginHorizontal: 6,
-          width: 170,
-          height: 200,
-          borderRadius: 6,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 1,
-          },
-          shadowOpacity: 0.06,
-          shadowRadius: 1.41,
-          elevation: 1,
-          padding: 4.5,
-        }}
-      >
-        <ImageBackground style={{ flex: 3, width: '100%', }}
-          // source={{ uri: imageUrl }}
-          imageStyle={{ borderRadius: 6, }}
-        >
-          <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.4)', flexDirection: 'column', justifyContent: 'flex-end', borderRadius: 6, }}>
-
-          </View>
-        </ImageBackground>
-        <View style={{
-          height: 60, borderBottomLeftRadius: 15, borderBottomRightRadius: 15, justifyContent: 'center',
-          padding: 1,
-        }}>
-          <Text style={{
-            alignSelf: 'center', color: '#3A3A3A', fontSize: 13,
-            fontWeight: 'bold', alignSelf: 'center', lineHeight: 18, width: 155,
-          }}>Ancient Bungalo Ancient</Text>
-          <Text style={{ color: '#828282', fontSize: 10, width: 155, marginLeft: -5 }}>
-            <IconE style={[{ color: '#00959E' }]} size={15} name={'location'} /> 45 ntoe asi layout , Calabar
-        </Text>
-          <View style={{ flexDirection: 'row', margin: 1 }}>
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star'} />
-            <IconI style={[{ color: '#00959E' }]} size={15} name={'md-star-outline'} />
-            <Text style={{ color: '#828282', fontSize: 10 }}>  (234) Reviews</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-  //top nav
+  //nav
   const navigateBack = () => {
     requestAnimationFrame(() => {
-      navigation.goBack();
-
-    })
+      navigation.navigate('Tabs');
+    });
   };
-  const Left = () => (
-    <IconA style={[{ color: '#00959E', }]} name='arrowleft' size={25} />
-  );
+  const Left = () => <IconA color={'#00959E'} name="arrowleft" size={25} />;
 
   const LeftAction = () => (
-    <TopNavigationAction icon={Left} onPress={navigateBack} style={[{ padding: 5 }]} />
+    <TopNavigationAction
+      icon={Left}
+      onPress={navigateBack}
+      style={styles.leftAction}
+    />
   );
   const Title = () => (
-    <View >
-      <Text style={styles.title}>
-        Agent Profile
-      </Text>
-    </View >
+    <View>
+      <Text style={styles.title}>Become an Agent</Text>
+    </View>
+  );
+  const verifyUser = (email, setLoad) => {
+    requestAnimationFrame(() => {
+      dispatch(REQUEST_VERIFICATION(email, setLoad));
+    });
+  };
+  // console.log(user);
+  const applyAgent = (data, setLoad) => {
+    // console.log(data, 'push');
+    requestAnimationFrame(() => {
+      setLoad(true);
+      if (data.id_type === 'Select Card Type' || undefined) {
+        ToastAndroid.show(
+          'Select a card type',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setLoad(false);
+        }, 5000);
+      } else if (data.id_number === '' || null) {
+        ToastAndroid.show(
+          'ID serial number should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setLoad(false);
+        }, 5000);
+      } else if (data.occupation === '' || null) {
+        ToastAndroid.show(
+          'Occupation  should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setLoad(false);
+        }, 5000);
+      } else if (data.marital_status === '' || null) {
+        ToastAndroid.show(
+          'Marital status  should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setLoad(false);
+        }, 5000);
+      } else if (data.state_of_origin === '' || null) {
+        ToastAndroid.show(
+          'State of origin  image should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setLoad(false);
+        }, 5000);
+      } else if (data.lga === '' || null) {
+        ToastAndroid.show(
+          'LGA should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setLoad(false);
+        }, 5000);
+      } else if (data.gender === '' || null) {
+        ToastAndroid.show(
+          'Gender should not be empty',
+          ToastAndroid.LONG,
+          ToastAndroid.TOP,
+          25,
+          50,
+        );
+        setTimeout(() => {
+          setLoad(false);
+        }, 5000);
+      } else {
+        dispatch(BeAgent(data, setLoad));
+        // console.log(data);
+      }
+    });
+  };
+
+  const [lga, setLga] = useState('');
+  const [idNum, setIdNum] = useState('');
+  const [occupation, setOccupation] = useState('');
+  const [marital, setMarital] = useState('');
+  const [gender, setGender] = useState('');
+  const [state, setState] = useState('');
+  const [load, setLoad] = useState(false);
+
+  const [selectedIndex, setSelectedIndex] = React.useState(new IndexPath(0));
+  const cards = [
+    'Select Card Type',
+    'Voters Card',
+    'National ID',
+    'National Passport',
+    'Drivers Licence ',
+  ];
+
+  const displayValue = cards[selectedIndex.row];
+
+
+  const renderOption = (title) => <SelectItem title={title} />;
+
+  const data = {
+    id_type: displayValue,
+    id_number: idNum,
+    occupation,
+    marital_status: marital,
+    state_of_origin: state,
+    lga,
+    gender,
+  };
+
+  //icons
+
+  const IDIcon = () => (
+    <View>
+      <IconF color={'#828282'} size={18} name={'id-card'} />
+    </View>
+  );
+  const IDText = () => (
+    <Text style={styles.leftText}>Local Government Area</Text>
   );
 
-  //selected
-
-  const [selected, setSelected] = useState(new Map());
-
-  const onSelect = useCallback(
-    id => {
-      const newSelected = new Map(selected);
-      newSelected.set(id, !selected.get(id));
-      setSelected(newSelected);
-    },
-    [selected],
+  const IDNumIcon = () => (
+    <View>
+      <IconMC color={'#828282'} size={20} name={'card-bulleted-outline'} />
+    </View>
   );
+  const IDCardNumberText = () => (
+    <Text style={styles.leftText}>ID Card Number</Text>
+  );
+
+  const OccupationIcon = () => (
+    <View>
+      <IconM color={'#828282'} size={20} name={'work'} />
+    </View>
+  );
+  const OccupationText = () => <Text style={styles.leftText}>Occupation</Text>;
+  const MaritalIcon = () => (
+    <View>
+      <IconA color={'#828282'} size={20} name={'home'} />
+    </View>
+  );
+  const MaritalText = () => <Text style={styles.leftText}>Marital Status</Text>;
+  const StateIcon = () => (
+    <View style={{}}>
+      <IconM color={'#828282'} size={20} name={'flag'} />
+    </View>
+  );
+  const StateText = () => <Text style={styles.leftText}>State of Origin</Text>;
+
+  const GenderIcon = () => (
+    <View>
+      <IconFF color={'#828282'} size={20} name={'intersex'} />
+    </View>
+  );
+  const GenderText = () => <Text style={styles.leftText}>Gender</Text>;
+  // console.log(user);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
-      <ScrollView style={{ flex: 1, alignSelf: 'center', marginVertical: 24, }}>
-        <View style={{ justifyContent: 'center', alignItems: 'center', alignSelf: 'center', }}>
-          <View style={{ borderColor: '#0DABA8', borderWidth: 3, borderRadius: 100 }}>
-            <Avatar.Image
-              source={{
-                uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg'
-              }}
-              size={90}
-            />
-          </View>
 
-        </View>
-        <Text style={{ color: '#3A3A3A', fontSize: 16, alignSelf: 'center', marginVertical: 8 }}>Rose Erim</Text>
-        <Text style={{ color: '#828282', fontSize: 12, alignSelf: 'center', marginVertical: 4 }}>Housing Agent</Text>
-        <View>
-          <View style={{
-            flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', marginVertical: 4
-
-          }}>
-            <TouchableOpacity style={{
-              marginHorizontal: 14,
-              width: 35, height: 35, borderRadius: 100,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              justifyContent: 'center',
-              elevation: 4,
-              backgroundColor: '#fff',
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
+        {!user.verified ? (
+          <TouchableOpacity
+            onPress={() => verifyUser(user.email, setLoad)}
+            style={{
+              backgroundColor: '#FCAD0A',
+              width: Dimensions.get('window').width - 50,
+              alignSelf: 'center',
+              borderRadius: 10,
+              padding: 8,
+              marginTop: 20,
             }}>
-              <IconMC style={[{ color: '#3DA917', alignSelf: 'center' }]} name='phone' size={23} />
+            <Text
+              style={{
+                fontSize: 16,
+                alignSelf: 'center',
+                color: '#fff',
+                fontWeight: 'bold',
+              }}>
+              VERIFY ACCOUNT!!!
+            </Text>
+          </TouchableOpacity>
+        ) : null}
 
-            </TouchableOpacity>
-            <TouchableOpacity style={{
-              marginHorizontal: 14,
-              width: 35, height: 35, borderRadius: 100,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              justifyContent: 'center',
-              elevation: 4,
-              backgroundColor: '#fff',
-            }}>
-              <IconMC style={[{ color: '#F14336', alignSelf: 'center' }]} name='gmail' size={23} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-
-        <View
-          // onPress={navigateAgent}
-          style={{
-            width: Dimensions.get('window').width,
-            borderColor: '#E5E5E5',
-            borderWidth: 1,
-            marginVertical: 18,
-            height: 58,
-            justifyContent: 'space-around',
-            flexDirection: 'row',
-
-          }}>
-
-          <View style={{ flexDirection: 'column', justifyContent: 'center', alignSelf: 'center' }}>
-            <Text style={{ fontSize: 14, color: '#828282', alignSelf: 'center' }}>Properties</Text>
-            <Text style={{ fontSize: 12, color: '#828282', alignSelf: 'center' }}>69</Text>
-          </View>
-
-          <View style={{
-            flexDirection: 'column', justifyContent: 'center', alignSelf: 'center'
-          }}>
-            <Text style={{ fontSize: 14, color: '#828282', alignSelf: 'center' }}>Ratings</Text>
-            <View style={{ flexDirection: 'row', marginVertical: 3 }}>
-              <IconI style={[{ color: '#00959E' }]} size={12} name={'md-star'} />
-              <IconI style={[{ color: '#00959E' }]} size={12} name={'md-star'} />
-              <IconI style={[{ color: '#00959E' }]} size={12} name={'md-star'} />
-              <IconI style={[{ color: '#00959E' }]} size={12} name={'md-star'} />
-              <IconI style={[{ color: '#00959E' }]} size={12} name={'md-star-outline'} />
-            </View>
-          </View>
-        </View>
-
-        <View style={{ height: 255, margin: 5, }}>
-          <View style={{ alignSelf: 'flex-start', width: 200, height: 30, flex: 0.1 }}>
-            <Text style={{ fontSize: 15, color: '#3A3A3A', marginLeft: 5 }}>Properties</Text>
-          </View>
-          <View style={{ alignSelf: 'flex-end', width: 100, height: 30, flex: 0.1 }}>
-            <TouchableOpacity>
-              <Text style={{ fontSize: 13, color: '#00959E', alignSelf: 'flex-end' }}>See all ></Text>
-            </TouchableOpacity>
-
-          </View>
-          <View style={{ flex: 1, }}>
-            <FlatList
-              data={DATA_LatestEstates}
-              horizontal
-              renderItem={({ item }) => (
-                <LatestEstates
-                  id={item.id}
-                  title={item.title}
-                  subTitle={item.subTitle}
-                  imageUrl={item.imageUrl}
-                  selected={!!selected.get(item.id)}
-                  onSelect={onSelect}
-                />
-              )}
-              keyExtractor={item => item.id}
-              extraData={selected}
+        <KeyboardAvoidingView style={styles.key} enabled>
+          <Layout style={styles.form}>
+            <Select
+              style={styles.input}
+              placeholder="Default"
+              value={displayValue}
+              selectedIndex={selectedIndex}
+              onSelect={(index) => setSelectedIndex(index)}>
+              {cards.map(renderOption)}
+            </Select>
+            <Input
+              value={idNum}
+              style={styles.input}
+              textStyle={styles.inputText}
+              onChangeText={setIdNum}
+              accessoryRight={IDNumIcon}
+              label={IDCardNumberText}
+              accessibilityLabel="ID Number"
+              placeholder="45675837373848"
+              disabled={load}
+              keyboardType="number-pad"
             />
-          </View>
-        </View>
-
-        <View style={{ height: 255, margin: 5, }}>
-          <View style={{ alignSelf: 'flex-start', width: 200, height: 30, flex: 0.2 }}>
-            <Text style={{ fontSize: 15, color: '#3A3A3A', marginLeft: 5 }}>Reviews</Text>
-          </View>
-          <View style={{ flexDirection: 'row', marginVertical: 4, width: Dimensions.get('window').width - 20, alignSelf: 'center' }}>
-            <Avatar.Image
-              source={{
-                uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg'
-              }}
-              size={50}
+            <Input
+              value={occupation}
+              style={styles.input}
+              textStyle={styles.inputText}
+              onChangeText={setOccupation}
+              accessoryRight={OccupationIcon}
+              label={OccupationText}
+              accessibilityLabel="Occupation"
+              placeholder="Plumber"
+              disabled={load}
             />
-            <View style={{ alignSelf: 'center', marginLeft: 10 }}>
-              <Text style={{ fontSize: 12, color: '#3A3A3A', width: 280, lineHeight: 17, height: 35 }}>Reliable, efficient and trust worthy. it was a pleasure working with her</Text>
-              <View style={{ flexDirection: 'row', }}>
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star'} />
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star'} />
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star'} />
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star'} />
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star-outline'} />
-              </View>
-            </View>
-          </View>
-          <View style={{ flexDirection: 'row', marginVertical: 4, width: Dimensions.get('window').width - 20, alignSelf: 'center' }}>
-            <Avatar.Image
-              source={{
-                uri: 'https://res.cloudinary.com/ogcodes/image/upload/v1581349441/e4i61gkcr7hvixpaqkgb.jpg'
-              }}
-              size={50}
+            <Input
+              value={marital}
+              style={styles.input}
+              textStyle={styles.inputText}
+              onChangeText={setMarital}
+              accessoryRight={MaritalIcon}
+              label={MaritalText}
+              accessibilityLabel="Marital"
+              placeholder="Married"
+              disabled={load}
             />
-            <View style={{ alignSelf: 'center', marginLeft: 10 }}>
-              <Text style={{ fontSize: 12, color: '#3A3A3A', width: 280, lineHeight: 17, height: 35 }}>Reliable, efficient and trust worthy. it was a pleasure working with her</Text>
-              <View style={{ flexDirection: 'row', }}>
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star'} />
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star'} />
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star'} />
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star'} />
-                <IconI style={[{ color: '#00959E' }]} size={10} name={'md-star-outline'} />
-              </View>
-            </View>
-          </View>
-        </View>
+            <Input
+              value={gender}
+              style={styles.input}
+              textStyle={styles.inputText}
+              onChangeText={setGender}
+              accessoryRight={GenderIcon}
+              label={GenderText}
+              accessibilityLabel="Gender"
+              placeholder="Male"
+              disabled={load}
+            />
 
+            <Input
+              value={state}
+              style={styles.input}
+              textStyle={styles.inputText}
+              onChangeText={setState}
+              accessoryRight={StateIcon}
+              label={StateText}
+              accessibilityLabel="State of Origin"
+              placeholder="Sokoto"
+              disabled={load}
+            />
+            <Input
+              value={lga}
+              style={styles.input}
+              textStyle={styles.inputText}
+              onChangeText={setLga}
+              accessoryRight={IDIcon}
+              label={IDText}
+              accessibilityLabel="LGA"
+              placeholder="Sokoto"
+              disabled={load}
+            />
+            <ActivityIndicator animating={load} size="large" color="#00959E" />
+          </Layout>
+          <TouchableOpacity
+            onPress={() => applyAgent(data, setLoad)}
+            style={styles.button}>
+            <Text style={styles.buttonText}>Apply</Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
       </ScrollView>
-    </SafeAreaView >
-  )
-
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  scroll: {
+    flex: 1,
+    alignSelf: 'center',
+    marginTop: 45,
+  },
+  leftAction: {
+    padding: 5,
+  },
   title: {
     fontSize: 18,
-    fontFamily: 'Muli',
     alignSelf: 'center',
     color: '#3A3A3A',
     fontWeight: 'bold',
   },
-})
+  key: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  avatar: {
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginVertical: 24,
+  },
+  avatarBtn: {
+    backgroundColor: 'rgba(0, 149, 158, 0.5)',
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    borderRadius: 100,
+    justifyContent: 'center',
+    alignSelf: 'center',
+  },
+  avatarBtnIcon: {
+    color: '#fff',
+    alignSelf: 'center',
+  },
+  changepassword: {
+    flexDirection: 'row',
+    marginVertical: 15,
+  },
+  changepasswordText: {
+    marginHorizontal: 5,
+    fontSize: 16,
+    color: '#828282',
+    fontStyle: 'italic',
+  },
+  input: {
+    borderColor: 'transparent',
+    backgroundColor: 'transparent',
+    borderBottomColor: '#CFCBCB',
+    marginVertical: 5,
+  },
+  inputText: {color: '#3A3A3A', fontSize: 16, fontWeight: '400', right: 20},
+  inputTextDisabled: {
+    color: '#B4B4B4',
+    fontSize: 16,
+    fontWeight: '400',
+    right: 20,
+  },
+  fullNameLabel: {color: '#fff'},
+  inputCaption: {color: '#fff'},
+
+  button: {
+    backgroundColor: '#0DABA8',
+    width: Dimensions.get('window').width - 100,
+    alignSelf: 'center',
+    borderRadius: 4,
+    padding: 8,
+    marginBottom: 30,
+  },
+  buttonText: {
+    fontSize: 16,
+    alignSelf: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  form: {
+    backgroundColor: 'transparent',
+    width: Dimensions.get('window').width - 50,
+    alignSelf: 'center',
+  },
+  leftText: {
+    fontSize: 15,
+    color: '#3A3A3A',
+  },
+});
