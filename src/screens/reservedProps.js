@@ -164,7 +164,6 @@ export const ReservedPropsScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
-      {console.log(selectedIndexSort.row)}
       <View style={styles.containerSub}>
         <OverflowMenu
           anchor={renderSortToggle}
