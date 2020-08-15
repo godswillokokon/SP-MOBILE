@@ -209,6 +209,7 @@ export const LoginScreen = ({navigation}) => {
               />
               <TouchableOpacity
                 onPress={() => loginUser(data)}
+                disabled={load}
                 style={styles.button}>
                 <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity>

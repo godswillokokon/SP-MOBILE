@@ -408,6 +408,7 @@ export const SignupScreen = ({navigation}) => {
               />
               <TouchableOpacity
                 onPress={() => registerUser(data)}
+                disabled={load}
                 style={styles.button}>
                 <Text style={styles.buttonText}>Signup</Text>
               </TouchableOpacity>
