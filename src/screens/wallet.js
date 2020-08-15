@@ -418,7 +418,7 @@ export const WalletScreen = ({navigation}) => {
                 Property Balance
               </Text>
               <Text style={{color: '#fff', fontSize: 28, fontWeight: 'bold'}}>
-                {`₦${numbro(user.property_balance.balance).format({
+                {`₦${numbro(user?.property_balance?.balance).format({
                   thousandSeparated: true,
                 })}`}
               </Text>
@@ -432,7 +432,7 @@ export const WalletScreen = ({navigation}) => {
               marginLeft: 40,
             }}>
             Last wallet activity{' '}
-            {new Date(user.property_balance.updated_at).toUTCString()}
+            {new Date(user?.property_balance?.updated_at).toUTCString()}
           </Text>
         </View>
         {user.privileges === 'agent' ? (
@@ -527,7 +527,7 @@ export const WalletScreen = ({navigation}) => {
                   Agency Balance
                 </Text>
                 <Text style={{color: '#fff', fontSize: 28, fontWeight: 'bold'}}>
-                  {`₦${numbro(user.inspection_balance.balance).format({
+                  {`₦${numbro(user?.inspection_balance?.balance).format({
                     thousandSeparated: true,
                   })}`}
                 </Text>
@@ -541,7 +541,7 @@ export const WalletScreen = ({navigation}) => {
                 marginLeft: 40,
               }}>
               Last wallet activity{' '}
-              {new Date(user.inspection_balance.updated_at).toUTCString()}
+              {new Date(user?.inspection_balance?.updated_at).toUTCString()}
             </Text>
           </View>
         ) : null}
