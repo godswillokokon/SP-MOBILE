@@ -187,6 +187,35 @@ export const GetReservedProps = () => async (dispatch) => {
     });
   }
 };
+export const GetBoughtProps = () => async (dispatch) => {
+  try {
+    const token = await Session.getData('@token');
+    await axios
+      .get(`${BASE}/user/bought/properties`, {
+        headers: {
+          Authorization: token,
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+      .then((response) => {
+        dispatch({
+          type: 'FETCH_BOUGHT_PROPERTIES_SUCCESS',
+          payload: {
+            bought_houses: response.data,
+            // reserved_lands: response.data.land,
+          },
+        });
+      });
+  } catch (error) {
+    console.log(error, 'err');
+    dispatch({
+      type: 'FETCH_FAILED',
+      fetchError: error,
+    });
+  }
+};
+
 export const MakePayment = (data, navigation) => async (dispatch) => {
   // console.log(data, 'wetin i dey send');
   const token = await Session.getData('@token');
