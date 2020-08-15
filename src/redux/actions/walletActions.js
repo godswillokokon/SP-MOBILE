@@ -107,7 +107,7 @@ export const GetTransactionOverview = () => async (dispatch) => {
   try {
     const token = await Session.getData('@token');
     await axios
-      .get(`${BASE}/user/transactions?limit=6`, {
+      .get(`${BASE}/user/transactions?limit=4`, {
         headers: {
           Authorization: token,
           Accept: 'application/json',
