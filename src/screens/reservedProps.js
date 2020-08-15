@@ -45,12 +45,6 @@ export const ReservedPropsScreen = ({navigation}) => {
       navigation.navigate('Tabs');
     });
   };
-  
-  const openDrawer = () => {
-    requestAnimationFrame(() => {
-      navigation.openDrawer();
-    });
-  };
   const navigateProperty = (data) => {
     requestAnimationFrame(() => {
       navigation.navigate('House', {
@@ -115,7 +109,7 @@ export const ReservedPropsScreen = ({navigation}) => {
     );
   }
 
-  const Left = () => <IconF color={'#00959E'} name="bars" size={25} />;
+  const Left = () => <IconA color={'#00959E'} name="arrowleft" size={25} />;
   const LeftAction = () => (
     <TopNavigationAction
       icon={Left}
@@ -170,6 +164,7 @@ export const ReservedPropsScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <TopNav Title={Title} LeftAction={LeftAction} />
+      {console.log(selectedIndexSort.row)}
       <View style={styles.containerSub}>
         <OverflowMenu
           anchor={renderSortToggle}
