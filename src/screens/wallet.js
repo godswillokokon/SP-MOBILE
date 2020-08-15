@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   BackHandler,
   ToastAndroid,
+  ScrollView,
 } from 'react-native';
 import PropertiesPlaceholder from '../components/propertiesStaging';
 import {
@@ -325,167 +326,280 @@ export const WalletScreen = ({navigation}) => {
           />
         </TouchableOpacity>
       </View>
-      <View
-        style={{
-          backgroundColor: '#0DABA8',
-          height: 160,
-          width: Dimensions.get('window').width - 20,
-          alignSelf: 'center',
-          marginTop: 28,
-          borderRadius: 6,
-        }}>
+      <ScrollView>
         <View
           style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            position: 'absolute',
-            width: Dimensions.get('window').width - 220,
-            height: 150,
-            alignSelf: 'flex-end',
-            borderBottomLeftRadius: 100,
-            borderTopLeftRadius: 10,
-          }}
-        />
-        <View
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            position: 'absolute',
-            width: Dimensions.get('window').width - 260,
-            height: 120,
-            alignSelf: 'flex-end',
-            borderBottomLeftRadius: 100,
-            borderTopLeftRadius: 10,
-          }}
-        />
-        <View
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            position: 'absolute',
-            width: Dimensions.get('window').width - 320,
-            height: 50,
-            alignSelf: 'flex-start',
-            borderBottomRightRadius: 100,
-            borderTopRightRadius: 10,
-          }}
-        />
-        <View
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            position: 'absolute',
-            width: Dimensions.get('window').width - 330,
-            height: 30,
-            alignSelf: 'flex-start',
-            borderBottomRightRadius: 100,
-            borderTopRightRadius: 10,
-          }}
-        />
-        <View
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            position: 'absolute',
-            width: Dimensions.get('window').width - 320,
-            height: 50,
-            top: 110,
-            left: 80,
-            borderBottomRightRadius: 30,
-            borderTopRightRadius: 10,
-          }}
-        />
-        <View
-          style={{
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            position: 'absolute',
-            width: Dimensions.get('window').width - 340,
-            height: 35,
-            top: 110,
-            left: 80,
-            borderBottomRightRadius: 30,
-            borderTopRightRadius: 10,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            flex: 1,
-            alignItems: 'center',
+            backgroundColor: '#0DABA8',
+            height: 160,
+            width: Dimensions.get('window').width - 20,
+            alignSelf: 'center',
+            marginTop: 28,
+            borderRadius: 6,
           }}>
-          {/* {console.log(user)} */}
-          <IconS name="wallet" color="#fff" size={80} style={{}} />
-          <View>
-            <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>
-              Property Balance
-            </Text>
-            <Text style={{color: '#fff', fontSize: 28, fontWeight: 'bold'}}>
-              {`₦${numbro(user.property_balance.balance).format({
-                thousandSeparated: true,
-              })}`}
+          <View
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              position: 'absolute',
+              width: Dimensions.get('window').width - 220,
+              height: 150,
+              alignSelf: 'flex-end',
+              borderBottomLeftRadius: 100,
+              borderTopLeftRadius: 10,
+            }}
+          />
+          <View
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              position: 'absolute',
+              width: Dimensions.get('window').width - 260,
+              height: 120,
+              alignSelf: 'flex-end',
+              borderBottomLeftRadius: 100,
+              borderTopLeftRadius: 10,
+            }}
+          />
+          <View
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              position: 'absolute',
+              width: Dimensions.get('window').width - 320,
+              height: 50,
+              alignSelf: 'flex-start',
+              borderBottomRightRadius: 100,
+              borderTopRightRadius: 10,
+            }}
+          />
+          <View
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              position: 'absolute',
+              width: Dimensions.get('window').width - 330,
+              height: 30,
+              alignSelf: 'flex-start',
+              borderBottomRightRadius: 100,
+              borderTopRightRadius: 10,
+            }}
+          />
+          <View
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              position: 'absolute',
+              width: Dimensions.get('window').width - 320,
+              height: 50,
+              top: 110,
+              left: 80,
+              borderBottomRightRadius: 30,
+              borderTopRightRadius: 10,
+            }}
+          />
+          <View
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              position: 'absolute',
+              width: Dimensions.get('window').width - 340,
+              height: 35,
+              top: 110,
+              left: 80,
+              borderBottomRightRadius: 30,
+              borderTopRightRadius: 10,
+            }}
+          />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+              flex: 1,
+              alignItems: 'center',
+            }}>
+            {/* {console.log(user)} */}
+            <IconS name="wallet" color="#fff" size={80} style={{}} />
+            <View>
+              <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>
+                Property Balance
+              </Text>
+              <Text style={{color: '#fff', fontSize: 28, fontWeight: 'bold'}}>
+                {`₦${numbro(user.property_balance.balance).format({
+                  thousandSeparated: true,
+                })}`}
+              </Text>
+            </View>
+          </View>
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 12,
+              marginBottom: 13,
+              marginLeft: 40,
+            }}>
+            Last wallet activity{' '}
+            {new Date(user.property_balance.updated_at).toUTCString()}
+          </Text>
+        </View>
+        {user.privileges === 'agent' ? (
+          <View
+            style={{
+              backgroundColor: '#0DABA8',
+              height: 160,
+              width: Dimensions.get('window').width - 20,
+              alignSelf: 'center',
+              marginTop: 28,
+              borderRadius: 6,
+            }}>
+            <View
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                position: 'absolute',
+                width: Dimensions.get('window').width - 220,
+                height: 150,
+                alignSelf: 'flex-end',
+                borderBottomLeftRadius: 100,
+                borderTopLeftRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                position: 'absolute',
+                width: Dimensions.get('window').width - 260,
+                height: 120,
+                alignSelf: 'flex-end',
+                borderBottomLeftRadius: 100,
+                borderTopLeftRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                position: 'absolute',
+                width: Dimensions.get('window').width - 320,
+                height: 50,
+                alignSelf: 'flex-start',
+                borderBottomRightRadius: 100,
+                borderTopRightRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                position: 'absolute',
+                width: Dimensions.get('window').width - 330,
+                height: 30,
+                alignSelf: 'flex-start',
+                borderBottomRightRadius: 100,
+                borderTopRightRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                position: 'absolute',
+                width: Dimensions.get('window').width - 320,
+                height: 50,
+                top: 110,
+                left: 80,
+                borderBottomRightRadius: 30,
+                borderTopRightRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                position: 'absolute',
+                width: Dimensions.get('window').width - 340,
+                height: 35,
+                top: 110,
+                left: 80,
+                borderBottomRightRadius: 30,
+                borderTopRightRadius: 10,
+              }}
+            />
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                flex: 1,
+                alignItems: 'center',
+              }}>
+              {/* {console.log(user)} */}
+              <IconS name="wallet" color="#fff" size={80} style={{}} />
+              <View>
+                <Text style={{color: '#fff', fontSize: 16, fontWeight: 'bold'}}>
+                  Agency Balance
+                </Text>
+                <Text style={{color: '#fff', fontSize: 28, fontWeight: 'bold'}}>
+                  {`₦${numbro(user.inspection_balance.balance).format({
+                    thousandSeparated: true,
+                  })}`}
+                </Text>
+              </View>
+            </View>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 12,
+                marginBottom: 13,
+                marginLeft: 40,
+              }}>
+              Last wallet activity{' '}
+              {new Date(user.inspection_balance.updated_at).toUTCString()}
             </Text>
           </View>
-        </View>
-        <Text
-          style={{
-            color: '#fff',
-            fontSize: 12,
-            marginBottom: 13,
-            marginLeft: 40,
-          }}>
-          Last wallet activity{' '}
-          {new Date(user.property_balance.updated_at).toUTCString()}
-        </Text>
-      </View>
-      <View style={{flex: 1}}>
-        <View
-          style={{
-            width: Dimensions.get('window').width - 20,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignSelf: 'center',
-            marginVertical: 20,
-          }}>
-          <Text style={{color: '#3A3A3A', fontSize: 12}}>
-            Recent Transactions
-          </Text>
-          <TouchableOpacity onPress={navigateTransactions}>
-            <Text style={{color: '#3A3A3A', fontSize: 12}}>Sell All</Text>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{
-            width: Dimensions.get('window').width - 20,
-            alignSelf: 'center',
-            backgroundColor: '#828282',
-            height: 0.7,
-          }}
-        />
-        {transactionOverview ? (
+        ) : null}
+
+        <View style={{flex: 1}}>
+          <View
+            style={{
+              width: Dimensions.get('window').width - 20,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignSelf: 'center',
+              marginVertical: 20,
+            }}>
+            <Text style={{color: '#3A3A3A', fontSize: 12}}>
+              Recent Transactions
+            </Text>
+            <TouchableOpacity onPress={navigateTransactions}>
+              <Text style={{color: '#3A3A3A', fontSize: 12}}>Sell All</Text>
+            </TouchableOpacity>
+          </View>
           <View
             style={{
               width: Dimensions.get('window').width - 20,
               alignSelf: 'center',
-              flex: 1,
-            }}>
-            <FlatList
-              data={transactionOverview}
-              renderItem={({item}) => (
-                <Trans
-                  id={item.id}
-                  description={item.description}
-                  date={item.updated_at}
-                  amount={item.amount}
-                  type={item.type}
-                  selected={!!selected.get(item.id)}
-                  onSelect={onSelect}
-                />
-              )}
-              keyExtractor={(item) => item.id.toString()}
-              extraData={selected}
-              numColumns={1}
-            />
-          </View>
-        ) : (
-          renderPlaceholders()
-        )}
-      </View>
+              backgroundColor: '#828282',
+              height: 0.7,
+            }}
+          />
+          {transactionOverview ? (
+            <View
+              style={{
+                width: Dimensions.get('window').width - 20,
+                alignSelf: 'center',
+                flex: 1,
+              }}>
+              <FlatList
+                data={transactionOverview}
+                renderItem={({item}) => (
+                  <Trans
+                    id={item.id}
+                    description={item.description}
+                    date={item.updated_at}
+                    amount={item.amount}
+                    type={item.type}
+                    selected={!!selected.get(item.id)}
+                    onSelect={onSelect}
+                  />
+                )}
+                keyExtractor={(item) => item.id.toString()}
+                extraData={selected}
+                numColumns={1}
+              />
+            </View>
+          ) : (
+            renderPlaceholders()
+          )}
+        </View>
+      </ScrollView>
       <Modal
         visible={visibleInspect}
         animationType="slide"
