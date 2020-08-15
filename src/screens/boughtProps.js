@@ -26,7 +26,7 @@ export const BoughtPropsScreen = ({navigation}) => {
   const {bought_houses, bought_lands} = useSelector(
     (state) => state.properties,
   );
-  console.log(bought_houses);
+  // console.log(bought_houses);
 
   useEffect(() => {
     dispatch(GetBoughtProps());
